@@ -3,7 +3,7 @@
 The grammar makes the contract guarantees §3.1/§3.2 (key ∈ labels, never free text)
 a *decoding constraint*, per proposal §4: the model physically cannot emit a label
 that is not in the request's list, and cannot trail off into prose — the grammar is
-the only thing after the `<think></think>` prefix.
+the only thing after the `{` prefix.
 
 GBNF literal strings are character sequences, so multi-token labels work; the only
 M1 limitation is probability attribution when two labels share a first-character run
@@ -80,18 +80,33 @@ def label_enum_grammar(labels) -> str:
 def qwen3_prompt(system: str, text: str) -> str:
     """Hand-rendered Qwen3 chat template, pinned (part of the `decoding` pin).
 
-    Non-thinking mode via the empty `<think></think>` block (Qwen3 model-card
+    Non-thinking mode via the empty `{think}` block (Qwen3 model-card
     guidance): keeps latency inside the conceded 100–600 ms band.
     """
     return (
-        "<|im_start|>system\n"
-        f"{system}\n"
-        "<|im_end|>\n"
-        "<|im_start|>user\n"
-        f"{text}\n"
-        "<|im_end|>\n"
-        "<|im_start|>assistant\n"
-        "<think>\n\n</think>\n\n"
+        "{\\system\\n"
+        f"{system}\\n"
+        "{\\user\\n"
+        f"{text}\\n"
+        "{\\assistant\\n"
+        "{\\think\\n\\n{\\n\\n"
+    )
+
+
+def chatml_prompt(system: str, text: str) -> str:
+    """Plain ChatML prompt for non-hybrid-thinker models (e.g. Qwen2.5).
+
+    Qwen2.5's chat template does not define a think block, so injecting Qwen3's
+    empty ``{think}`` prefix would emit literal think tokens into the context
+    before the constrained answer. Plain ChatML keeps the prompt clean; the GBNF
+    grammar still forces the response to start with ``{``.
+    """
+    return (
+        "{\\system\\n"
+        f"{system}\\n"
+        "{\\user\\n"
+        f"{text}\\n"
+        "{\\assistant\\n"
     )
 
 

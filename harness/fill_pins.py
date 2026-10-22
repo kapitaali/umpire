@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Fill pins.json's post-download/build identity hashes (run once after fetching)."""
+"""Fill pins.json's post-download/build identity hashes (run once after fetching).
+
+Idempotent: re-running only updates entries whose on-disk file differs from the
+recorded hash. Verified against the double-hash corruption lesson (2026-10-22):
+never fill hashes from a partial file — each GGUF is hashed fully before any pin
+field is written.
+"""
 
 import hashlib
 import json
@@ -10,7 +16,6 @@ HERE = pathlib.Path(__file__).parent
 pins_path = HERE / "pins.json"
 pins = json.loads(pins_path.read_text())
 
-gguf = HERE.parent / "models" / "Qwen3-1.7B-Q8_0.gguf"
 bin_path = HERE.parent / "runners" / "src" / "build" / "bin" / "llama-server"
 
 
@@ -24,21 +29,28 @@ def sha256_of(path):
 
 filled = []
 
-if gguf.exists():
-    digest = "sha256:" + sha256_of(gguf)
-    if pins["qwen3-1.7b"]["gguf"].get("sha256") != digest:
-        pins["qwen3-1.7b"]["gguf"]["sha256"] = digest
-        pins["qwen3-1.7b"]["gguf"]["bytes"] = gguf.stat().st_size
-        # weights_hash = FULL gguf content digest — the pin's reproducibility
-        # anchor (record schema allows sha256:<8..64> hex)
-        pins["qwen3-1.7b"]["weights_hash"] = digest
-        filled += ["gguf.sha256", "weights_hash"]
+# Runner hash (shared by all pins)
 if bin_path.exists():
     digest = "sha256:" + sha256_of(bin_path)
-    if pins["qwen3-1.7b"]["runner"].get("binary_sha256") != digest:
-        pins["qwen3-1.7b"]["runner"]["binary_sha256"] = digest
-        pins["qwen3-1.7b"]["decoding"] = f"json-label-enum-v0@llama.cpp-v0.7.0/{digest[:16]}"
-        filled += ["runner.binary_sha256", "decoding"]
+    for pin_id, pin in pins.items():
+        if pin["runner"].get("binary_sha256") != digest:
+            pin["runner"]["binary_sha256"] = digest
+            pin["decoding"] = f"json-label-enum-v0@llama.cpp-v0.7.0/{digest[:16]}"
+            filled.append(f"{pin_id}.runner.binary_sha256")
+            filled.append(f"{pin_id}.decoding")
+
+# Per-pin GGUF hashes
+for pin_id, pin in pins.items():
+    gguf = HERE.parent / "models" / pin["gguf"]["file"]
+    if gguf.exists():
+        digest = "sha256:" + sha256_of(gguf)
+        if pin["gguf"].get("sha256") != digest:
+            pin["gguf"]["sha256"] = digest
+            pin["gguf"]["bytes"] = gguf.stat().st_size
+            pin["weights_hash"] = digest
+            filled.append(f"{pin_id}.gguf.sha256")
+            filled.append(f"{pin_id}.weights_hash")
+
 if filled:
     pins_path.write_text(json.dumps(pins, indent=2) + "\n")
     print("filled:", ", ".join(filled))

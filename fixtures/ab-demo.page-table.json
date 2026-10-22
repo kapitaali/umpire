@@ -1,0 +1,47 @@
+{
+  "format": "decide-page-table/0.1",
+  "session": {
+    "agentId": "umpire",
+    "model": "qwen3-1.7b",
+    "provider": "local",
+    "budgetTokens": 0,
+    "tokenizerId": "apx4-char"
+  },
+  "pages": [
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"I was charged twice this month and need it fixed now\"#7110b419)",
+      "slots": [
+        {
+          "contentHash": "sha256:d615c337",
+          "tokens": 44
+        },
+        {
+          "contentHash": "sha256:f8779b48",
+          "tokens": 43
+        }
+      ],
+      "faults": [
+        {
+          "turn": 1,
+          "source": "tool_recall",
+          "contentHash": "sha256:d615c337"
+        },
+        {
+          "turn": 2,
+          "source": "tool_recall",
+          "contentHash": "sha256:d615c337"
+        },
+        {
+          "turn": 3,
+          "source": "tool_recall",
+          "contentHash": "sha256:d615c337"
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "decisions": 4,
+    "declared_slots": 2,
+    "re_decides": 3
+  }
+}

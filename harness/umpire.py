@@ -29,7 +29,7 @@ from ledger_tools import (  # noqa: E402
     decide_ref,
 )
 
-from gbnf import label_enum_grammar, qwen3_prompt, decision_system, safe_labels  # noqa: E402
+from gbnf import label_enum_grammar, qwen3_prompt, chatml_prompt, decision_system, safe_labels  # noqa: E402
 
 SPEC = pathlib.Path(__file__).parent.parent / "spec"
 PINS = json.loads((pathlib.Path(__file__).parent / "pins.json").read_text())
@@ -249,7 +249,11 @@ def decide(server_url, state, labels, pin_id, seed, ledger_path, records_path, t
         raise ValueError("labels count out of range 2..255")
     pin = PINS[pin_id]
     grammar = label_enum_grammar(labels)
-    prompt = qwen3_prompt(decision_system(labels), state.get("text", ""))
+    template = pin.get("template", "qwen3-hybrid")
+    if template == "chatml":
+        prompt = chatml_prompt(decision_system(labels), state.get("text", ""))
+    else:
+        prompt = qwen3_prompt(decision_system(labels), state.get("text", ""))
     n_predict = max(96, 32 + 28 * len(sorted(set(labels))))
     raw = llama_complete(server_url, prompt, grammar, seed, n_predict=n_predict, timeout=timeout)
     text = raw.get("content", "")

@@ -2,3 +2,4 @@
 models/
 runners/
 __pycache__/
+*.swp

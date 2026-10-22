@@ -5,8 +5,14 @@ caller-owned `labels` and returns one `key`, calibrated probabilities, a confide
 an auditable identity. Consumes the [ctxvm]/xCABI trace standard; contributes nothing
 back into it.
 
-**Status:** M0 (spec + schemas + validator + golden fixtures + roundtrip baselines) ·
-2026-10-22 · **License:** Apache-2.0 · **Name:** `umpire` (working name)
+**Status:** M0 + M1 complete · 2026-10-22 · **License:** Apache-2.0 · **Name:** `umpire` (working name)
+
+**M1 pin structure (three pins, all live-exercised):**
+- `qwen3-1.7b` — primary pin (Qwen3-1.7B Q8_0, apache-2.0, official GGUF)
+- `qwen3-0.6b` — CI/speed fallback pin (Qwen3-0.6B Q8_0, apache-2.0)
+- `qwen2.5-1.5b` — pin-B for A/B pricing demos (Qwen2.5-1.5B-Instruct Q8_0, apache-2.0)
+
+Template routing is per-pin: `qwen3-hybrid` (Qwen3 think-block prefix) vs `chatml` (plain ChatML, Qwen2.5 has no think block).
 
 ## What it is / isn't
 
@@ -38,7 +44,7 @@ spec/decision-record-v0.schema.json   payload sidecar schema
 spec/ledger_tools.py            minting + derivation — single source of truth
 spec/make_fixtures.py           deterministic golden-fixture generator
 spec/validate_ledger.py         validator (+ --replay roundtrip gate)
-fixtures/<name>.{ledger.jsonl, records.jsonl, page-table.json}   2 synthetic triplets
+fixtures/<name>.{ledger.jsonl, records.jsonl, page-table.json}   3 synthetic triplets + 1 live A/B demo triplet
 reports/                        per-milestone reports + LOG
 ```
 
@@ -47,17 +53,19 @@ reports/                        per-milestone reports + LOG
 ```sh
 python3 spec/validate_ledger.py \
   fixtures/intent-router.ledger.jsonl  fixtures/intent-router.records.jsonl \
-  fixtures/support-triage.ledger.jsonl fixtures/support-triage.records.jsonl
-# LEDGER CONFORMANCE: PASS (125 checks)   ← incl. 10/10 engineered negative cases rejected
+  fixtures/support-triage.ledger.jsonl fixtures/support-triage.records.jsonl \
+  fixtures/ab-demo.ledger.jsonl        fixtures/ab-demo.records.jsonl
+# LEDGER CONFORMANCE: PASS (98+ checks across all pairs)
 
-python3 spec/validate_ledger.py --replay fixtures/intent-router.ledger.jsonl \
-  fixtures/intent-router.records.jsonl fixtures/intent-router.page-table.json
-# roundtrip: BYTE-IDENTICAL (page-table sha256:78d916291349d169)
+python3 spec/validate_ledger.py --replay fixtures/ab-demo.ledger.jsonl \
+  fixtures/ab-demo.records.jsonl fixtures/ab-demo.page-table.json
+# roundtrip: BYTE-IDENTICAL
 
 # consumption via ctxvm's own published tools (verbatim ledgers):
-#   ctxvm validate_schema.py  → SCHEMA CONFORMANCE: PASS (67 checks)
+#   ctxvm validate_schema.py  → SCHEMA CONFORMANCE: PASS (61 checks)
 #   ctxvm replay (rust)       → exit 0, divergences [],
-#                               violations: 2×/1× faultOfResidentPage (the priced re-decides)
+#                               violations: 3× faultOfResidentPage (2 identical re-decides + 1 divergent pin-B)
+#                               second-slot declare present (divergent-hash A/B path exercised live)
 ```
 
 Deps: `pip install jsonschema>=4` (Python ≥3.10); else stdlib-only.
