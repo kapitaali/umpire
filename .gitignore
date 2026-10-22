@@ -1,0 +1,4 @@
+# local inference artifacts are hashes-pinned in harness/pins.json, not committed
+models/
+runners/
+__pycache__/

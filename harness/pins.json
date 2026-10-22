@@ -1,0 +1,26 @@
+{
+  "qwen3-1.7b": {
+    "model": "qwen3-1.7b",
+    "weights_hash": "sha256:66a17017845b71fcd2ddbcc6ed4e556c194e5bbb31b27c46a82bf25f3e055a7f",
+    "decoding": "json-label-enum-v0@llama.cpp-v0.7.0/sha256:0f60e0483",
+    "runner": {
+      "source": "github.com/ggml-org/llama.cpp",
+      "tag": "v0.7.0",
+      "build": "cmake Release -DGGML_NATIVE=ON -DBUILD_SHARED_LIBS=OFF -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_BUILD_TOOLS=ON; gcc 14.2.0; cmake 4.4.3",
+      "binary": "runners/src/build/bin/llama-server",
+      "binary_sha256": "sha256:0f60e0483ee8aa394f2fadf487dcdcc7799abdd5941127952f17277ebe4ec61c"
+    },
+    "gguf": {
+      "repo": "Qwen/Qwen3-1.7B-GGUF",
+      "file": "Qwen3-1.7B-Q8_0.gguf",
+      "sha256": "sha256:66a17017845b71fcd2ddbcc6ed4e556c194e5bbb31b27c46a82bf25f3e055a7f",
+      "bytes": 1953857184
+    },
+    "sampling": {
+      "temperature": 0.0,
+      "top_k": 0,
+      "top_p": 1.0,
+      "note": "greedy; seed recorded per-request for audit-mode determinism (\u00a73.5)"
+    }
+  }
+}

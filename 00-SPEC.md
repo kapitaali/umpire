@@ -130,7 +130,15 @@ pipeline consumption (proposal §5.4) with the same edges-never-in-core rule.
   roundtrip baselines. DoD: validator green incl. negative gates; roundtrip
   byte-identical; plus the consumption demo — ctxvm's own validator and replay CLI accept
   the ledgers verbatim (recorded in `reports/RR-M0-20261022.md`).
-- **M1 next:** reference harness (pinned OSS model, constrained decoding, seeded),
-  CLI + library, determinism property tests.
-- Decision points still open (proposal §9): M1 model shortlist (license-clean only),
-  M3 hosted vs local-only (recommend local-only first).
+- **M1 (done 2026-10-22, see `reports/RR-M1-20261022.md`):** reference harness over the
+  pinned **Qwen3-1.7B** (apache-2.0, `Qwen/Qwen3-1.7B-GGUF` Q8_0,
+  llama.cpp `v0.7.0` @ `620d2225` built from source) — GBNF `json-label-enum-v0`
+  grammar-constrained greedy decode with fixed seed; harness CLI+lib
+  (`harness/umpire.py`), property gates P1–P5 green (`harness/test_m1.py`), live
+  ledger `fixtures/live-demo.*` (4 decisions, 1 priced re-decide) validates through
+  the M0 gate (PASS 94 checks + byte-identical roundtrip) and through ctxvm's own
+  validator + replay (exit 0, 1× `faultOfResidentPage`). Empirical honesty: ~10–13 s
+  per decision on this 4-core CPU box (outside the proposal's 100–600 ms band —
+  see RR for the latency plan); M1 model shortlist = `spec/m1-model-shortlist.md`.
+- Decision points still open (proposal §9): M3 hosted vs local-only (recommend
+  local-only first).

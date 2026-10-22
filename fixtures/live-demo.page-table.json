@@ -1,0 +1,53 @@
+{
+  "format": "decide-page-table/0.1",
+  "session": {
+    "agentId": "umpire",
+    "model": "qwen3-1.7b",
+    "provider": "local",
+    "budgetTokens": 0,
+    "tokenizerId": "apx4-char"
+  },
+  "pages": [
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"I was charged twice this month and need it fixed now\"#7110b419)",
+      "slots": [
+        {
+          "contentHash": "sha256:52114663",
+          "tokens": 45
+        }
+      ],
+      "faults": [
+        {
+          "turn": 3,
+          "source": "tool_recall",
+          "contentHash": "sha256:52114663"
+        }
+      ]
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"webhook integration fails with 500s after department #f02fdbae)",
+      "slots": [
+        {
+          "contentHash": "sha256:67e9cbfe",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"where do I send a PO for team licenses?\"}})",
+      "slots": [
+        {
+          "contentHash": "sha256:2d5834db",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    }
+  ],
+  "stats": {
+    "decisions": 4,
+    "declared_slots": 3,
+    "re_decides": 1
+  }
+}
