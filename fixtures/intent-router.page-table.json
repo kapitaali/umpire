@@ -1,0 +1,62 @@
+{
+  "format": "decide-page-table/0.1",
+  "session": {
+    "agentId": "umpire",
+    "model": "qwen3-4b-instruct",
+    "provider": "local",
+    "budgetTokens": 0,
+    "tokenizerId": "apx4-char"
+  },
+  "pages": [
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"session_hint\":\"u-42\",\"text\":\"I was charged twice this month\"#94676324)",
+      "slots": [
+        {
+          "contentHash": "sha256:5bb143d5",
+          "tokens": 28
+        },
+        {
+          "contentHash": "sha256:0200684d",
+          "tokens": 28
+        }
+      ],
+      "faults": [
+        {
+          "turn": 2,
+          "source": "tool_recall",
+          "contentHash": "sha256:5bb143d5"
+        },
+        {
+          "turn": 3,
+          "source": "tool_recall",
+          "contentHash": "sha256:5bb143d5"
+        }
+      ]
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"session_hint\":\"u-43\",\"text\":\"webhook integration fails with #71f52964)",
+      "slots": [
+        {
+          "contentHash": "sha256:675b9540",
+          "tokens": 29
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"session_hint\":\"u-77\",\"text\":\"where do I send a PO for team l#99fc27c5)",
+      "slots": [
+        {
+          "contentHash": "sha256:359d8711",
+          "tokens": 28
+        }
+      ],
+      "faults": []
+    }
+  ],
+  "stats": {
+    "decisions": 5,
+    "declared_slots": 4,
+    "re_decides": 2
+  }
+}

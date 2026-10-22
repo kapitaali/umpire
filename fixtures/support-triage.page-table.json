@@ -1,0 +1,53 @@
+{
+  "format": "decide-page-table/0.1",
+  "session": {
+    "agentId": "umpire",
+    "model": "qwen3-4b-instruct",
+    "provider": "local",
+    "budgetTokens": 0,
+    "tokenizerId": "apx4-char"
+  },
+  "pages": [
+    {
+      "ref": "tool:decide({\"labels\":[\"escalate\",\"info\",\"refund\"],\"state\":{\"text\":\"how do I reset my 2FA device?\",\"ticket\":\"t-902\"}})",
+      "slots": [
+        {
+          "contentHash": "sha256:41a0ee5c",
+          "tokens": 23
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"escalate\",\"info\",\"refund\"],\"state\":{\"text\":\"legal notice regarding API terms — needs human review\",\"ticket\":#5f92278b)",
+      "slots": [
+        {
+          "contentHash": "sha256:12ecd19a",
+          "tokens": 24
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"escalate\",\"info\",\"refund\"],\"state\":{\"text\":\"order 5582 arrived damaged — want a refund\",\"ticket\":\"t-901\"}})",
+      "slots": [
+        {
+          "contentHash": "sha256:a8e877d1",
+          "tokens": 24
+        }
+      ],
+      "faults": [
+        {
+          "turn": 2,
+          "source": "tool_recall",
+          "contentHash": "sha256:a8e877d1"
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "decisions": 4,
+    "declared_slots": 3,
+    "re_decides": 1
+  }
+}

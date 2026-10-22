@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ctxvm.dev/schemas/x-cabi-events-v0.json",
+  "title": "xCABI v0 events (one JSONL line)",
+  "description": "xCABI RFC-0 (spec/rfc-0/RFC-0-xCABI.md). One event object per JSONL line; strict at event level (additionalProperties:false); optional fields (latencyMs, headroom) are omitted \u2014 never null \u2014 when unknown; floats are banned (token counts are integers).",
+  "$defs": {
+    "pageId": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "logicalRef",
+        "contentHash"
+      ],
+      "properties": {
+        "logicalRef": {
+          "type": "string"
+        },
+        "contentHash": {
+          "type": "string"
+        }
+      }
+    },
+    "pageRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "tokens"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/pageId"
+        },
+        "kind": {
+          "enum": [
+            "file",
+            "tool_result",
+            "summary",
+            "image_ref"
+          ]
+        },
+        "tokens": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "renderMode": {
+      "enum": [
+        "full",
+        "stub"
+      ]
+    },
+    "faultSource": {
+      "enum": [
+        "tool_recall",
+        "identifier_scan",
+        "explicit_api",
+        "semantic"
+      ]
+    },
+    "cacheEstimate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "estHitTokens",
+        "estMissTokens",
+        "providerReported"
+      ],
+      "properties": {
+        "estHitTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "estMissTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "providerReported": {
+          "type": "boolean"
+        }
+      }
+    },
+    "turn": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "optionalInt": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "session.open": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "agentId",
+        "model",
+        "provider",
+        "budgetTokens",
+        "tokenizerId"
+      ],
+      "properties": {
+        "type": {
+          "const": "session.open"
+        },
+        "agentId": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "budgetTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tokenizerId": {
+          "type": "string"
+        }
+      }
+    },
+    "page.declare": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "page"
+      ],
+      "properties": {
+        "type": {
+          "const": "page.declare"
+        },
+        "page": {
+          "$ref": "#/$defs/pageRef"
+        }
+      }
+    },
+    "page.render": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "turn",
+        "page",
+        "mode"
+      ],
+      "properties": {
+        "type": {
+          "const": "page.render"
+        },
+        "turn": {
+          "$ref": "#/$defs/turn"
+        },
+        "page": {
+          "$ref": "#/$defs/pageId"
+        },
+        "mode": {
+          "$ref": "#/$defs/renderMode"
+        }
+      }
+    },
+    "page.evict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "turn",
+        "page",
+        "stubText"
+      ],
+      "properties": {
+        "type": {
+          "const": "page.evict"
+        },
+        "turn": {
+          "$ref": "#/$defs/turn"
+        },
+        "page": {
+          "$ref": "#/$defs/pageId"
+        },
+        "stubText": {
+          "type": "string"
+        }
+      }
+    },
+    "page.fault": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "turn",
+        "page",
+        "source"
+      ],
+      "properties": {
+        "type": {
+          "const": "page.fault"
+        },
+        "turn": {
+          "$ref": "#/$defs/turn"
+        },
+        "page": {
+          "$ref": "#/$defs/pageId"
+        },
+        "source": {
+          "$ref": "#/$defs/faultSource"
+        },
+        "latencyMs": {
+          "$ref": "#/$defs/optionalInt"
+        }
+      }
+    },
+    "page.pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "page",
+        "reason"
+      ],
+      "properties": {
+        "type": {
+          "const": "page.pin"
+        },
+        "page": {
+          "$ref": "#/$defs/pageId"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "page.unpin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "page",
+        "reason"
+      ],
+      "properties": {
+        "type": {
+          "const": "page.unpin"
+        },
+        "page": {
+          "$ref": "#/$defs/pageId"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "turn.render": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "turn",
+        "residentTokens",
+        "evictedTokens"
+      ],
+      "properties": {
+        "type": {
+          "const": "turn.render"
+        },
+        "turn": {
+          "$ref": "#/$defs/turn"
+        },
+        "residentTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "evictedTokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "headroom": {
+          "$ref": "#/$defs/optionalInt"
+        }
+      }
+    },
+    "call.meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "turn",
+        "provider",
+        "cacheEstimate"
+      ],
+      "properties": {
+        "type": {
+          "const": "call.meta"
+        },
+        "turn": {
+          "$ref": "#/$defs/turn"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "cacheEstimate": {
+          "$ref": "#/$defs/cacheEstimate"
+        },
+        "latencyMs": {
+          "$ref": "#/$defs/optionalInt"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/session.open"
+    },
+    {
+      "$ref": "#/$defs/page.declare"
+    },
+    {
+      "$ref": "#/$defs/page.render"
+    },
+    {
+      "$ref": "#/$defs/page.evict"
+    },
+    {
+      "$ref": "#/$defs/page.fault"
+    },
+    {
+      "$ref": "#/$defs/page.pin"
+    },
+    {
+      "$ref": "#/$defs/page.unpin"
+    },
+    {
+      "$ref": "#/$defs/turn.render"
+    },
+    {
+      "$ref": "#/$defs/call.meta"
+    }
+  ],
+  "$comment": "VENDORED COPY 2026-10-22: ctxvm @ 361043e (spec/rfc-0/x-cabi.schema-v0.json, xCABI 0.1). umpire consumes ctxvm through this published schema verbatim; do not edit semantics \u2014 re-vendor on ctxvm schema bumps (spec/vendoring note in 00-SPEC.md)."
+}
