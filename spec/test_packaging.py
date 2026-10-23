@@ -323,6 +323,54 @@ class KpiParity(unittest.TestCase):
         self.assertIn("direction: at_least", blocks["kpi-decision-accuracy"])
 
 
+class HubGates(unittest.TestCase):
+    """Phase B: hub-as-code — catalog + KPI leaderboard + integrity anchor.
+    Regeneration lives in spec/build_hub.sh (their SDK end to end, ctxvm-mirrored)."""
+
+    def test_hub_sha256_matches(self):
+        hub = REPO / "hub"
+        lines = [l for l in (hub / "hub.sha256").read_text().splitlines() if l.strip()]
+        self.assertEqual(len(lines), 3)
+        seen = set()
+        for line in lines:
+            digest, name = line.split()
+            self.assertIn(name, {"catalog.yaml", "index.html", "README.md"})
+            self.assertEqual(sha256_file(hub / name), digest, f"sha mismatch: hub/{name}")
+            seen.add(name)
+        self.assertEqual(seen, {"catalog.yaml", "index.html", "README.md"})
+
+    def test_hub_catalog_core_claims(self):
+        c = (REPO / "hub/catalog.yaml").read_text()
+        self.assertIn("kind: Catalog", c)
+        self.assertIn("schema: https://opendataproducts.org/odpc-v1.0/schema/odpc.yaml", c)
+        self.assertIn("id: umpire.hub", c)
+        self.assertIn("productID: umpire-calcorpus-0.1", c)
+        self.assertIn("productVersion: 0.1.0", c)
+        self.assertIn("$ref: ../odps/umpire-calcorpus-0.1.odps.yaml", c)
+        self.assertIn("version: '4.1'", c)
+
+    def test_hub_index_leaderboard(self):
+        h = (REPO / "hub/index.html").read_text()
+        self.assertIn("Release-gate KPIs (from productStrategy)", h)
+        for kpi in ("kpi-calibrated-ece", "kpi-replay-determinism", "kpi-negative-conformance",
+                    "kpi-calibrated-brier", "kpi-decision-accuracy"):
+            self.assertIn(kpi, h)
+        for marker in ("2.67%", "17.23%", "70.83%", "12/12 raw + 12/12 calibrated",
+                       "480/480, 0 re-decides"):
+            self.assertIn(marker, h)
+        self.assertIn("not model-performance promises", h)
+        self.assertIn(".odp-kpi", h)  # styling injected alongside the section
+
+    def test_hub_regenerate_byte_identical(self):
+        if not os.environ.get("UMPIRE_RUN_HUB_CHECK"):
+            self.skipTest("set UMPIRE_RUN_HUB_CHECK=1 to rebuild hub/ and cmp")
+        import subprocess
+        p = subprocess.run(["bash", "spec/build_hub.sh", "check"], cwd=REPO,
+                           capture_output=True, text=True, timeout=600)
+        self.assertEqual(p.returncode, 0, p.stdout[-400:] + p.stderr[-200:])
+        self.assertIn("byte-identical", p.stdout)
+
+
 class OptionalLiveGates(unittest.TestCase):
     """Skipped unless explicitly requested; runs the DQ executable commands verbatim."""
 

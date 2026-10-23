@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>umpire hub</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8f5;
+      --text: #18201a;
+      --muted: #5e6b60;
+      --line: #d9dfd6;
+      --panel: #ffffff;
+      --accent: #006d1d;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 48px;
+    }
+    a {
+      color: var(--accent);
+    }
+    .odp-header {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .odp-header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .odp-id,
+    .odp-description,
+    .odp-graph {
+      margin: 6px 0;
+      color: var(--muted);
+    }
+    .odp-summary {
+      padding: 24px 0;
+    }
+    .odp-summary ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .odp-summary li,
+    .odp-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .odp-count {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .odp-section {
+      padding: 8px 0 24px;
+    }
+    .odp-section h2 {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+    }
+    .odp-card {
+      margin: 12px 0;
+    }
+    .odp-card h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    .odp-facts {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 6px 12px;
+      margin: 12px 0 0;
+    }
+    .odp-facts dt {
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .odp-facts dd {
+      margin: 0;
+    }
+    .odp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0;
+      margin: 12px 0 0;
+      list-style: none;
+    }
+    .odp-tags li {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+      .odp-kpi {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .odp-kpi th,
+    .odp-kpi td {
+      border: 1px solid var(--line);
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.9rem;
+    }
+    .odp-kpi th {
+      background: var(--bg);
+    }
+    .odp-kpi code {
+      font-size: 0.8rem;
+    }
+    .odp-facts-muted {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="odp-header">
+<h1>umpire hub</h1>
+<p class="odp-id">umpire.hub</p>
+<p class="odp-description">Open hub catalog for the umpire project: checksummed calibration corpus, decision-primitive artifacts, release-gate KPIs.</p>
+</header>
+    <section class="odp-summary"><h2>Summary</h2><ul><li><span class="odp-count">1</span><span>Product References</span></li><li><span class="odp-count">0</span><span>Use Cases</span></li><li><span class="odp-count">0</span><span>Business Objectives</span></li><li><span class="odp-count">0</span><span>Signals</span></li></ul></section>
+    <section class="odp-section"><h2>Product References</h2><article class="odp-card">
+<h3>umpire Calibration Corpus</h3>
+<p class="odp-id">umpire-calcorpus-0.1</p>
+<p>The umpire M2 calibration corpus v2 drop: 480 project-authored support-intent examples (4 labels, 120/label, split 240/120/120), the caller-owned routing guide inside every state, 480 live decisions captured from a pinned, hash-stamped Qwen3-1.7B local GGUF (seed 7) under a JSON-schema constrained grammar, a 481-event xCABI-0.1 decision ledger, 480 payload records, an isotonic calibration artifact (cal-v1:aceb881587b3b3a6), a calibrated sidecar on the 120 untouched test rows, and the deterministic page-table replay baseline. On the test split, isotonic calibration reduces ECE 0.2483 (raw top) → 0.0267 and Brier 0.2380 → 0.1723 with accuracy unchanged (0.7083); paired-bootstrap 95% CIs exclude zero. Honest limits: single project-authored corpus, one pin/seed/machine/runner build, n=120 directional vs the retained v1 n=40 caveat; raw probabilities, ref and contentHash are unchanged by calibration; accuracy is not comparable across corpus revisions (v2 rows are deliberately harder); the artifact estimates P(key correct) — it is not a correctness guarantee.</p>
+<dl class="odp-facts"><dt>Product ID</dt><dd>umpire-calcorpus-0.1</dd><dt>Version</dt><dd>0.1.0</dd><dt>Status</dt><dd>draft</dd><dt>Visibility</dt><dd>public</dd><dt>Product model</dt><dd>ODPS 4.1 <a href="umpire-calcorpus-0.1.odps.yaml">umpire-calcorpus-0.1.odps.yaml</a></dd></dl>
+</article></section>
+    <section class="odp-section"><h2>Release-gate KPIs (from productStrategy)</h2><article class="odp-card"><table class="odp-kpi"><thead><tr><th>KPI</th><th>Target</th><th>Current (drop calibration/v2)</th><th>Calculation</th></tr></thead><tbody><tr><td>Calibrated ECE on test split<br><span class="odp-facts-muted">kpi-calibrated-ece</span></td><td>5 percentage (at most)</td><td>2.67%</td><td><code>expected_calibration_error(calibrated_confidence, gold, test_split n=120)</code></td></tr><tr><td>Replay determinism<br><span class="odp-facts-muted">kpi-replay-determinism</span></td><td>100 percentage (at least)</td><td>100.00% (page-table roundtrip 480/480, 0 re-decides)</td><td><code>byte_identical_roundtrips / declared_slots (page-table replay)</code></td></tr><tr><td>Negative conformance pass rate<br><span class="odp-facts-muted">kpi-negative-conformance</span></td><td>100 percentage (at least)</td><td>12/12 raw + 12/12 calibrated (validator)</td><td><code>validator_negative_cases_passed / validator_negative_cases (raw + calibrated)</code></td></tr><tr><td>Calibrated Brier (test split)<br><span class="odp-facts-muted">kpi-calibrated-brier</span></td><td>20 percentage (at most)</td><td>17.23%</td><td><code>100 * brier_score(calibrated_confidence, gold, test_split n=120)</code></td></tr><tr><td>Decision accuracy on test split<br><span class="odp-facts-muted">kpi-decision-accuracy</span></td><td>68 percentage (at least)</td><td>70.83%</td><td><code>100 * correct / n (test_split n=120, constrained one-token-class decode)</code></td></tr></tbody></table><p>Honesty: targets are release-gate floors/ceilings derived from the current v2 numbers — declared gates, not model-performance promises. Single project-authored corpus, one pin/seed/machine/runner build; n=120 test split (see RR-M2V2/RR-M3). Values tracked in <code>calibration/umpire-cal-v2.json</code>+ capture metadata; rebuild must be byte-identical (<code>spec/build_hub.sh check</code>).</p></article></section><section class="odp-section"><h2>Use Cases</h2><p>No entries.</p></section>
+    <section class="odp-section"><h2>Business Objectives</h2><p>No entries.</p></section>
+    <section class="odp-section"><h2>Signals</h2><p>No entries.</p></section>
+  </main>
+</body>
+</html>

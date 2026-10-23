@@ -269,3 +269,14 @@ Empirical corrections produced by implementation; kept here so the plan stays tr
    — contract corrected accordingly (§4's item 2 sketch said string/64-hex).
 5. `product audit` must run from the Python 3.12 venv (`open-data-products[contracts]`), confirmed again
    here; with the 3.14 venv it reports `DATACONTRACT_CLI_NOT_INSTALLED`.
+
+## 11. Phase B landed (2026-10-23, see RR-HUB-20261023)
+
+6. **hub-as-code built by their SDK end to end** (`spec/build_hub.sh`, mirroring ctxvm
+   `tools/build-hub.sh`): manifest source-gate → basename-staged `odpc-build` →
+   hub-relative `$ref` (`../odps/…`) → deterministic injection of the release-gate KPI
+   section + `.odp-kpi` style into `index.html` → catalog re-validated (`valid: true`)
+   → `hub.sha256` anchor → `check` mode `cmp`s a full rebuild against the committed
+   files. The SDK's HTML output has no KPI rendering, so the leaderboard injection is
+   the umpire addition (rows from `productStrategy`, currents from the committed
+   artifact + capture meta; no timestamps anywhere → two runs byte-identical).
