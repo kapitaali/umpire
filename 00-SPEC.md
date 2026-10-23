@@ -1,7 +1,7 @@
 # `umpire` — decision-ledger v0 spec (M0 normative)
 
-**Status:** M0 normative · 2026-10-22 · **License:** Apache-2.0 · **Name:** `umpire`
-(working name, pending like `ctxvm`/`xCABI`).
+**Status:** M0 normative · M2 calibration layer landed 2026-10-23 · **License:**
+Apache-2.0 · **Name:** `umpire` (working name, pending like `ctxvm`/`xCABI`).
 
 Parent proposal: `ctxvm/projects/01-open-decision-primitive.md` (repo moved here at M0 GO).
 Consumes ctxvm artifacts (xCABI trace standard, replay semantics, validator-first
@@ -85,6 +85,27 @@ Join rules (validator-enforced): every record's recomputed `(ref, contentHash)` 
 equal its stored echo and be declared in its ledger; every declared slot must be backed
 by ≥ 1 record; fault rows must reference a ref with an earlier declare.
 
+### Calibrated view (M2, optional)
+
+`calibrated` is an optional sidecar on a record; it never changes `ref`,
+`contentHash`, raw `probabilities`, or raw `confidence`:
+
+```yaml
+calibrated:
+  method: temperature-scaling/1 | isotonic/1
+  data_version: cal-v1:<16 hex>   # stable artifact core hash
+  confidence: <0..1>              # fitted P(key is correct) estimate
+```
+
+A fitted artifact (`calibration/umpire-cal-*.json`) pins the corpus hash, labels,
+seed, model/decoding/template identity, the fitted temperature or PAV points, and
+the selection/test metrics. `spec/validate_ledger.py` recomputes the calibrated
+confidence from the raw probabilities and rejects a record whose method,
+`data_version`, label set, `model_pin`, or seed does not match the artifact, or
+whose calibrated confidence does not recompute. Raw fields remain authoritative:
+calibration is a measurable layer with its own version, not a mutation of the
+decision or its identity. M2 details and limitations: `calibration/README.md`.
+
 ## 4. Replay (roundtrip byte-identity) — the M0 audit primitive
 
 `spec/validate_ledger.py --replay L R BASELINE` re-derives the ledger's **page table**
@@ -107,15 +128,17 @@ Positive side: schema-validates every ledger line (against the vendored xCABI-0.
 and every record line, then runs the profile + join + minting cross-checks. Negative
 side: ten engineered bad ledgers/records (invented key, probabilities ≠ label set,
 minting drift, Σp ≠ 1, out-of-profile event, banned fault source, floats in the ledger,
-confidence > 1, orphan declare, duplicate labels) — each must be caught for the run to
-PASS. Its own PASS + exit code is the contract.
+confidence > 1, orphan declare, duplicate labels) — plus two M2 calibrated-record cases
+(confidence mismatch, unknown `data_version`) when a fitted artifact is present — each
+must be caught for the run to PASS. Its own PASS + exit code is the contract.
 
 ## 6. Fixture provenance
 
-Both fixture triplets are **synthetic** (reasoned examples, not model outputs — there is
-no harness yet; that is M1). `weights_hash` values are fixed placeholder strings shaped
+The M0 fixture triplets are **synthetic** (reasoned examples, not model outputs; the
+harness landed in M1). `weights_hash` values there are fixed placeholder strings shaped
 `sha256:<8hex>`, not real model weights. Regenerate with `python3 spec/make_fixtures.py`
-(deterministic: same bytes every run).
+(deterministic: same bytes every run). The live M1/M2 ledgers are separate artifacts
+with their own pin hashes and capture metadata.
 
 ## 7. Vendoring note
 
@@ -140,5 +163,15 @@ pipeline consumption (proposal §5.4) with the same edges-never-in-core rule.
   validator + replay (exit 0, 1× `faultOfResidentPage`). Empirical honesty: ~10–13 s
   per decision on this 4-core CPU box (outside the proposal's 100–600 ms band —
   see RR for the latency plan); M1 model shortlist = `spec/m1-model-shortlist.md`.
+- **M2 (calibration core, done 2026-10-23, see `reports/RR-M2-20261023.md`):**
+  fixed 160-example labeled corpus over the four harness labels (80/40/40
+  train/validation/test; caller-owned few-shot routing guide in every state),
+  live raw capture from the pinned 1.7B as a real xCABI ledger/records pair,
+  temperature-scaling and isotonic candidates selected on validation ECE, the
+  winner refit on train+validation and evaluated once on test, and the fitted
+  artifact (`calibration/umpire-cal-v1.json`) cross-checked by the validator.
+  Calibrated records use the existing optional `calibrated` block; raw
+  probabilities/identity are unchanged. Full proposal M2's ODPS packaging and
+  hub leaderboard are deferred.
 - Decision points still open (proposal §9): M3 hosted vs local-only (recommend
   local-only first).
