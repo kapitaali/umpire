@@ -114,7 +114,9 @@ with the committed `BASELINE`. Same derivation code as the generator
 (`spec/ledger_tools.py`) imported by both sides — single source of truth, no duplication.
 Divergence ⇒ tampering or a minting bug ⇒ audit fails. (M1 binds the same invariant
 around the real harness: same request + pin + seed ⇒ byte-identical response, asserted
-by re-run; M3 turns it into the replay-audit mode for pinned corpora.)
+by re-run; M3 turns it into the model-level replay-audit mode for pinned corpora via
+`harness/replay_audit.py`. T14 fixes the current path as **local-only**; a hybrid
+deployment is a later phase and must preserve this replay contract.)
 
 ## 5. Validation gates (validator-first, à la RFC-0)
 
@@ -144,8 +146,9 @@ with their own pin hashes and capture metadata.
 
 `spec/vendor/x-cabi-0.1.schema.json` is a pinned copy of ctxvm's published schema
 (ctxvm @ `361043e`). Do not edit its semantics; if ctxvm bumps the schema, re-vendor and
-re-run the gates (and note it in this file's status header). M1+ adds the ODPS/ODCS+hub
-pipeline consumption (proposal §5.4) with the same edges-never-in-core rule.
+re-run the gates (and note it in this file's status header). ODPS/ODCS packaging and hub
+pipeline consumption (proposal §5.4) are deferred until the local M3 replay-audit path is
+settled; the edges-never-in-core rule still applies when they land.
 
 ## 8. Milestone state
 
@@ -171,7 +174,23 @@ pipeline consumption (proposal §5.4) with the same edges-never-in-core rule.
   winner refit on train+validation and evaluated once on test, and the fitted
   artifact (`calibration/umpire-cal-v1.json`) cross-checked by the validator.
   Calibrated records use the existing optional `calibrated` block; raw
-  probabilities/identity are unchanged. Full proposal M2's ODPS packaging and
-  hub leaderboard are deferred.
-- Decision points still open (proposal §9): M3 hosted vs local-only (recommend
-  local-only first).
+  probabilities/identity are unchanged. A v2 expansion (480 examples, 120/label,
+  240/120/120 split) preserves the v1 rows and has its own artifact
+  (`cal-v1:aceb881587b3b3a6`, isotonic/1), `checksums-v2.sha256`, and report.  On
+  its 120-example test split, ECE falls from 0.2483 raw-top / 0.2110 raw-entropy to
+  0.0267 and Brier from 0.2380 to 0.1723 at unchanged 0.7083 accuracy; the v1 n=40
+  result remains historical/directional. Full proposal M2's ODPS packaging and hub
+  leaderboard are deferred.
+- **T14 (decided 2026-10-23, see `reports/RR-T14-20261023.md`):** local-only now;
+  hybrid later. The current M3 path is local replay-audit for pinned corpora, and the
+  OpenCode/Hermes integration is a local stdio MCP server. No hosted endpoint,
+  provider spend, ODPS/ODCS packaging, or hub leaderboard is claimed in this phase.
+- **M3 (local replay-audit, smoke tested 2026-10-23, see
+  `reports/RR-M3-20261023.md`):** `harness/replay_audit.py` re-runs selected pinned
+  corpus rows and separately checks decision identity (`ref`/`key`/`model_pin`) and
+  the raw distribution (`contentHash`/probabilities) against a committed baseline.
+  An eight-row v2 test smoke matches strictly under quiescent load.  The
+  deterministic page-table replay remains the fast gate.  Concurrent capture load
+  was observed to perturb probabilities/hash while preserving the key; the strict
+  check is therefore specified for quiescent same-build replay.  Cross-machine/
+  cross-build determinism and a full-corpus replay are not claimed yet.

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "umpire": {
+        "type": "local",
+        "command": [
+          "python3",
+          "mcp_server.py"
+        ],
+        "cwd": ".",
+        "environment": {
+          "UMPIRE_SERVER_URL": "http://127.0.0.1:8081",
+          "UMPIRE_CALIBRATION": "calibration/umpire-cal-v2.json",
+          "UMPIRE_LABELS": "billing,other,sales,technical",
+          "UMPIRE_PIN": "qwen3-1.7b",
+          "UMPIRE_SEED": "7",
+          "UMPIRE_TIMEOUT": "300"
+        },
+        "timeout": {
+          "startup": 30000,
+          "catalog": 30000,
+          "execution": 360000
+        }
+      }
+    }
+  }
+}

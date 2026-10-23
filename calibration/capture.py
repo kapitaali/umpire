@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Capture corpus-v1 as real decisions against a running pinned llama-server.
+"""Capture a labeled corpus as real decisions against a running pinned llama-server.
 
 Every corpus example is sent through the M1 harness once, in corpus order. The
-result is three artifacts:
+result is three artifacts (paths are configurable; defaults are the v1 names):
 
   calibration/corpus.ledger.jsonl   xCABI-0.1 profile ledger (one declare/page)
   calibration/corpus.records.jsonl  decide-record/0.1 sidecar (raw, no calibration)
@@ -20,7 +20,7 @@ Usage:
     python3 calibration/capture.py ... --resume       # continue a stopped run
     python3 calibration/capture.py ... --limit 4      # smoke (partial artifact)
 
-A partial capture must not be used for fitting; fit.py enforces 160/160.
+A partial capture must not be used for fitting; fit.py enforces full-corpus coverage.
 """
 
 import argparse
@@ -62,10 +62,18 @@ def sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
+def display_path(path: pathlib.Path) -> str:
+    """Repo-relative when possible; absolute otherwise (paths may be passed relatively)."""
+    try:
+        return str(path.resolve().relative_to(ROOT))
+    except ValueError:
+        return str(path.resolve())
+
+
 def load_corpus(path: pathlib.Path) -> list[dict]:
     rows = [json.loads(line) for line in path.read_text().splitlines() if line]
-    if len(rows) != 160:
-        raise SystemExit(f"corpus must have 160 examples, found {len(rows)}")
+    if len(rows) < 2:
+        raise SystemExit(f"corpus must have at least 2 examples, found {len(rows)}")
     ids = [r.get("id") for r in rows]
     if len(set(ids)) != len(ids):
         raise SystemExit("corpus ids are not unique")
@@ -157,7 +165,7 @@ def main(argv=None) -> int:
                 f"(raw={len(done)}, declares={n_ledger}, records={n_records}); "
                 "a crash landed between writes, move the three files aside and recapture"
             )
-        print(f"resume: {len(done)}/160 already captured")
+        print(f"resume: {len(done)}/{len(rows)} already captured")
 
     session_open = {
         "type": "session.open",
@@ -231,7 +239,7 @@ def main(argv=None) -> int:
     meta = {
         "schema": "umpire-calibration-capture/0.1",
         "corpus": {
-            "path": str(args.corpus.relative_to(ROOT)),
+            "path": display_path(args.corpus),
             "sha256": "sha256:" + sha256_file(args.corpus),
             "examples": len(rows),
         },

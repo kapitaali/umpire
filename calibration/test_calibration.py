@@ -217,6 +217,107 @@ class CorpusTests(unittest.TestCase):
                 self.assertNotIn("calibrated", record)
         self.assertEqual(calibrated, 40)
 
+
+    def test_corpus_v2_integrity_if_present(self):
+        path = HERE / "corpus-v2.jsonl"
+        if not path.exists():
+            self.skipTest("corpus-v2.jsonl not generated yet")
+        rows = load_jsonl(path)
+        self.assertEqual(len(rows), 480)
+        self.assertEqual(len({r["id"] for r in rows}), 480)
+        self.assertEqual(len({r["state"]["text"] for r in rows}), 480)
+        self.assertTrue(all(r["state"]["text"].isascii() for r in rows))
+        self.assertTrue(all(r["state"]["text"].endswith(r["message"]) for r in rows))
+        self.assertEqual(
+            {r["gold"] for r in rows}, {"billing", "other", "sales", "technical"}
+        )
+        self.assertEqual(sum(1 for r in rows if r["split"] == "train"), 240)
+        self.assertEqual(sum(1 for r in rows if r["split"] == "validation"), 120)
+        self.assertEqual(sum(1 for r in rows if r["split"] == "test"), 120)
+        for label in ("billing", "other", "sales", "technical"):
+            self.assertEqual(sum(1 for r in rows if r["gold"] == label), 120)
+            for split, expected in (("train", 60), ("validation", 30), ("test", 30)):
+                self.assertEqual(
+                    sum(1 for r in rows if r["gold"] == label and r["split"] == split),
+                    expected,
+                )
+        v1 = load_jsonl(HERE / "corpus-v1.jsonl")
+        self.assertEqual(
+            [(r["id"], r["message"], r["gold"], r["split"]) for r in rows[:160]],
+            [(r["id"], r["message"], r["gold"], r["split"]) for r in v1],
+        )
+        meta = json.loads((HERE / "corpus-v2.meta.json").read_text())
+        self.assertEqual(meta["sha256"], "sha256:" + sha256_file(path))
+        self.assertEqual(meta["examples"], 480)
+        self.assertEqual(meta["base_corpus"]["examples"], 160)
+
+    def test_raw_v2_capture_integrity_if_present(self):
+        raw_path = HERE / "raw-v2.jsonl"
+        corpus_path = HERE / "corpus-v2.jsonl"
+        if not raw_path.exists() or not corpus_path.exists():
+            self.skipTest("raw-v2 capture not present yet")
+        raw = load_jsonl(raw_path)
+        corpus = {r["id"]: r for r in load_jsonl(corpus_path)}
+        if len(raw) != 480:
+            self.skipTest(f"raw-v2 capture incomplete ({len(raw)}/480)")
+        self.assertEqual({r["id"] for r in raw}, set(corpus))
+        pins = set()
+        for row in raw:
+            rec = row["record"]
+            expected = corpus[row["id"]]
+            self.assertEqual(row["gold"], expected["gold"])
+            self.assertEqual(row["split"], expected["split"])
+            self.assertEqual(rec["state"], expected["state"])
+            self.assertTrue(row["correct"] == (rec["key"] == expected["gold"]))
+            self.assertEqual(rec["ref"], decide_ref(rec["state"], rec["labels"]))
+            self.assertEqual(rec["contentHash"], response_hash(rec))
+            self.assertAlmostEqual(sum(rec["probabilities"].values()), 1.0, places=9)
+            pins.add(json.dumps(rec["model_pin"], sort_keys=True))
+        self.assertEqual(len(pins), 1)
+
+    def test_artifact_v2_and_calibrated_records_if_present(self):
+        artifact_path = HERE / "umpire-cal-v2.json"
+        records_path = HERE / "corpus-v2.calibrated.records.jsonl"
+        raw_path = HERE / "raw-v2.jsonl"
+        if not (artifact_path.exists() and records_path.exists() and raw_path.exists()):
+            self.skipTest("v2 fit artifacts not present yet")
+        artifact = json.loads(artifact_path.read_text())
+        self.assertEqual(cal.validate_artifact(artifact), [])
+        self.assertEqual(artifact["metrics"]["test"]["n"], 120)
+        raw = load_jsonl(raw_path)
+        records = load_jsonl(records_path)
+        self.assertEqual(len(raw), 480)
+        self.assertEqual(len(records), 480)
+        self.assertEqual(
+            [r["record"]["contentHash"] for r in raw],
+            [r["contentHash"] for r in records],
+        )
+        calibrated = 0
+        for row, record in zip(raw, records):
+            if row["split"] == "test":
+                self.assertIn("calibrated", record)
+                expected = cal.confidence_from_artifact(
+                    record["probabilities"], record["key"], artifact
+                )
+                self.assertAlmostEqual(record["calibrated"]["confidence"], expected, places=5)
+                self.assertEqual(record["calibrated"]["data_version"], artifact["data_version"])
+                calibrated += 1
+            else:
+                self.assertNotIn("calibrated", record)
+        self.assertEqual(calibrated, 120)
+
+    def test_checksums_v2_if_present(self):
+        path = HERE / "checksums-v2.sha256"
+        if not path.exists():
+            self.skipTest("v2 checksums not written yet")
+        for line in path.read_text().splitlines():
+            if not line.strip():
+                continue
+            digest, rel = line.split("  ", 1)
+            target = ROOT / rel
+            self.assertTrue(target.exists(), rel)
+            self.assertEqual(sha256_file(target), digest, rel)
+
     def test_checksums_if_present(self):
         path = HERE / "checksums.sha256"
         if not path.exists():

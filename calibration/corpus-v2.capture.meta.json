@@ -1,0 +1,80 @@
+{
+  "schema": "umpire-calibration-capture/0.1",
+  "corpus": {
+    "path": "calibration/corpus-v2.jsonl",
+    "sha256": "sha256:54e397333ab750ff7fff6a54272b7d4ec4a7163aac16bb2778401895410a66a3",
+    "examples": 480
+  },
+  "pin": {
+    "id": "qwen3-1.7b",
+    "model": "qwen3-1.7b",
+    "weights_hash": "sha256:66a17017845b71fcd2ddbcc6ed4e556c194e5bbb31b27c46a82bf25f3e055a7f",
+    "decoding": "json-label-enum-v0@llama.cpp-v0.7.0/sha256:0f60e0483",
+    "prompt_template_sha256": "sha256:548522885e4736c1e9563ce6990a7675ff4ec416dd4cbd2eda0ad16ab8fd1875",
+    "runner_binary_sha256": "sha256:0f60e0483ee8aa394f2fadf487dcdcc7799abdd5941127952f17277ebe4ec61c",
+    "gguf_sha256": "sha256:66a17017845b71fcd2ddbcc6ed4e556c194e5bbb31b27c46a82bf25f3e055a7f",
+    "server_invocation": "./runners/src/build/bin/llama-server -m models/Qwen3-1.7B-Q8_0.gguf -c 2048 --host 127.0.0.1 --port 8081 --threads 4"
+  },
+  "seed": 7,
+  "server": "http://127.0.0.1:8081",
+  "capture": {
+    "started_at": "2026-10-23T14:31:20.774349+00:00",
+    "finished_at": "2026-10-23T14:31:20.786830+00:00",
+    "wall_seconds": 0.0,
+    "host_sha256": "sha256:1e769fcd99223f5a",
+    "platform": "Linux-6.12.113+deb13-amd64-x86_64-with-glibc2.41",
+    "python": "3.14.7",
+    "command": "python3 calibration/capture.py --server http://127.0.0.1:8081 --corpus calibration/corpus-v2.jsonl --raw calibration/raw-v2.jsonl --ledger calibration/corpus-v2.ledger.jsonl --records calibration/corpus-v2.records.jsonl --page-table calibration/corpus-v2.page-table.json --meta calibration/corpus-v2.capture.meta.json --resume",
+    "complete": true,
+    "captured": 480
+  },
+  "counts": {
+    "total": 480,
+    "per_split": {
+      "train": {
+        "n": 240,
+        "correct": 168,
+        "accuracy": 0.7
+      },
+      "validation": {
+        "n": 120,
+        "correct": 89,
+        "accuracy": 0.7417
+      },
+      "test": {
+        "n": 120,
+        "correct": 85,
+        "accuracy": 0.7083
+      }
+    },
+    "correct": 342,
+    "accuracy": 0.7125
+  },
+  "latency_ms": {
+    "n": 480,
+    "min": 11069,
+    "median": 13228,
+    "mean": 14188,
+    "max": 33554
+  },
+  "hashes": {
+    "raw_sha256": "sha256:5649d7bdae8365e68bdb0f9a7b685f624d86e740071186e7221142c7e7c54ada",
+    "ledger_sha256": "sha256:e450d80fc8852199629f013f2f378385015ba870ce8e54573d78071146a0824a",
+    "records_sha256": "sha256:272e12b6d25c80edfdca244ca27e2d775cf75e29a4e7bde32bf39f61f7b2f69b",
+    "page_table_sha256": "sha256:d75a1644f1b75dd236f0dca9e133c893d1faa31c496b125220c5555585a36f9f"
+  },
+  "git": {
+    "head": "64f9132c36beb9c97348945005d1876fe770a5c5",
+    "dirty": true
+  },
+  "notes": [
+    "raw probabilities are pre-calibration; gold is used only for correct/fit/eval",
+    "records are raw (no calibrated block); fitting is a separate offline step",
+    "contentHash excludes latency_ms and any calibrated view"
+  ],
+  "page_table_stats": {
+    "decisions": 480,
+    "declared_slots": 480,
+    "re_decides": 0
+  }
+}

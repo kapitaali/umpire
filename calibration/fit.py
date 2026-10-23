@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Fit the M2 calibration artifact from raw corpus decisions (offline, stdlib).
 
+Defaults are the v1 corpus/raw paths.  Pass --corpus, --raw, --ledger,
+--records, --page-table, --capture-meta, --artifact, --calibrated-records, and
+--checksums to fit another corpus revision (for example corpus-v2):
+
 Inputs:  calibration/corpus-v1.jsonl + calibration/raw-v1.jsonl
 Outputs: calibration/umpire-cal-v1.json
          calibration/corpus.calibrated.records.jsonl  (calibrated block on TEST rows)
@@ -59,8 +63,8 @@ def load_corpus(path: pathlib.Path) -> tuple[list[dict], dict]:
     rows = [json.loads(line) for line in path.read_text().splitlines() if line]
     meta_path = path.with_name(path.stem + ".meta.json")
     meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
-    if len(rows) != 160:
-        raise SystemExit(f"corpus must have 160 examples, found {len(rows)}")
+    if len(rows) < 2:
+        raise SystemExit(f"corpus must have at least 2 examples, found {len(rows)}")
     return rows, meta
 
 
@@ -217,6 +221,10 @@ def main(argv=None) -> int:
     ap.add_argument("--artifact", type=pathlib.Path, default=ARTIFACT)
     ap.add_argument("--calibrated-records", type=pathlib.Path, default=CALIBRATED_RECORDS)
     ap.add_argument("--checksums", type=pathlib.Path, default=CHECKSUMS)
+    ap.add_argument("--ledger", type=pathlib.Path, default=HERE / "corpus.ledger.jsonl")
+    ap.add_argument("--records", type=pathlib.Path, default=HERE / "corpus.records.jsonl")
+    ap.add_argument("--page-table", type=pathlib.Path, default=HERE / "corpus.page-table.json")
+    ap.add_argument("--capture-meta", type=pathlib.Path, default=HERE / "corpus.meta.json")
     ap.add_argument("--pin", default="qwen3-1.7b")
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--no-checksums", action="store_true")
@@ -321,17 +329,18 @@ def main(argv=None) -> int:
             "python": platform.python_version(),
             "platform": platform.platform(),
             "fit_script": "calibration/fit.py",
-            "capture_meta_sha256": "sha256:" + sha256_file(HERE / "corpus.meta.json")
-            if (HERE / "corpus.meta.json").exists()
+            "capture_meta_sha256": "sha256:" + sha256_file(args.capture_meta)
+            if args.capture_meta.exists()
             else None,
         },
         "limitations": [
-            "corpus-v1 is project-authored (160 synthetic support intents), not a production sample",
+            f"{corpus_meta.get('version', args.corpus.stem)} is project-authored "
+            f"({len(corpus_rows)} synthetic support intents), not a production sample",
             "calibration is per pin + per label set (4 labels); do not apply it to other labels or pins",
             "single seed and single machine; cross-build determinism is not claimed",
-            "test split is 40 examples; read the bootstrap intervals, not just point estimates",
+            f"test split is {len(test)} examples; read the bootstrap intervals, not just point estimates",
             "calibrated.confidence estimates P(key correct) for this corpus distribution; it is not a correctness guarantee",
-            "ODPS packaging and hub leaderboard are not part of this T13 card",
+            "ODPS packaging and hub leaderboard are not part of this calibration card",
         ],
     }
     artifact["data_version"] = cal.compute_data_version(artifact)
@@ -360,10 +369,10 @@ def main(argv=None) -> int:
             args.corpus,
             args.corpus.with_name(args.corpus.stem + ".meta.json"),
             args.raw,
-            HERE / "corpus.ledger.jsonl",
-            HERE / "corpus.records.jsonl",
-            HERE / "corpus.page-table.json",
-            HERE / "corpus.meta.json",
+            args.ledger,
+            args.records,
+            args.page_table,
+            args.capture_meta,
             args.artifact,
             args.calibrated_records,
         ]

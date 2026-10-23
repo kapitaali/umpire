@@ -3,7 +3,8 @@
 
 Requires:
   - llama-server on 127.0.0.1:8081 loaded with the pinned 1.7B GGUF
-  - calibration/umpire-cal-v1.json from calibration/fit.py
+  - calibration/umpire-cal-v1.json (default) or UMPIRE_CALIBRATION=<artifact>
+    from calibration/fit.py
 
 Gates:
   L1 calibrated decide — record carries a calibrated block whose confidence
@@ -19,6 +20,7 @@ Gates:
 
 import copy
 import json
+import os
 import pathlib
 import subprocess
 import sys
@@ -38,7 +40,9 @@ PIN = "qwen3-1.7b"
 SEED = 7
 LABELS = ["billing", "other", "sales", "technical"]
 STATE = {"text": "The export job has been stuck for two hours and I need the CSV today"}
-ARTIFACT = ROOT / "calibration" / "umpire-cal-v1.json"
+ARTIFACT = pathlib.Path(
+    os.environ.get("UMPIRE_CALIBRATION", str(ROOT / "calibration" / "umpire-cal-v1.json"))
+)
 
 
 def fail(label, detail=""):
