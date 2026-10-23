@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""umpire reference harness (M1): CLI + library over a pinned llama.cpp runner.
+"""umpire reference harness (M1 + M2 calibration): CLI + library over a pinned runner.
 
 `decide(state, labels, pin, seed)` performs one typed decision against a llama-server
 endpoint using the pinned `json-label-enum-v0` decoding (GBNF grammar-constrained,
@@ -7,6 +7,11 @@ temperature 0, fixed seed — harness/gbnf.py), harvests the model's constrained
 token-level distribution as the raw (pre-calibration) probabilities, derives the
 pinned confidence, and records the decision as an xCABI-0.1 ledger page + record row
 via spec/ledger_tools.py (single source of truth with the M0 validator).
+
+Pass `calibration=<fitted artifact>` to add the M2 optional `calibrated` sidecar
+(`method`, `data_version`, `confidence` = fitted P(key correct)). The raw response,
+probabilities, ref, and contentHash are unchanged; the artifact must match the pin,
+seed, and label set or the call fails before any model request.
 
 Determinism contract (§3.3 of the proposal, empirical M1 gate): same
 (state, labels, pin, seed) on the same runner build + machine ⇒ byte-identical
@@ -31,6 +36,7 @@ from ledger_tools import (  # noqa: E402
 )
 
 from gbnf import label_enum_grammar, qwen3_prompt, chatml_prompt, decision_system, safe_labels  # noqa: E402
+import calibration_tools as cal  # noqa: E402
 
 SPEC = pathlib.Path(__file__).parent.parent / "spec"
 PINS = json.loads((pathlib.Path(__file__).parent / "pins.json").read_text())
@@ -242,7 +248,7 @@ class LedgerWriter:
 
 
 # ---------------------------------------------------------------- decide
-def decide(server_url, state, labels, pin_id, seed, ledger_path, records_path, timeout=120):
+def decide(server_url, state, labels, pin_id, seed, ledger_path, records_path, timeout=120, calibration=None):
     labels = safe_labels(labels)
     if len(set(labels)) != len(labels):
         raise ValueError("labels must be unique")
@@ -268,6 +274,27 @@ def decide(server_url, state, labels, pin_id, seed, ledger_path, records_path, t
             f"current {got} != pinned {want} — restore the pinned template or "
             "update the pin deliberately"
         )
+    if calibration is not None:
+        failures = cal.validate_artifact(calibration)
+        if failures:
+            raise RuntimeError("calibration artifact invalid: " + "; ".join(failures))
+        cpin = calibration["pin"]
+        for field in ("model", "weights_hash", "decoding", "prompt_template_sha256"):
+            if cpin.get(field) != pin.get(field):
+                raise RuntimeError(
+                    f"calibration pin mismatch for {field}: "
+                    f"{cpin.get(field)!r} != {pin.get(field)!r}"
+                )
+        if calibration["seed"] != seed:
+            raise RuntimeError(
+                f"calibration seed mismatch: artifact fits seed {calibration['seed']}, "
+                f"request uses seed {seed}"
+            )
+        if set(calibration["labels"]) != set(labels):
+            raise RuntimeError(
+                "calibration label-set mismatch: artifact fits "
+                f"{sorted(calibration['labels'])}, request uses {sorted(labels)}"
+            )
     prompt = prompt_fn(decision_system(labels), state.get("text", ""))
     n_predict = max(96, 32 + 28 * len(sorted(set(labels))))
     raw = llama_complete(server_url, prompt, grammar, seed, n_predict=n_predict, timeout=timeout)
@@ -301,6 +328,9 @@ def decide(server_url, state, labels, pin_id, seed, ledger_path, records_path, t
         or None,
     }
     record = {k: v for k, v in record.items() if v is not None}
+    if calibration is not None:
+        # Sidecar view only: raw probabilities and contentHash stay untouched.
+        record["calibrated"] = cal.calibrated_block(probs, key, calibration)
     session_open = {
         "type": "session.open",
         "agentId": "umpire",
@@ -326,10 +356,19 @@ def main(argv=None):
     ap.add_argument("--labels", required=True, help="comma-separated labels")
     ap.add_argument("--ledger", required=True)
     ap.add_argument("--records", required=True)
+    ap.add_argument("--calibration", type=pathlib.Path, help="fitted calibration artifact (JSON)")
     args = ap.parse_args(argv)
     labels = [l.strip() for l in args.labels.split(",") if l.strip()]
+    calibration = json.loads(args.calibration.read_text()) if args.calibration else None
     response, record = decide(
-        args.server, {"text": args.text}, labels, args.pin, args.seed, args.ledger, args.records
+        args.server,
+        {"text": args.text},
+        labels,
+        args.pin,
+        args.seed,
+        args.ledger,
+        args.records,
+        calibration=calibration,
     )
     print(canonical_json(response))
     print(f"# ref {record['ref']} ledger: {args.ledger}", file=sys.stderr)

@@ -49,6 +49,7 @@
     "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
     "calibrated": {
       "type": "object",
+      "description": "Optional M2 calibrated view (sidecar). method/data_version identify a fitted artifact under calibration/; confidence is a corpus-fitted P(key correct) estimate. Raw probabilities, confidence, ref, and contentHash are unchanged.",
       "additionalProperties": false,
       "required": ["method", "data_version", "confidence"],
       "properties": {

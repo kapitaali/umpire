@@ -1,0 +1,55 @@
+{
+  "schema": "umpire-calibration-corpus/0.1",
+  "version": "corpus-v1",
+  "created": "2026-10-23",
+  "labels": [
+    "billing",
+    "other",
+    "sales",
+    "technical"
+  ],
+  "examples": 160,
+  "seed": 20261023,
+  "split_counts": {
+    "train": 20,
+    "validation": 10,
+    "test": 10
+  },
+  "per_label": {
+    "billing": 40,
+    "other": 40,
+    "sales": 40,
+    "technical": 40
+  },
+  "per_split": {
+    "train": 80,
+    "validation": 40,
+    "test": 40
+  },
+  "per_label_split": {
+    "billing/train": 20,
+    "billing/validation": 10,
+    "billing/test": 10,
+    "other/train": 20,
+    "other/validation": 10,
+    "other/test": 10,
+    "sales/train": 20,
+    "sales/validation": 10,
+    "sales/test": 10,
+    "technical/train": 20,
+    "technical/validation": 10,
+    "technical/test": 10
+  },
+  "sha256": "sha256:435be05321d4662307660becf6680c9e7635f3fc15289c01a0f51039a8703f85",
+  "generator": "calibration/make_corpus.py",
+  "state_format": "routing_guide + message",
+  "routing_guide": "Route the customer message to exactly one department: billing, technical, sales, or other.\nExamples:\nI was charged twice for the same invoice. -> billing\nPlease update the billing address on our account. -> billing\nI need a refund for last month. -> billing\nThe API returns 500 errors on upload. -> technical\nOur webhook stopped receiving events after a deploy. -> technical\nDuplicate events appear when retries are enabled. -> technical\nCan I get a quote for 50 seats? -> sales\nI want to schedule a demo of the enterprise plan. -> sales\nHow do your plans compare? -> sales\nAre you hiring remote engineers? -> other\nI need your press kit for an article. -> other\nHow do I submit feedback or a complaint? -> other\nMessage: ",
+  "routing_guide_sha256": "sha256:78013b3ff3d357a7e56cb46933b84a7479310f23161c7e86b7642339055529d4",
+  "labeling": {
+    "policy": "gold = primary action requested; explicit ask beats mentioned context",
+    "billing": "money/account administration on an existing subscription",
+    "sales": "pre-purchase evaluation or new revenue conversation",
+    "technical": "product malfunction/configuration/usage",
+    "other": "non-product inbound (press, careers, legal/privacy/security, community, brand)"
+  }
+}

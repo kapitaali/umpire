@@ -7,7 +7,8 @@ Usage:
   python3 spec/validate_ledger.py L1.ledger.jsonl L1.records.jsonl [L2 L2 ...]
       Validates each (ledger, records) pair — per-line schemas, profile rules,
       minting recomputation, join rules — then runs the built-in negative corpus
-      (ten engineered bad cases, each of which MUST be caught).
+      (ten engineered bad cases, plus two M2 calibrated-record cases when a fitted
+      artifact is present; each MUST be caught).
 
   python3 spec/validate_ledger.py --replay L.ledger.jsonl L.records.jsonl BASELINE
       Re-derives the page table (spec/ledger_tools.py, generator shared) and
@@ -36,11 +37,33 @@ from ledger_tools import (  # noqa: E402
     render_page_table,
     response_hash,
 )
+import calibration_tools as cal  # noqa: E402
 
 HERE = pathlib.Path(__file__).parent
 XCABI = json.loads((HERE / "vendor" / "x-cabi-0.1.schema.json").read_text())
 RECORD_SCHEMA = json.loads((HERE / "decision-record-v0.schema.json").read_text())
 PROFILE_EVENTS = frozenset({"page.declare", "page.fault"})
+
+
+def load_calibration_artifacts():
+    """M2 artifacts indexed by data_version. Structurally invalid artifacts are not
+    loadable, so a calibrated record that references one is rejected (no artifact)."""
+    artifacts = {}
+    cal_dir = HERE.parent / "calibration"
+    for path in sorted(cal_dir.glob("umpire-cal-*.json")):
+        try:
+            artifact = json.loads(path.read_text())
+        except (json.JSONDecodeError, OSError):
+            continue
+        if cal.validate_artifact(artifact):
+            continue
+        version = artifact.get("data_version")
+        if isinstance(version, str):
+            artifacts[version] = artifact
+    return artifacts
+
+
+CAL_ARTIFACTS = load_calibration_artifacts()
 
 
 def failures_for_pair(basename, ledger_lines, record_lines):
@@ -114,6 +137,44 @@ def failures_for_pair(basename, ledger_lines, record_lines):
             total = sum(probabilities.values())
             if abs(total - 1.0) > 1e-9:
                 fail(f"records line {i + 1}: probabilities sum {total} != 1")
+        # M2 calibration sidecar (optional): cross-check against the fitted artifact.
+        # Raw probabilities and contentHash stay authoritative; calibration must not
+        # change identity, labels, pin, or seed.
+        if isinstance(record.get("calibrated"), dict):
+            block = record["calibrated"]
+            version = block.get("data_version")
+            artifact = CAL_ARTIFACTS.get(version)
+            if artifact is None:
+                fail(f"records line {i + 1}: calibrated data_version {version!r} not found")
+            else:
+                artifact_failures = cal.validate_artifact(artifact)
+                if artifact_failures:
+                    fail(f"records line {i + 1}: calibration artifact invalid: {artifact_failures}")
+                else:
+                    if set(artifact.get("labels") or []) != label_set:
+                        fail(f"records line {i + 1}: calibrated label set != artifact label set")
+                    if block.get("method") != artifact.get("method"):
+                        fail(f"records line {i + 1}: calibrated method != artifact method")
+                    if record.get("seed") != artifact.get("seed"):
+                        fail(f"records line {i + 1}: calibrated seed != artifact seed")
+                    model_pin = record.get("model_pin") or {}
+                    for field in ("model", "weights_hash", "decoding"):
+                        if model_pin.get(field) != (artifact.get("pin") or {}).get(field):
+                            fail(f"records line {i + 1}: calibrated model_pin.{field} != artifact pin")
+                    try:
+                        expected = cal.confidence_from_artifact(probabilities, key, artifact)
+                    except Exception as exc:
+                        fail(f"records line {i + 1}: calibrated confidence uncomputable: {exc}")
+                    else:
+                        checked += 1
+                        stored = block.get("confidence")
+                        if not isinstance(stored, (int, float)):
+                            fail(f"records line {i + 1}: calibrated confidence is not numeric")
+                        elif abs(expected - stored) > 1e-5:
+                            fail(
+                                f"records line {i + 1}: calibrated confidence {stored} "
+                                f"!= recomputed {expected:.6f}"
+                            )
         # minting recomputation — the stored echo is cross-checked, never trusted
         stored_ref = record.get("ref")
         stored_hash = record.get("contentHash")
@@ -222,6 +283,7 @@ def rec(  # shorthand for building a valid record inside the negative corpus
     content_hash=None,
     seed=1,
     model_pin=None,
+    calibrated=None,
 ):
     from ledger_tools import content_hash as ch
 
@@ -245,6 +307,8 @@ def rec(  # shorthand for building a valid record inside the negative corpus
         "confidence": confidence,
         "latency_ms": 350,
     }
+    if calibrated is not None:
+        record["calibrated"] = calibrated
     return json.dumps(record)
 
 
@@ -360,6 +424,70 @@ NEGATIVE_CASES = [
         ],
     ),
 ]
+
+
+def _declare_for(ref, ev_hash, tokens=10):
+    return {
+        "type": "page.declare",
+        "page": {
+            "id": {"logicalRef": ref, "contentHash": ev_hash},
+            "kind": "tool_result",
+            "tokens": tokens,
+        },
+    }
+
+
+def _calibrated_negative_cases():
+    """Two M2 negatives, built only when a fitted artifact is present.
+
+    A calibrated block must name a known artifact, match its pin/seed/labels/method,
+    and carry the confidence that artifact recomputes. Both cases are otherwise
+    schema-valid and join a valid declare.
+    """
+    if not CAL_ARTIFACTS:
+        return []
+    artifact = next(iter(CAL_ARTIFACTS.values()))
+    labels = list(artifact["labels"])
+    state = {"text": "calibration negative case"}
+    ref = decide_ref(state, labels)
+    key = labels[0]
+    probabilities = {label: 1.0 / len(labels) for label in labels}
+    model_pin = {
+        field: artifact["pin"][field] for field in ("model", "weights_hash", "decoding")
+    }
+    cases = []
+    for label, version, confidence in (
+        ("calibrated-confidence-mismatch", artifact["data_version"], 0.123456),
+        ("calibrated-unknown-version", "cal-v1:0000000000000000", probabilities[key]),
+    ):
+        block = {
+            "method": artifact["method"],
+            "data_version": version,
+            "confidence": confidence,
+        }
+        record = json.loads(
+            rec(
+                state,
+                labels,
+                key,
+                probabilities,
+                0.0,
+                seed=artifact["seed"],
+                model_pin=model_pin,
+                calibrated=block,
+            )
+        )
+        cases.append(
+            (
+                label,
+                ledger_of(OPEN, _declare_for(ref, record["contentHash"])),
+                [json.dumps(record)],
+            )
+        )
+    return cases
+
+
+NEGATIVE_CASES.extend(_calibrated_negative_cases())
 
 
 def main(argv):
