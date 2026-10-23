@@ -91,3 +91,5 @@ Provenance: parent proposal at `ctxvm/projects/01-open-decision-primitive.md` (M
 2026-10-22, repo split); JEV reference: hosted decision primitive (≤255 labels, one key +
 calibrated probabilities + confidence out, per-decision pricing, confidence-gated
 routing).
+
+[ctxvm]: https://github.com/kapitaali/ctxvm-xCABI
