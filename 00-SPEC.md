@@ -146,9 +146,11 @@ with their own pin hashes and capture metadata.
 
 `spec/vendor/x-cabi-0.1.schema.json` is a pinned copy of ctxvm's published schema
 (ctxvm @ `361043e`). Do not edit its semantics; if ctxvm bumps the schema, re-vendor and
-re-run the gates (and note it in this file's status header). ODPS/ODCS packaging and hub
-pipeline consumption (proposal §5.4) are deferred until the local M3 replay-audit path is
-settled; the edges-never-in-core rule still applies when they land.
+re-run the gates (and note it in this file's status header). ODPS/ODCS packaging Phase A
+landed 2026-10-23 (`odps/…odps.yaml` + `contracts/…odcs.yaml`, validated on the ctxvm
+stack — see `reports/RR-ODPS-20261023.md`); the hub pipeline (proposal §5.4) is still
+pending. The edges-never-in-core rule still applies: packaging consumes the published
+interfaces and adds no semantics to the xCABI core.
 
 ## 8. Milestone state
 
@@ -194,3 +196,14 @@ settled; the edges-never-in-core rule still applies when they land.
   was observed to perturb probabilities/hash while preserving the key; the strict
   check is therefore specified for quiescent same-build replay.  Cross-machine/
   cross-build determinism and a full-corpus replay are not claimed yet.
+- **ODPS/ODCS packaging — Phase A (done 2026-10-23, see `reports/RR-ODPS-20261023.md`):**
+  the v2 calibration drop packaged as one `dataset` product `umpire-calcorpus-0.1`
+  (0.1.0, drop `calibration/v2`): ODPS 4.1 manifest validated `compliance_level: full`
+  (open-data-products SDK 0.4.0), `product audit` fully passed
+  (`product_valid: true · contract_valid: true`, datacontract-cli 1.2.7, ODCS v3.0.2
+  lint green), `x-umpire` sidecar echoing the pin identity verbatim and scoping
+  replay-determinism claims to the quiescent page-table roundtrip, five KPI release
+  gates derived from current v2 values (declared floors/ceilings, not guarantees), and
+  stdlib-only packaging gates 21/21 (`spec/test_packaging.py`; DQ executables runnable
+  via `UMPIRE_RUN_DQ_GATES=1`). Hub trio and agent port remain pending (Phase B/C,
+  T14 hybrid switch). Target KPIs are release gates — not model-performance promises.

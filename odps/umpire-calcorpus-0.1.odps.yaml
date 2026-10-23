@@ -1,0 +1,299 @@
+# ODPS 4.1 manifest — umpire Calibration Corpus v0.1
+#
+# Spec-first authoring 2026-10-23 per spec/odps-odcs-plan.md (T14: local-only now,
+# zero provider spend). Structure and shapes mirror the ctxvm validated precedent
+# (compliance_level: full, SDK 0.4.0); every empirically-derived gotcha is pre-applied:
+#   quoted "4.1" · SLA unit enum has no `hours` · flat dataHolder/license ·
+#   DQ descriptive.description as plain string · DQ executable as NAMED OBJECT with
+#   object `spec` blocks · DQDefinition displayTitle as array of language maps ·
+#   contractVersion = the ODCS standard's version · dataAccess.format enum excludes
+#   JSONL (format: JSON + x-format note) · bundled core odps.json schema is the only truth.
+
+schema: https://opendataproducts.org/v4.1/schema/odps.yaml
+version: "4.1"
+product:
+  # ODCS linkage (audit requires a contract reference; $ref because the SDK does not
+  # yet load remote contract documents).
+  contract:
+    id: dd6c0a8a-8376-594e-a772-d8ccba457c1e
+    type: ODCS
+    contractVersion: "3.0.2"
+    $ref: ../contracts/umpire-calcorpus-0.1.odcs.yaml
+
+  # sidecar (composition over extension, à la ctxvm's x-cabi): pin identity is echoed
+  # verbatim from calibration/corpus-v2.capture.meta.json.
+  x-umpire:
+    format: xCABI
+    traceFormatVersion: 0.1
+    decisionProfile: xCABI-0.1-decision
+    contentSchema: https://raw.githubusercontent.com/kapitaali/umpire/main/spec/decision-record-v0.schema.json
+    conformanceVectors: https://raw.githubusercontent.com/kapitaali/umpire/main/calibration/corpus-v2.page-table.json
+    calibrationSchema: https://raw.githubusercontent.com/kapitaali/umpire/main/calibration/corpus-v2.capture.meta.json
+    calibrationStatVersion: cal-v1:aceb881587b3b3a6
+    calibrationMethod: isotonic/1
+    firstDrop: calibration/v1
+    latestDrop: calibration/v2
+    modelPin:
+      id: qwen3-1.7b
+      model: qwen3-1.7b
+      weights_sha256: sha256:66a17017845b71fcd2ddbcc6ed4e556c194e5bbb31b27c46a82bf25f3e055a7f
+      decoding: json-label-enum-v0@llama.cpp-v0.7.0/sha256:0f60e0483
+      prompt_template_sha256: sha256:548522885e4736c1e9563ce6990a7675ff4ec416dd4cbd2eda0ad16ab8fd1875
+      runner_binary_sha256: sha256:0f60e0483ee8aa394f2fadf487dcdcc7799abdd5941127952f17277ebe4ec61c
+      server_invocation: "./runners/src/build/bin/llama-server -m models/Qwen3-1.7B-Q8_0.gguf -c 2048 --host 127.0.0.1 --port 8081 --threads 4"
+    seed: 7
+    server: http://127.0.0.1:8081
+    captureWindow:
+      started_at: "2026-10-23T14:31:20.774349+00:00"
+      finished_at: "2026-10-23T14:31:20.786830+00:00"
+    host_sha256: sha256:1e769fcd99223f5a
+    platform: Linux-6.12.113+deb13-amd64-x86_64-with-glibc2.41
+    page_table_stats:
+      decisions: 480
+      declared_slots: 480
+      re_decides: 0
+    checksums:                # from calibration/checksums-v2.sha256 (9/9 gate)
+      corpus: sha256:54e397333ab750ff7fff6a54272b7d4ec4a7163aac16bb2778401895410a66a3
+      raw: sha256:5649d7bdae8365e68bdb0f9a7b685f624d86e740071186e7221142c7e7c54ada
+      ledger: sha256:e450d80fc8852199629f013f2f378385015ba870ce8e54573d78071146a0824a
+      records: sha256:272e12b6d25c80edfdca244ca27e2d775cf75e29a4e7bde32bf39f61f7b2f69b
+      page_table: sha256:d75a1644f1b75dd236f0dca9e133c893d1faa31c496b125220c5555585a36f9f
+      calibrated_records: sha256:2e7c58bfa49259b419408ff0b8f841dbba46f8cbee53eaf70408ec50859c3886
+      artifact: sha256:d8f491d331dcdb866b6b382453d65c6a6cf01b5b4ca09b88b70fe85e70bcfa92
+      capture_meta: sha256:d373b49c2628e0ce206ba759d80ef23ed7836922955c8b2f3cb543390f98861d
+    replayAudit:
+      quiescent_smoke: 8/8 strict match (harness/replay_audit.py, 2 test rows per label)
+      note: >-
+        Raw probability distributions were load-sensitive under concurrent capture
+        (RR-M3): replay preserved ref/key/model_pin but probabilities/contentHash differed
+        under load and matched quiescently. Replay determinism is claimed for the
+        page-table roundtrip (validator --replay, byte-identical), not model behavior
+        under load. Full 480-row model replay still pending.
+
+  details:
+    en:
+      name: umpire Calibration Corpus
+      productID: umpire-calcorpus-0.1
+      valueProposition: >-
+        Calibrated typing for local decision primitives, audited the xCABI way:
+        a checksummed, replay-deterministic decision corpus with honest calibration
+        metrics anyone can recompute from checksums alone.
+      description: >-
+        The umpire M2 calibration corpus v2 drop: 480 project-authored support-intent
+        examples (4 labels, 120/label, split 240/120/120), the caller-owned routing
+        guide inside every state, 480 live decisions captured from a pinned, hash-stamped
+        Qwen3-1.7B local GGUF (seed 7) under a JSON-schema constrained grammar, a 481-event
+        xCABI-0.1 decision ledger, 480 payload records, an isotonic calibration artifact
+        (cal-v1:aceb881587b3b3a6), a calibrated sidecar on the 120 untouched test rows,
+        and the deterministic page-table replay baseline. On the test split, isotonic
+        calibration reduces ECE 0.2483 (raw top) → 0.0267 and Brier 0.2380 → 0.1723 with
+        accuracy unchanged (0.7083); paired-bootstrap 95% CIs exclude zero. Honest limits:
+        single project-authored corpus, one pin/seed/machine/runner build, n=120 directional
+        vs the retained v1 n=40 caveat; raw probabilities, ref and contentHash are unchanged
+        by calibration; accuracy is not comparable across corpus revisions (v2 rows are
+        deliberately harder); the artifact estimates P(key correct) — it is not a
+        correctness guarantee.
+      productVersion: 0.1.0
+      productSeries: umpire open corpus
+      visibility: public
+      status: draft
+      type: dataset
+      portfolioPriority: high
+      governanceProfile: automated
+      standards:
+        - xCABI 0.1
+        - ODPS 4.1
+        - ODCS 3.0.2
+        - umpire-calibration 0.1
+      outputFileFormats:
+        - JSONL
+        - JSON
+      categories:
+        - decision-classification
+        - llm-calibration
+        - benchmarks
+      tags:
+        - open-data
+        - replay-determinism
+        - calibration
+        - zero-provider
+        - local-ai
+
+  productStrategy:
+    status: Active
+    startDate: 2026-10-23
+    objectives:
+      - en: >-
+          Make claim-quality auditing of local decision primitives reproducible:
+          anyone can re-decide the corpus, verify the ledger, and recompute the
+          calibration metrics from checksums alone.
+    contributesToKPI:
+      id: kpi-calibrated-ece
+      name: Calibrated ECE on test split
+      unit: percentage
+      target: 5
+      direction: at_most
+      calculation: expected_calibration_error(calibrated_confidence, gold, test_split n=120)
+    productKPIs:
+      - id: kpi-replay-determinism
+        name: Replay determinism
+        unit: percentage
+        target: 100
+        direction: at_least
+        calculation: byte_identical_roundtrips / declared_slots (page-table replay)
+      - id: kpi-negative-conformance
+        name: Negative conformance pass rate
+        unit: percentage
+        target: 100
+        direction: at_least
+        calculation: validator_negative_cases_passed / validator_negative_cases (raw + calibrated)
+      - id: kpi-calibrated-brier
+        name: Calibrated Brier (test split)
+        unit: percentage
+        target: 20
+        direction: at_most
+        calculation: 100 * brier_score(calibrated_confidence, gold, test_split n=120)
+      - id: kpi-decision-accuracy
+        name: Decision accuracy on test split
+        unit: percentage
+        target: 68
+        direction: at_least
+        calculation: 100 * correct / n (test_split n=120, constrained one-token-class decode)
+
+  SLA:
+    declarative:
+      default:
+        name:
+          en: Calibration corpus release SLA
+        description:
+          en: Promises on drop integrity operations, not model-accuracy claims.
+        dimensions:
+          - dimension: updateFrequency
+            objective: 26
+            unit: weeks
+            weight: 40
+            description: Maximum declared gap between calibration drops; revisions are authored, not scheduled.
+          - dimension: timeToDetect
+            objective: 1
+            unit: days
+            weight: 35
+            description: Checksum, replay and validator gates run locally on every change before release.
+          - dimension: errorRate
+            objective: 0
+            unit: percent
+            weight: 25
+            description: Zero-tolerance release gates — checksum/replay/validator failures never ship in a drop.
+    support:
+      email: kapitaali@users.noreply.github.com
+      documentationURL: https://github.com/kapitaali/umpire#readme
+
+  dataQuality:
+    declarative:
+      default:
+        displayTitle:
+          - en: Determinism-grade calibration quality
+        description: Pinned page-table replay is byte-identical; validator gates pass incl. negatives; every drop checksums.
+        dimensions:
+          - dimension: validity        # = replay determinism (proxy; x-umpire scopes the claim)
+            objective: 100
+            unit: percentage
+            weight: 60
+          - dimension: completeness    # = calibrated sidecar covers every test row; no dangling pin refs
+            objective: 100
+            unit: percentage
+            weight: 25
+          - dimension: uniqueness      # = corpus dedup + secret/PII scan clean
+            objective: 100
+            unit: percentage
+            weight: 15
+    # executable is a NAMED OBJECT (schema truth); each value is a DQDefinition;
+    # spec MUST be an object even for type: Custom.
+    executable:
+      replayDeterminism:
+        type: Custom
+        version: 0.1.0
+        reference: https://raw.githubusercontent.com/kapitaali/umpire/main/00-SPEC.md
+        spec:
+          tool: umpire
+          command: "python3 spec/validate_ledger.py --replay calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl calibration/corpus-v2.page-table.json"
+          passCriterion: >-
+            roundtrip BYTE-IDENTICAL; page-table sha256 unchanged (sha256:d75a1644…);
+            quiescent model-level replay audit per RR-M3 documented separately.
+        dimensions:
+          - dimension: validity
+            objective: 100
+            unit: percentage
+            weight: 60
+      calibrationParity:
+        type: Custom
+        spec:
+          tool: umpire
+          command: "python3 spec/validate_ledger.py calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.calibrated.records.jsonl"
+          passCriterion: PASS (2608 checks); negative corpus 12/12
+        dimensions:
+          - dimension: completeness
+            objective: 100
+            unit: percentage
+            weight: 25
+      redactionScan:
+        type: Custom
+        spec:
+          tool: umpire
+          command: full-corpus token/PII scan over the calibration drop (project pattern set)
+          passCriterion: zero secret / PAT / PII matches
+        dimensions:
+          - dimension: uniqueness
+            objective: 100
+            unit: percentage
+            weight: 15
+
+  dataAccess:
+    default:
+      name:
+        en: Calibration corpus drop
+      description:
+        en: >-
+          Checksummed JSONL drop (corpus, raw, ledger, records, calibrated records)
+          plus fitted calibration artifact and replay baseline, tagged calcorpus-0.1.0.
+      outputPortType: file
+      format: JSON           # 'JSONL' is not in the format enum — see x-format note
+      # x-format: jsonl
+      accessURL: https://github.com/kapitaali/umpire/releases/tag/calcorpus-0.1.0
+      hashType: SHA-256
+      checksum: TBD-at-release
+      documentationURL: https://github.com/kapitaali/umpire#readme
+      # x-umpire repo paths (local resolution while status: draft):
+      # calibration/corpus-v2.{jsonl, ledger.jsonl, records.jsonl, calibrated.records.jsonl,
+      # page-table.json, capture.meta.json}, calibration/raw-v2.jsonl,
+      # calibration/umpire-cal-v2.json, calibration/checksums-v2.sha256
+
+  # schema: license is FLAT (no language-binding wrapper)
+  license:
+    scope:
+      definition: >-
+        Open-data (Apache-2.0/CC-BY-4.0 family) access with attribution; redaction scan
+        required before content is accepted or redistributed.
+      restrictions: >-
+        No redistribution of content failing the redaction scan; downstream users must
+        preserve checksum lineage of derived corpora; calibration artifacts are per
+        pin/label-set/seed/machine and must not be presented as transferable.
+      permanent: true
+      exclusive: false
+      rights:
+        - Reproduction
+        - Display
+        - Distribution
+        - Adaptation
+    governance:
+      ownership: umpire Project
+      applicableLaws: >-
+        Apache-2.0 for code and calibration artifacts (umpire-calibration/0.1 pin-identity
+        data); CC-BY-4.0 for corpus content
+      audit: Acceptance contributions are public (PR-based)
+
+  # schema: dataHolder is FLAT (doc shows dataHolder.en wrapper — wrong)
+  dataHolder:
+    legalName: umpire Project
+    businessDomain: decision-infra
+    email: kapitaali@users.noreply.github.com
+    URL: https://github.com/kapitaali/umpire

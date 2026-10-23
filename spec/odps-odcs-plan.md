@@ -253,3 +253,19 @@ otherwise (same pattern as the runner env-var gating in `harness/test_m2.py`).
 3. **P2** hub trio (`hub/catalog.yaml`, `index.html`, `hub.sha256`) + byte-identical rebuild gate —
    only if agreed now.
 4. **P3** agent port/llms.txt — on the T14 hybrid switch.
+
+## 10. Corrections landed during P0 (2026-10-23, see RR-ODPS-20261023)
+
+Empirical corrections produced by implementation; kept here so the plan stays truthful:
+
+1. **KPI `unit` enum is `percentage`** (no `percent`) in ODPS `productStrategy` — all KPI units here use
+   `percentage`; `percent` remains valid only inside SLA dimension units (§3.3 table read `percent`).
+2. **`contract.$ref` resolves relative to the manifest's directory** — from `odps/…` the correct form is
+   `../contracts/umpire-calcorpus-0.1.odcs.yaml` (§3.1 snippet said `contracts/…`).
+3. **No `gates` block exists in ODPS `productStrategy`** (ctxvm-validated schema shapes): release gates =
+   the declared KPI targets themselves, enforced by `spec/test_packaging.py` parity checks + the DQ
+   executable commands (§3.3 gate table is therefore a documentation device, not a manifest block).
+4. **Record `contentHash` is the short-form probe `sha256:<8 hex>`** and **`model_pin` is a nested object**
+   — contract corrected accordingly (§4's item 2 sketch said string/64-hex).
+5. `product audit` must run from the Python 3.12 venv (`open-data-products[contracts]`), confirmed again
+   here; with the 3.14 venv it reports `DATACONTRACT_CLI_NOT_INSTALLED`.

@@ -1,0 +1,411 @@
+# ODCS v3.0.2 data contract for the umpire Calibration Corpus v0.1
+#
+# Standards stack: ODPS 4.1 (packaging) -> this ODCS contract (contents) -> xCABI 0.1
+# decision profile + umpire-calibration/0.1 artifact format.
+# Spec-first authoring 2026-10-23 per spec/odps-odcs-plan.md (T14 local-only; zero
+# provider spend). Shapes mirror the ctxvm validated contract (datacontract-cli 1.2.7
+# lint green): description is an OBJECT; quality lives on schema elements; custom checks
+# carry engine + implementation; service levels = top-level slaProperties.
+# Note: ODCS v3 DQ dimension enum has no 'validity' — replay determinism is expressed as
+# 'conformity' here, while the ODPS manifest's DQ block keeps 'validity' as its declared
+# proxy (see 06-odps-integration.md in ctxvm).
+
+version: 1.0.0
+kind: DataContract
+id: dd6c0a8a-8376-594e-a772-d8ccba457c1e
+status: active
+name: umpire_calibration_corpus
+apiVersion: v3.0.2
+description:
+  purpose: >-
+    Define the required contents and quality of the umpire Calibration Corpus 0.1
+    (drop calibration/v2): 480 project-authored support-intent examples (4 labels,
+    240/120/120), 480 live decisions captured from the pinned, hash-stamped Qwen3-1.7B
+    local GGUF (seed 7) under the json-label-enum-v0 grammar, the xCABI-0.1 decision
+    ledger and payload records, the isotonic calibration artifact
+    (cal-v1:aceb881587b3b3a6), the calibrated sidecar on the 120 untouched test rows,
+    and the deterministic page-table replay baseline.
+  usage: >-
+    Consumers can rely on every drop artifact matching calibration/checksums-v2.sha256,
+    on the page-table replay being byte-identical (sha256:d75a1644…), on validator PASS
+    with a 12/12 negative corpus (raw and calibrated), on identity fields
+    (ref/key/model_pin) replay-stable, and on raw probabilities / ref / contentHash being
+    unchanged by calibration (the calibrated block is an optional sidecar keyed
+    cal-v1:aceb881587b3b3a6, present on test rows only).
+  limitations: >-
+    This contract claims packaging integrity and machine-verifiable gates — not model
+    accuracy outcomes (those live in the ODPS productStrategy KPIs) and not correctness
+    of the artifact's estimates. Single project-authored corpus, one pin/label-set/
+    seed/machine/runner build; accuracy is not comparable across corpus revisions; raw
+    probability distributions were load-sensitive under concurrent capture (RR-M3) and
+    full 480-row model replay is still pending. Do not transfer the artifact to another
+    model or domain without re-fitting.
+schema:
+  - name: umpireCalibrationExample
+    logicalType: object
+    physicalType: table
+    description: >-
+      One calibration example per JSONL line (calibration/corpus-v2.jsonl). 480 rows,
+      4 labels x 120, split 240/120/120. Every state embeds the caller-owned routing
+      guide; gold is used only for correct/fit/eval, never as model-visible context.
+    tags:
+      - llm-calibration
+      - benchmarks
+    quality:
+      - name: replay-determinism
+        description: >-
+          The pinned page table replays byte-identically. Executed by the umpire
+          validator's --replay gate against the committed page-table baseline.
+        dimension: conformity        # ODCS enum has no 'validity'; ODPS side keeps it as proxy
+        severity: error
+        businessImpact: operational
+        type: custom
+        engine: umpire
+        implementation:
+          command: python3 spec/validate_ledger.py --replay calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl calibration/corpus-v2.page-table.json
+          passCriterion: roundtrip BYTE-IDENTICAL; page-table sha256 unchanged
+      - name: drop-checksums-verify
+        description: Every file in the drop matches calibration/checksums-v2.sha256.
+        dimension: conformity
+        severity: error
+        businessImpact: operational
+        type: custom
+        engine: umpire
+        implementation:
+          command: sha256sum -c calibration/checksums-v2.sha256
+          passCriterion: 9/9 OK
+    properties:
+      - name: id
+        logicalType: string
+        required: true
+        description: Example identifier; stable across corpus revisions.
+        classification: public
+        quality:
+          - name: id-unique
+            description: No duplicate example id in a corpus drop.
+            dimension: uniqueness
+            severity: error
+            type: library
+            rule: duplicateCount
+            mustBe: 0
+      - name: split
+        logicalType: string
+        required: true
+        description: >-
+          One of train (fit), validation (calibration selection), test (evaluated once).
+          The test split is never used for selection.
+        classification: public
+      - name: labels
+        logicalType: array
+        required: true
+        description: The 4-project-label support-intent set; identical across rows and to the decide-time label set.
+        classification: public
+      - name: message
+        logicalType: string
+        required: true
+        description: Support-intent request text presented to the primitive.
+        classification: public
+      - name: gold
+        logicalType: string
+        required: true
+        description: Caller-assigned gold label; one of labels.
+        classification: public
+      - name: state
+        logicalType: object
+        required: true
+        description: >-
+          Decide-time state; nested shape {text} with the caller-owned routing guide
+          embedded in text (per corpus-v2 rows).
+        classification: public
+
+  - name: umpireDecisionRecord
+    logicalType: object
+    physicalType: table
+    description: >-
+      One decision per JSONL line (calibration/corpus-v2.records.jsonl raw view;
+      corpus-v2.calibrated.records.jsonl carries the optional calibrated block on the
+      120 test rows). Minted by the harness into the xCABI-0.1 ledger; the ledger is the
+      replay source of truth and the page-table baseline is the replay target.
+    tags:
+      - decision-ledger
+      - calibration
+    quality:
+      - name: replay-determinism
+        description: Pinned page-table replay is byte-identical (see umpireCalibrationExample checks).
+        dimension: conformity
+        severity: error
+        businessImpact: operational
+        type: custom
+        engine: umpire
+        implementation:
+          command: python3 spec/validate_ledger.py --replay calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl calibration/corpus-v2.page-table.json
+          passCriterion: roundtrip BYTE-IDENTICAL; page-table sha256 unchanged
+      - name: ledger-conformance
+        description: >-
+          The ledger/records pair passes the umpire validator including the negative
+          corpus, raw and calibrated.
+        dimension: conformity
+        severity: error
+        businessImpact: operational
+        type: custom
+        engine: umpire
+        implementation:
+          command: python3 spec/validate_ledger.py calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.calibrated.records.jsonl
+          passCriterion: PASS (2608 checks); negative corpus 12/12
+      - name: redaction-scan
+        description: Zero secret/token/PII pattern matches anywhere in the drop.
+        dimension: conformity
+        severity: error
+        businessImpact: regulatory
+        type: custom
+        engine: umpire
+        implementation:
+          command: full-corpus token/PII scan over the calibration drop (project pattern set)
+          passCriterion: zero secret / PAT / PII matches
+    properties:
+      - name: schema
+        logicalType: string
+        required: true
+        description: Record format tag; decide-record/0.1 for all v2 rows.
+        classification: public
+      - name: key
+        logicalType: string
+        required: true
+        description: >-
+          Decided label — ALWAYS one of the requested labels, never free text;
+          structurally enforced by the json-label-enum-v0 constrained decode.
+        classification: public
+      - name: probabilities
+        logicalType: object
+        required: true
+        description: >-
+          Pre-calibration constrained distribution over the requested labels as reported
+          by the model; sums to 1 across the request's labels. Raw probabilities are
+          unchanged by calibration.
+        classification: public
+      - name: confidence
+        logicalType: number
+        required: true
+        description: Raw dispersion statistic (top probability) in [0,1]; calibration is additive, never in place.
+        classification: public
+      - name: ref
+        logicalType: string
+        required: true
+        description: Ledger event reference; correlates this decision with its recorded page row.
+        classification: public
+        quality:
+          - name: ref-unique
+            description: No duplicate ref within a corpus drop (one ref per fresh decision).
+            dimension: uniqueness
+            severity: error
+            type: library
+            rule: duplicateCount
+            mustBe: 0
+      - name: contentHash
+        logicalType: string
+        required: true
+        description: >-
+          Short-form probe sha256:<8 hex>; derived from the canonical decision payload
+          excluding latency_ms and any calibrated view; replay-stable quiescently (see
+          RR-M3 for the load caveat).
+        classification: public
+      - name: labels
+        logicalType: array
+        required: true
+        description: The request's label set (echo of the corpus labels).
+        classification: public
+      - name: model_pin
+        logicalType: object
+        required: true
+        description: >-
+          Nested pin echo {model, weights_hash, decoding}; full hash anchors live in
+          pins.json and the ODPS manifest x-umpire block.
+        classification: public
+      - name: seed
+        logicalType: integer
+        required: true
+        description: Decode seed (7 for this drop).
+        classification: public
+      - name: latency_ms
+        logicalType: integer
+        required: false
+        description: Wall-clock decision latency in ms; excluded from contentHash by design.
+        classification: public
+      - name: state
+        logicalType: object
+        required: true
+        description: Decide-time state echoed into the record ({text}).
+        classification: public
+      - name: calibrated
+        logicalType: object
+        required: false
+        description: >-
+          Calibration sidecar {confidence, data_version, method}; present on test rows
+          only; data_version cal-v1:aceb881587b3b3a6, method isotonic/1.
+
+  - name: umpireFitRecord
+    logicalType: object
+    physicalType: table
+    description: >-
+      One fit input per JSONL line (calibration/raw-v2.jsonl): corpus row annotation
+      over the raw record. Fitting is a separate offline step; records in the ledger
+      remain raw.
+    tags:
+      - calibration
+    quality:
+      - name: gold-usage-honesty
+        description: Gold is used only for split annotation and metric computation (capture meta note).
+        dimension: conformity
+        severity: error
+        businessImpact: operational
+        type: custom
+        engine: umpire
+        implementation:
+          command: python3 spec/validate_ledger.py calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl
+          passCriterion: PASS (2488 checks); returns match counts
+    properties:
+      - name: id
+        logicalType: string
+        required: true
+        description: Example identifier; joins to umpireCalibrationExample.id.
+        classification: public
+        quality:
+          - name: id-unique
+            description: No duplicate fit-record id in a drop.
+            dimension: uniqueness
+            severity: error
+            type: library
+            rule: duplicateCount
+            mustBe: 0
+      - name: split
+        logicalType: string
+        required: true
+        description: train | validation | test.
+        classification: public
+      - name: gold
+        logicalType: string
+        required: true
+        description: Gold label (annotation only).
+        classification: public
+      - name: correct
+        logicalType: boolean
+        required: true
+        description: Whether the decided key equals gold for this row.
+        classification: public
+      - name: record
+        logicalType: object
+        required: true
+        description: The raw umpireDecisionRecord payload (same shape, no calibrated block).
+        classification: public
+
+  - name: umpireCalibrationArtifact
+    logicalType: object
+    physicalType: table
+    description: >-
+      The fitted calibration artifact (calibration/umpire-cal-v2.json, single JSON
+      document): isotonic/1 mapping, selection provenance (temperature vs isotonic on
+      validation ECE), test and fit-in-sample metric blocks, pin echo, and limitations.
+      Estimates P(key correct); not a correctness guarantee; per pin/label-set/seed/machine.
+    tags:
+      - calibration
+    quality:
+      - name: metric-parity
+        description: >-
+          KPI/claims parity: values recomputed from the committed artifact and capture
+          metadata equal the packaged ODPS KPI documentation.
+        dimension: consistency
+        severity: error
+        businessImpact: operational
+        type: custom
+        engine: umpire
+        implementation:
+          command: python3 spec/test_packaging.py
+          passCriterion: all packaging gate tests OK
+    properties:
+      - name: schema
+        logicalType: string
+        required: true
+        description: Artifact format tag; umpire-calibration/0.1.
+        classification: public
+      - name: data_version
+        logicalType: string
+        required: true
+        description: Calibration statistic version key (cal-v1:aceb881587b3b3a6); pinned alongside the model pin.
+        classification: public
+      - name: method
+        logicalType: string
+        required: true
+        description: Selected calibration method (isotonic/1 for v2).
+        classification: public
+      - name: confidence_statistic
+        logicalType: string
+        required: true
+        description: Dispersion statistic calibrated (top_probability).
+        classification: public
+      - name: seed
+        logicalType: integer
+        required: true
+        description: Capture seed (7).
+        classification: public
+      - name: labels
+        logicalType: array
+        required: true
+        description: The label set calibrated against.
+        classification: public
+      - name: corpus_sha256
+        logicalType: string
+        required: true
+        description: Corpus identity anchor (sha256 of corpus-v2.jsonl).
+        classification: public
+      - name: raw_sha256
+        logicalType: string
+        required: true
+        description: sha256 of the capture file the artifact was fitted from.
+        classification: public
+      - name: pin
+        logicalType: object
+        required: true
+        description: Pin echo (model, weights hash, decoding grammar, prompt template, runner, invocation).
+        classification: public
+      - name: isotonic
+        logicalType: object
+        required: true
+        description: Fitted bin mapping (points).
+        classification: public
+      - name: metrics
+        logicalType: object
+        required: true
+        description: Test and fit-in-sample metric blocks (ECE, Brier, accuracy, reliability bins).
+        classification: public
+      - name: selection
+        logicalType: object
+        required: true
+        description: Template fitting provenance (candidates, validation scores, selected, reason).
+        classification: public
+      - name: limitations
+        logicalType: array
+        required: true
+        description: Honesty block carried with the artifact (n=120 directional, single machine, etc.).
+        classification: public
+
+authoritativeDefinitions:
+  - url: https://raw.githubusercontent.com/kapitaali/umpire/main/00-SPEC.md
+    type: businessDefinition
+  - url: https://raw.githubusercontent.com/kapitaali/umpire/main/spec/decision-record-v0.schema.json
+    type: Reference implementation
+slaProperties:
+  - property: checksumVerification
+    value: 100
+    unit: percent
+    element: umpireCalibrationExample
+    driver: operational
+  - property: calibrationSidecarCoverage
+    value: 100
+    unit: percent
+    element: umpireDecisionRecord
+    driver: operational
+  - property: negativeConformancePassRate
+    value: 100
+    unit: percent
+    element: umpireDecisionRecord
+    driver: operational

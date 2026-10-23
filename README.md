@@ -77,6 +77,10 @@ spec/validate_ledger.py         validator (+ --replay roundtrip gate, + M2 calib
 calibration/                    M2 corpora (v1 + v2), raw capture, fitter, artifacts, tests (see its README)
 harness/replay_audit.py         M3 model-level replay audit for a pinned corpus
 harness/test_replay_audit.py    offline comparison-logic tests for the replay audit
+odps/umpire-calcorpus-0.1.odps.yaml         ODPS 4.1 manifest for the calibration corpus drop
+contracts/umpire-calcorpus-0.1.odcs.yaml    ODCS v3.0.2 data contract for the drop
+spec/odps-odcs-plan.md          ODPS/ODCS packaging plan (spec-first, ctxvm-precedent)
+spec/test_packaging.py          offline packaging gates (checksums, shapes, redaction, KPI parity)
 mcp_server.py                   dependency-free stdio MCP server (OpenCode + Hermes)
 mcp_server_test.py              protocol/fake-runner tests for the MCP server
 README-MCP.md                   MCP setup, tool contract, calibration scope, security
@@ -128,6 +132,19 @@ python3 spec/validate_ledger.py --replay \
 sha256sum -c calibration/checksums-v2.sha256
 # 9 data artifacts: OK
 
+# ODPS/ODCS packaging gates (Phase A; see reports/RR-ODPS-20261023.md):
+python3 spec/test_packaging.py
+# Ran 21 tests … OK (skipped=3 opt-in)
+
+UMPIRE_RUN_DQ_GATES=1 \
+UMPIRE_ODPS_VENV=/tmp/opencode/umpire-odps-venv/bin/open-data-products \
+UMPIRE_ODCS_VENV=/tmp/opencode/odcs-venv/bin/open-data-products \
+python3 spec/test_packaging.py
+# Ran 21 tests in 5.977s — OK (0 skipped)
+
+/tmp/opencode/odcs-venv/bin/open-data-products product audit odps/umpire-calcorpus-0.1.odps.yaml
+# Product valid; 1 Data Contract reference(s); contracts valid
+
 # M2 live gate (requires the pinned llama-server on 127.0.0.1:8081):
 UMPIRE_CALIBRATION=calibration/umpire-cal-v2.json python3 harness/test_m2.py
 # L1–L4 ok; M2 LIVE GATES: PASS
@@ -159,6 +176,12 @@ Deps: `pip install jsonschema>=4` (Python ≥3.10); else stdlib-only.
   fitted v2 artifact, validator-enforced calibrated view (see `calibration/README.md`,
   `reports/RR-M2V2-20261023.md`; v1 report `reports/RR-M2-20261023.md`). The full
   proposal M2 ODPS packaging + hub leaderboard are deferred.
+- **ODPS/ODCS packaging — Phase A: done** — one `dataset` product
+  `umpire-calcorpus-0.1` (drop `calibration/v2`) validated `compliance_level: full`
+  with `product audit` fully passed (ODCS v3.0.2 lint green); offline packaging gates
+  21/21 (`spec/test_packaging.py`); see `spec/odps-odcs-plan.md`,
+  `reports/RR-ODPS-20261023.md`. Hub trio (Phase B) and agent port (Phase C) still
+  pending; hosted runtime deferred per T14.
 - **M3 — local replay-audit: smoke done; full corpus pending** —
   `harness/replay_audit.py` re-runs selected pinned-corpus rows and compares `ref`,
   `contentHash`, probabilities, and `model_pin`; the page-table `--replay` gate
