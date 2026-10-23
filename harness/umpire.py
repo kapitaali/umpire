@@ -14,6 +14,7 @@ response. Cross-build/cross-hardware byte-stability is NOT claimed in v0.
 """
 
 import argparse
+import hashlib
 import json
 import math
 import pathlib
@@ -250,10 +251,24 @@ def decide(server_url, state, labels, pin_id, seed, ledger_path, records_path, t
     pin = PINS[pin_id]
     grammar = label_enum_grammar(labels)
     template = pin.get("template", "qwen3-hybrid")
-    if template == "chatml":
-        prompt = chatml_prompt(decision_system(labels), state.get("text", ""))
-    else:
-        prompt = qwen3_prompt(decision_system(labels), state.get("text", ""))
+    try:
+        prompt_fn = {"qwen3-hybrid": qwen3_prompt, "chatml": chatml_prompt}[template]
+    except KeyError:
+        raise RuntimeError(f"unknown template id {template!r} for pin {pin_id!r}") from None
+    want = pin.get("prompt_template_sha256")
+    if not want:
+        raise RuntimeError(
+            f"pin {pin_id!r} has no prompt_template_sha256 — template identity "
+            "is mandatory (da8ff80 template-corruption incident)"
+        )
+    got = "sha256:" + hashlib.sha256(prompt_fn("[SYSTEM]", "[TEXT]").encode("utf-8")).hexdigest()
+    if got != want:
+        raise RuntimeError(
+            f"prompt template identity mismatch for pin {pin_id!r} ({template}): "
+            f"current {got} != pinned {want} — restore the pinned template or "
+            "update the pin deliberately"
+        )
+    prompt = prompt_fn(decision_system(labels), state.get("text", ""))
     n_predict = max(96, 32 + 28 * len(sorted(set(labels))))
     raw = llama_complete(server_url, prompt, grammar, seed, n_predict=n_predict, timeout=timeout)
     text = raw.get("content", "")

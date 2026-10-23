@@ -12,7 +12,7 @@ back into it.
 - `qwen3-0.6b` — CI/speed fallback pin (Qwen3-0.6B Q8_0, apache-2.0)
 - `qwen2.5-1.5b` — pin-B for A/B pricing demos (Qwen2.5-1.5B-Instruct Q8_0, apache-2.0)
 
-Template routing is per-pin: `qwen3-hybrid` (Qwen3 think-block prefix) vs `chatml` (plain ChatML, Qwen2.5 has no think block).
+Template routing is per-pin: `qwen3-hybrid` (Qwen3 think-block prefix) vs `chatml` (plain ChatML, Qwen2.5 has no think block). Template bytes are identity-stamped per pin (`prompt_template_sha256` in `harness/pins.json`) and verified fail-hard on every `decide` — a drifted or unstamped template is a hard error, not a silent behavior change (M1c lesson after a corrupted-template incident was caught by cross-fixture provenance probing, RR-M1C).
 
 ## What it is / isn't
 
@@ -34,6 +34,16 @@ deliberately **excluded** from the ref.
 
 Normative: [`00-SPEC.md`](00-SPEC.md) · vendored schema:
 [`spec/vendor/x-cabi-0.1.schema.json`](spec/vendor/x-cabi-0.1.schema.json) (ctxvm @ `361043e`).
+
+## Use cases
+
+`umpire` is a single-round-trip typed decision primitive — `decide(state, labels) → key + probabilities + confidence`. It fits anywhere an agent needs to pick one of N caller-owned options with an auditable identity, without inventing classes or trailing off into prose. Concrete uses:
+
+- **Intent routing.** A coding agent maps an opaque user request onto labels like `{billing, technical, sales, other}` and routes to the right specialist sub-agent or tool. The `key` is guaranteed to be one of the requested labels (grammar constraint), so routing never breaks on an invented class.
+- **A/B prompt evaluation.** Run the same `(state, labels)` under two pins (e.g. `qwen3-1.7b` vs `qwen2.5-1.5b`, seed fixed). Identical response hash → a `page.fault` row naming the resident slot (priced re-decide, no waste beyond the fault); divergent hash → fault + second-slot declare. The ledger prices the waste of re-decisions automatically.
+- **Confidence-gated escalation.** The pinned `confidence` (entropy-complement, 0–1) feeds a router: high confidence → auto-handle; low confidence → escalate to a human or a larger model. Confidence is a dispersion measurement, not a correctness promise — calibration arrives at M2.
+- **Determinism audit.** Because `model_pin` and `seed` are excluded from the ref, re-deciding an identical `(state, labels)` under a different pin is a priced re-decide, not a new identity. The harness re-verifies itself end-to-end — byte-identical page-table roundtrip, cross-checked by `ctxvm replay` — and every pin's model, runner, and prompt template are hash-stamped with `decide` failing hard on template drift: "verify the pin yourself" means checkable bytes, not trust in a vendor's pin.
+- **Duplicate-decision detection.** The ref `tool:decide({labels, state})` makes identical requests share one slot. A re-request that re-lands on the same hash appends only a fault row — redundant re-decisions are measurable, not silently free.
 
 ## File map
 

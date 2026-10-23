@@ -12,11 +12,11 @@
       "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"I was charged twice this month and need it fixed now\"#7110b419)",
       "slots": [
         {
-          "contentHash": "sha256:d615c337",
-          "tokens": 44
+          "contentHash": "sha256:52114663",
+          "tokens": 45
         },
         {
-          "contentHash": "sha256:f8779b48",
+          "contentHash": "sha256:abf8ca0d",
           "tokens": 43
         }
       ],
@@ -24,17 +24,17 @@
         {
           "turn": 1,
           "source": "tool_recall",
-          "contentHash": "sha256:d615c337"
+          "contentHash": "sha256:52114663"
         },
         {
           "turn": 2,
           "source": "tool_recall",
-          "contentHash": "sha256:d615c337"
+          "contentHash": "sha256:52114663"
         },
         {
           "turn": 3,
           "source": "tool_recall",
-          "contentHash": "sha256:d615c337"
+          "contentHash": "sha256:52114663"
         }
       ]
     }
