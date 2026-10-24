@@ -5,7 +5,7 @@ caller-owned `labels` and returns one `key`, raw label probabilities, a confiden
 optional corpus-fitted calibration view, and an auditable identity. Consumes the
 [ctxvm]/xCABI trace standard; contributes nothing back into it.
 
-**Status:** M0 + M1 + M2 calibration core (v1/v2) complete; local M3 replay-audit smoke + OpenCode MCP integration verified · 2026-10-23 · **License:** Apache-2.0 · **Name:** `umpire` (working name)
+**Status:** M0 + M1 + M2 calibration core (v1/v2) complete; M3 replay audit landed (smoke + full 480-row corpus); ODPS/ODCS packaging (Phase A) + hub (Phase B) + OpenCode MCP integration verified · 2026-10-24 · **License:** Apache-2.0 · **Name:** `umpire` (working name)
 
 **M1 pin structure (three pins, all live-exercised):**
 - `qwen3-1.7b` — primary pin (Qwen3-1.7B Q8_0, apache-2.0, official GGUF)
@@ -38,7 +38,7 @@ metrics, reproduction, and limitations.
 |---|---|
 | a typed `decide(state, labels) → key + probabilities + confidence` primitive | a chat model, an agent, or a context manager |
 | an xCABI-0.1-profile decision ledger with re-decide (`page.fault`) waste semantics | a feature/plugin of ctxvm (§0 of the proposal: RFC-0 stays sealed) |
-| deterministic under a pinned model + seed + grammar-constrained decoding (M1 gate; quiescent same-build, see the M3 load caveat) | a hosted decision service (per-decision pricing at ~70 ms is the JEV reference point) |
+| deterministic under a pinned model + seed + grammar-constrained decoding (M1 gate; quiescent same-build; full-corpus audit 470/480 strict with capture-side attribution, see the M3 caveat) | a hosted decision service (per-decision pricing at ~70 ms is the JEV reference point) |
 
 ## The decision ledger (v0)
 
@@ -87,6 +87,7 @@ mcp_server.py                   dependency-free stdio MCP server (OpenCode + Her
 mcp_server_test.py              protocol/fake-runner tests for the MCP server
 README-MCP.md                   MCP setup, tool contract, calibration scope, security
 fixtures/<name>.{ledger.jsonl, records.jsonl, page-table.json}   3 synthetic triplets + 1 live A/B demo triplet
+tests/m3-replay-full/           preserved full-run M3 replay corpus (ledger 481 events + 480 records + page-table; roundtrip sha256:25b073cbc…; see reports/RR-M3FULL-20261024.md)
 reports/                        per-milestone reports + LOG
 ```
 
@@ -139,12 +140,12 @@ python3 spec/test_packaging.py
 # Ran 21 tests … OK (skipped=3 opt-in)
 
 UMPIRE_RUN_DQ_GATES=1 \
-UMPIRE_ODPS_VENV=/tmp/opencode/umpire-odps-venv/bin/open-data-products \
-UMPIRE_ODCS_VENV=/tmp/opencode/odcs-venv/bin/open-data-products \
+UMPIRE_ODPS_VENV=$HOME/.local/state/umpire/venvs/umpire-odps-venv/bin/open-data-products \
+UMPIRE_ODCS_VENV=$HOME/.local/state/umpire/venvs/odcs-venv/bin/open-data-products \
 python3 spec/test_packaging.py
-# Ran 21 tests in 5.977s — OK (0 skipped)
+# Ran 25 tests — OK (DQ gates + packaging + hub; venvs rebuilt under ~/.local/state after reboots)
 
-/tmp/opencode/odcs-venv/bin/open-data-products product audit odps/umpire-calcorpus-0.1.odps.yaml
+~/.local/state/umpire/venvs/odcs-venv/bin/open-data-products product audit odps/umpire-calcorpus-0.1.odps.yaml
 # Product valid; 1 Data Contract reference(s); contracts valid
 
 # Hub-as-code gates (Phase B; see reports/RR-HUB-20261023.md):
@@ -162,6 +163,20 @@ python3 harness/replay_audit.py \
   --corpus calibration/corpus-v2.jsonl --baseline-raw calibration/raw-v2.jsonl \
   --ids ex-012,ex-046,ex-008,ex-013,ex-016,ex-033,ex-001,ex-057
 # 8/8 strict match
+
+# M3 full 480-row audit (~104 min, pinned server required; durable work dir + output):
+python3 harness/replay_audit.py --work-dir ~/.local/state/umpire/m3/<dir> --json \
+  > ~/.local/state/umpire/m3/<dir>.json
+# 470/480 strict; 10/480 distribution-only (capture-side attribution); identity 480/480
+# — see reports/RR-M3FULL-20261024.md
+
+# structural gates on the preserved full-run corpus:
+python3 spec/validate_ledger.py tests/m3-replay-full/replay.ledger.jsonl \
+  tests/m3-replay-full/replay.records.jsonl
+# PASS (2488 checks); negatives 12/12
+python3 spec/validate_ledger.py --replay tests/m3-replay-full/replay.ledger.jsonl \
+  tests/m3-replay-full/replay.records.jsonl tests/m3-replay-full/replay.page-table.json
+# roundtrip: BYTE-IDENTICAL (sha256:25b073cbc59a5e2c)
 
 # consumption via ctxvm's own published tools (verbatim ledgers):
 #   ctxvm validate_schema.py  → SCHEMA CONFORMANCE: PASS (61 checks)
@@ -196,14 +211,18 @@ Deps: `pip install jsonschema>=4` (Python ≥3.10); else stdlib-only.
   (their SDK end to end) with a byte-identical `check` mode and 25/25 packaging
   gates (see `reports/RR-HUB-20261023.md`). Static + local per T14; llms.txt,
   agent port, and publication remain Phase C (hybrid switch).
-- **M3 — local replay-audit: smoke done; full corpus pending** —
+- **M3 — local replay-audit: smoke + full 480-row corpus done** —
   `harness/replay_audit.py` re-runs selected pinned-corpus rows and compares `ref`,
   `contentHash`, probabilities, and `model_pin`; the page-table `--replay` gate
-  remains the fast deterministic check. An 8-row v2 test smoke passes strictly under
-  quiescent load; concurrent capture load can perturb the raw distribution and hash
-  (see `reports/RR-M3-20261023.md`). T14 decided **local-only now; hybrid later**
-  (see `reports/RR-T14-20261023.md`). ODPS/ODCS packaging and the hub leaderboard
-  stay deferred until the local M3 path is settled.
+  remains the fast deterministic check. Full audit (2026-10-23): 470/480 strict,
+  10/480 distribution-only with identity 480/480; the 10 rows' replay
+  distributions reproduce bit-for-bit across three audit samples on two server
+  instances, and the divergence is attributed to capture-time concurrency
+  (capture ended before the shared-decide ledger went quiet; suspect rows are
+  latency-elevated in the capture; same signature as RR-M3's v1 ex-001).
+  Baseline raw-v2 stays frozen with the 10 rows annotated; a full quiescent v3
+  recapture is queued before any refit (see `reports/RR-M3FULL-20261024.md`).
+  T14 decided **local-only now; hybrid later** (see `reports/RR-T14-20261023.md`).
 - **MCP integration (local): verified in OpenCode** — shared dependency-free stdio
   server (`mcp_server.py`); Hermes-side lifecycle/config is owned by the separate
   Hermes integration workstream (see `README-MCP.md`,

@@ -195,11 +195,13 @@ generalization beyond this corpus.
 
 ## 5. Validation + offline tests
 
-Tooling restored from the ctxvm workaround (venvs verified installed):
+Tooling restored from the ctxvm workaround — **rebuild venvs under a durable path**
+(`~/.local/state/umpire/venvs/`) after any reboot; `/tmp`-hosted copies were lost
+(2026-10-24) and the harness tmp reaps quickly:
 
-- `/tmp/opencode/umpire-odps-venv` — Python 3.14.7, `open-data-products` 0.4.0 → manifest validation
+- `~/.local/state/umpire/venvs/umpire-odps-venv` — Python 3.14.7, `open-data-products` 0.4.0 → manifest validation
   expected `valid: true`, `compliance_level: full`, `production_ready: true`.
-- `/tmp/opencode/odcs-venv` — Python 3.12.15, `open-data-products[contracts]` (datacontract-cli) →
+- `~/.local/state/umpire/venvs/odcs-venv` — Python 3.12.15, `open-data-products[contracts]` (datacontract-cli) →
   product audit expected `passed: true` (`product_valid` + `contract_valid`, `$ref` resolved locally);
   ODCS lint green. Exact CLI invocations are pinned from `--help` at authoring.
 
@@ -280,3 +282,17 @@ Empirical corrections produced by implementation; kept here so the plan stays tr
    files. The SDK's HTML output has no KPI rendering, so the leaderboard injection is
    the umpire addition (rows from `productStrategy`, currents from the committed
    artifact + capture meta; no timestamps anywhere → two runs byte-identical).
+
+## 12. M3-full landed (2026-10-24, see RR-M3FULL-20261024)
+
+The "full-corpus replay still pending" condition from RR-M3/§7 is resolved: full
+480-row audit run 470/480 strict with identity 480/480; the 10 distribution-only
+rows reproduce bit-for-bit across three audit samples on two server instances and
+are attributed to capture-time concurrency (retracted: the earlier assumption that
+the Oct-23 audit itself ran under concurrent decide traffic — no MCP decide traffic
+was observed in either audit window). The full-run replay corpus is committed at
+`tests/m3-replay-full` (validator 2488 checks + negatives 12/12; roundtrip
+byte-identical `25b073cbc…`). Workspace decisions: v2 baseline frozen with the 10
+rows annotated; **full quiescent v3 recapture queued before any refit**; KPI
+currents and product 0.1.0 remain v2-based until v3 lands, so no manifest current
+changed in this step (only the `x-umpire.replayAudit` wording).

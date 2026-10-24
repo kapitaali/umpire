@@ -190,15 +190,20 @@ interfaces and adds no semantics to the xCABI core.
   hybrid later. The current M3 path is local replay-audit for pinned corpora, and the
   OpenCode/Hermes integration is a local stdio MCP server. No hosted endpoint,
   provider spend, ODPS/ODCS packaging, or hub leaderboard is claimed in this phase.
-- **M3 (local replay-audit, smoke tested 2026-10-23, see
-  `reports/RR-M3-20261023.md`):** `harness/replay_audit.py` re-runs selected pinned
-  corpus rows and separately checks decision identity (`ref`/`key`/`model_pin`) and
-  the raw distribution (`contentHash`/probabilities) against a committed baseline.
-  An eight-row v2 test smoke matches strictly under quiescent load.  The
-  deterministic page-table replay remains the fast gate.  Concurrent capture load
-  was observed to perturb probabilities/hash while preserving the key; the strict
-  check is therefore specified for quiescent same-build replay.  Cross-machine/
-  cross-build determinism and a full-corpus replay are not claimed yet.
+- **M3 (local replay-audit; smoke + full corpus done 2026-10-23/24, see
+  `reports/RR-M3-20261023.md`, `reports/RR-M3FULL-20261024.md`):** `harness/replay_audit.py`
+  re-runs selected pinned corpus rows and separately checks decision identity
+  (`ref`/`key`/`model_pin`) and the raw distribution (`contentHash`/probabilities)
+  against a committed baseline. Full 480-row audit: 470/480 strict, 10/480
+  distribution-only (capture-side concurrency attribution; max Δp 0.1206 with
+  unchanged argmax), identity 480/480; the 10 rows' replay distributions are
+  bit-identical across three audit samples on two server instances. The
+  deterministic page-table replay remains the fast gate; the full-run corpus is
+  committed at `tests/m3-replay-full` (validator 2488 checks + negatives 12/12;
+  roundtrip byte-identical `25b073cbc…`). Raw-probability bit-identity is claimed
+  for quiescent same-build replay; rows captured under concurrent decide traffic
+  may carry small offsets. A full quiescent v3 recapture is queued before any
+  refit; cross-machine/cross-build determinism is not claimed.
 - **ODPS/ODCS packaging — Phase A (done 2026-10-23, see `reports/RR-ODPS-20261023.md`):**
   the v2 calibration drop packaged as one `dataset` product `umpire-calcorpus-0.1`
   (0.1.0, drop `calibration/v2`): ODPS 4.1 manifest validated `compliance_level: full`

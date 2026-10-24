@@ -19,9 +19,9 @@ MANIFEST="odps/umpire-calcorpus-0.1.odps.yaml"
 ARTIFACT="calibration/umpire-cal-v2.json"
 CAPTURE="calibration/corpus-v2.capture.meta.json"
 MODE="${1:-build}"
-# Local dev: rebuilt venvs (/tmp/opencode/umpire-odps-venv). Override: UMPIRE_ODPS_SDK.
-SDK="${UMPIRE_ODPS_SDK:-/tmp/opencode/umpire-odps-venv/bin/open-data-products}"
-PY="${UMPIRE_ODPS_PY:-/tmp/opencode/umpire-odps-venv/bin/python}"
+# Local dev: durable rebuilt venvs (~/.local/state/umpire/venvs/umpire-odps-venv). Override: UMPIRE_ODPS_SDK.
+SDK="${UMPIRE_ODPS_SDK:-$HOME/.local/state/umpire/venvs/umpire-odps-venv/bin/open-data-products}"
+PY="${UMPIRE_ODPS_PY:-$HOME/.local/state/umpire/venvs/umpire-odps-venv/bin/python}"
 [[ -x "$SDK" ]] || SDK="$(command -v open-data-products || true)"
 [[ -x "$PY" ]] || PY="$(command -v python3)"
 [[ -n "${SDK:-}" && -n "${PY:-}" ]] || { echo "[umpire-hub] open-data-products SDK not found (venv or PATH)" >&2; exit 1; }

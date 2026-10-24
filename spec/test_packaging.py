@@ -13,9 +13,9 @@ Optional live gates (skipped when unset):
   UMPIRE_RUN_DQ_GATES=1   -> run the three dataQuality executable commands
                              (validator raw, validator calibrated, page-table replay)
   UMPIRE_ODPS_VENV=<bin>  -> open-data-products CLI (manifest validate)
-                             e.g. /tmp/opencode/umpire-odps-venv/bin/open-data-products
+                             e.g. ~/.local/state/umpire/venvs/umpire-odps-venv/bin/open-data-products
   UMPIRE_ODCS_VENV=<bin>  -> audit/align from a venv with open-data-products[contracts]
-                             e.g. /tmp/opencode/odcs-venv/bin/open-data-products
+                             e.g. ~/.local/state/umpire/venvs/odcs-venv/bin/open-data-products
 """
 
 import hashlib

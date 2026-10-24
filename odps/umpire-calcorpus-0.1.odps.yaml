@@ -62,13 +62,37 @@ product:
       artifact: sha256:d8f491d331dcdb866b6b382453d65c6a6cf01b5b4ca09b88b70fe85e70bcfa92
       capture_meta: sha256:d373b49c2628e0ce206ba759d80ef23ed7836922955c8b2f3cb543390f98861d
     replayAudit:
+      full_corpus: >-
+        2026-10-23 full 480-row model audit (harness/replay_audit.py, all rows):
+        470/480 strict; 10/480 distribution-only (contentHash+probabilities; max Δp
+        0.1206 with argmax unchanged, 9/10 ≤ 6.1e-3); identity ref/key/model_pin 480/480;
+        0 errors. See RR-M3FULL-20261024.
+      reproducibility: >-
+        2026-10-24 quiescent rerun of the same 10 rows on a freshly restarted pinned
+        server: distributions bit-identical to the 2026-10-23 actuals 10/10 (plus 3/3
+        rows in an interrupted partial sample), identity 10/10; divergence is between
+        the capture baseline and the replay path, not between audit runs.
+      attribution: >-
+        Capture-time concurrency: the capture session ended before 14:31:20Z while a
+        second decide client (shared MCP decide ledger alive to 14:50:20Z) plausibly
+        shared the server (latency-elevated capture rows in exactly the suspect band;
+        no MCP decide traffic during either audit window). Same pattern as the RR-M3
+        v1 ex-001 observation. No MCP decides were observed on the server during
+        either audit run.
+      structural: >-
+        Full-run replay corpus committed at tests/m3-replay-full; validator PASS
+        2488 checks + negatives 12/12; page-table roundtrip BYTE-IDENTICAL
+        (sha256:25b073cbc59a5e2c, 2402 checks); page_table_stats re-decides 0.
       quiescent_smoke: 8/8 strict match (harness/replay_audit.py, 2 test rows per label)
       note: >-
-        Raw probability distributions were load-sensitive under concurrent capture
-        (RR-M3): replay preserved ref/key/model_pin but probabilities/contentHash differed
-        under load and matched quiescently. Replay determinism is claimed for the
-        page-table roundtrip (validator --replay, byte-identical), not model behavior
-        under load. Full 480-row model replay still pending.
+        Raw probability distributions remain load-sensitive to concurrent capture:
+        rows captured while another decide client shares the pinned server can carry
+        last-digit-to-small probability offsets, so raw-probability bit-identity is
+        claimed for quiescent same-build same-machine replay only; identity
+        (ref/key/model_pin) held 480/480 under all observed conditions. The page-table
+        roundtrip stays the fast deterministic gate. Full quiescent v3 recapture
+        queued before any refit; v2 remains the calibration of record with the 10
+        annotated rows.
 
   details:
     en:
