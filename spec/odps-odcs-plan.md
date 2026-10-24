@@ -9,7 +9,8 @@ provider spend, no model calls required). Nothing here is implemented yet.
   (the complete empirically-derived gotcha list), `hub/catalog.yaml` (ODPC v1.0 catalog-as-code).
 - Parent proposal `ctxvm/projects/01-open-decision-primitive.md` §5/§6: M2 full = calibration layer +
   labeled corpus packaged ODPS + ECE/Brier KPIs + hub leaderboard.
-- Packaged payload: the v2 calibration drop family (9 files anchored by `calibration/checksums-v2.sha256`).
+- Packaged payload: the v3 calibration drop family (9 files anchored by `calibration/checksums-v3.sha256`;
+  corpus file unchanged since v2; the v2 family is retained as the annotated concurrency-affected revision).
 
 ## 1. Product definition
 
@@ -26,19 +27,20 @@ presupposes hosting/distribution of artifacts, which T14 gates.
 | UUID | `dd6c0a8a-8376-594e-a772-d8ccba457c1e` — deterministic `uuid5(NAMESPACE_URL, 'https://github.com/kapitaali/umpire/odps/umpire-calcorpus-0.1')`; shared by ODPS `contract.id` and ODCS `id` (ctxvm precedent) |
 | visibility / status | `public` / `draft` — declared drop is created at publication; repo paths resolve locally until then |
 
-Drop family (the packaged payload; `checksums-v2.sha256` is the sole integrity anchor):
+Drop family (the packaged payload; `checksums-v3.sha256` is the sole integrity anchor):
 
 | file | role |
 |---|---|
-| `calibration/corpus-v2.jsonl` | 480 examples (120/label, split 240/120/120; caller-owned routing guide in every state) |
-| `calibration/raw-v2.jsonl` | 480 fit-input decision records |
-| `calibration/corpus-v2.ledger.jsonl` | 481-event xCABI-0.1 decision ledger |
-| `calibration/corpus-v2.records.jsonl` | 480 payload-sidecar records (raw view) |
-| `calibration/corpus-v2.calibrated.records.jsonl` | calibrated sidecar on the 120 test rows |
-| `calibration/corpus-v2.page-table.json` | deterministic replay baseline (`sha256:d75a1644…`) |
-| `calibration/umpire-cal-v2.json` | fitted artifact `cal-v1:aceb881587b3b3a6`, method `isotonic/1` |
-| `calibration/corpus-v2.capture.meta.json` | capture provenance (pin echo, seed, host, hashes) |
-| `calibration/checksums-v2.sha256` | 9/9 integrity anchor |
+| `calibration/corpus-v2.jsonl` | 480 examples (120/label, split 240/120/120; caller-owned routing guide in every state; unchanged since v2) |
+| `calibration/corpus-v2.meta.json` | corpus-side authoring meta (unchanged since v2) |
+| `calibration/raw-v3.jsonl` | 480 fit-input decision records (quiescent capture) |
+| `calibration/corpus-v3.ledger.jsonl` | 481-event xCABI-0.1 decision ledger |
+| `calibration/corpus-v3.records.jsonl` | 480 payload-sidecar records (raw view) |
+| `calibration/corpus-v3.calibrated.records.jsonl` | calibrated sidecar on the 120 test rows |
+| `calibration/corpus-v3.page-table.json` | deterministic replay baseline (`sha256:25b073cbc…`, equal to the committed Oct-23 roundtrip) |
+| `calibration/umpire-cal-v3.json` | fitted artifact `cal-v1:057a5a35a9d4ec71`, method `isotonic/1` |
+| `calibration/corpus-v3.capture.meta.json` | capture provenance (pin echo, seed, host, hashes) |
+| `calibration/checksums-v3.sha256` | 9/9 integrity anchor |
 
 ## 2. Files to create
 
@@ -78,10 +80,10 @@ contract:
 
 ### 3.2 `x-umpire` sidecar (composition over extension, à la x-cabi)
 
-Values transcribed from `calibration/corpus-v2.capture.meta.json` — the manifest stays honest by echoing
+Values transcribed from `calibration/corpus-v3.capture.meta.json` — the manifest stays honest by echoing
 pin identity verbatim:
 
-- `recordProfile: xCABI-0.1-decision` (00-SPEC §2), `calibrationStatVersion: cal-v1:aceb881587b3b3a6`, `calibrationMethod: isotonic/1`
+- `recordProfile: xCABI-0.1-decision` (00-SPEC §2), `calibrationStatVersion: cal-v1:057a5a35a9d4ec71`, `calibrationMethod: isotonic/1`
 - `modelPin`: `qwen3-1.7b`, `weights_sha256 sha256:66a17017…`, `decoding json-label-enum-v0@llama.cpp-v0.7.0/sha256:0f60e0483`, `prompt_template_sha256 sha256:54852288…`, `runner_binary_sha256 sha256:0f60e048…`, `server_invocation` (verbatim)
 - `seed: 7`; capture window, `host_sha256: sha256:1e769fcd99223f5a`, platform, python
 - drop hashes: corpus/raw/ledger/records/page-table/artifact sha256 (+ `checksums_file_sha256`)
@@ -106,10 +108,10 @@ project-authored corpus, one pin/seed/machine, n=120 intervals exclude zero but 
 
 | gate | criterion | contributesToKPI |
 |---|---|---|
-| `replayDeterminismGate` | `spec/validate_ledger.py --replay` → roundtrip BYTE-IDENTICAL (`d75a1644…`) | kpi-replay-determinism |
+| `replayDeterminismGate` | `spec/validate_ledger.py --replay` → roundtrip BYTE-IDENTICAL (`25b073cbc…`) | kpi-replay-determinism |
 | `negativeConformanceGate` | negatives 12/12 raw + 12/12 calibrated | kpi-negative-conformance |
 | `calibrationFitGate` | artifact reproduces its recorded test metrics; ΔECE/ΔBrier CIs exclude 0 | kpi-calibrated-ece, kpi-calibrated-brier |
-| `checksummedReleaseGate` | `sha256sum -c calibration/checksums-v2.sha256` → 9/9 | kpi-replay-determinism |
+| `checksummedReleaseGate` | `sha256sum -c calibration/checksums-v3.sha256` → 9/9 | kpi-replay-determinism |
 | `accuracyFloorGate` | test accuracy ≥ declared target on this corpus | kpi-decision-accuracy |
 
 ### 3.4 dataQuality
@@ -122,8 +124,8 @@ Executable — named object; `spec` blocks are objects; `displayTitle` is the ar
 
 | check | command (real, local) | passCriterion | dimension |
 |---|---|---|---|
-| `replayDeterminism` | `python3 spec/validate_ledger.py --replay calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl calibration/corpus-v2.page-table.json` | roundtrip BYTE-IDENTICAL; page-table sha256 unchanged | validity 60 |
-| `calibrationParity` | `python3 spec/validate_ledger.py calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.calibrated.records.jsonl` | PASS (2608 checks); negatives 12/12 | completeness 25 |
+| `replayDeterminism` | `python3 spec/validate_ledger.py --replay calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.records.jsonl calibration/corpus-v3.page-table.json` | roundtrip BYTE-IDENTICAL; page-table sha256 unchanged | validity 60 |
+| `calibrationParity` | `python3 spec/validate_ledger.py calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.calibrated.records.jsonl` | PASS (2608 checks); negatives 12/12 | completeness 25 |
 | `redactionScan` | full-corpus token/PII scan (project-owned pattern set) | zero matches | uniqueness 15 |
 
 ### 3.5 sla (unit enum only — no `hours`)
@@ -174,9 +176,9 @@ Schemas — property sets transcribed from the real JSONL keys:
    `probabilities` (map; custom check Σ=1 across the requested labels), `confidence` [0..1],
    `ref` (pattern), `contentHash` (`sha256:[0-9a-f]{64}`), `labels`, `model_pin`, `seed`,
    `latency_ms`, `state.text`.
-3. `umpireFitRecord` (raw-v2 row): `id`, `split`, `gold`, `correct` (boolean),
+3. `umpireFitRecord` (raw-v3 row): `id`, `split`, `gold`, `correct` (boolean),
    `record` → umpireDecisionRecord.
-4. `umpireCalibrationArtifact` (umpire-cal-v2.json): `data_version` const `cal-v1:aceb881587b3b3a6`,
+4. `umpireCalibrationArtifact` (umpire-cal-v3.json): `data_version` const `cal-v1:057a5a35a9d4ec71`,
    `method` (`isotonic/1`), bin mapping, fit/test metric blocks, pin echo (self-keys transcribed at
    authoring time).
 
@@ -210,7 +212,7 @@ Tooling restored from the ctxvm workaround — **rebuild venvs under a durable p
 - all nine drop files exist and match `checksums-v2.sha256`;
 - both YAML documents parse; `version` key is the quoted string `"4.1"`;
 - contract `$ref` target exists; ODPS `contract.id` == ODCS `id` == recomputed uuid5;
-- KPI current values equal values recomputed from `calibration/umpire-cal-v2.json` + capture meta;
+- KPI current values equal values recomputed from `calibration/umpire-cal-v3.json` + capture meta;
 - DQ `executable` `spec` blocks are YAML objects; `license`/`dataHolder` are flat.
 
 SDK-dependent checks are invoked via `UMPIRE_ODPS_VENV`/`UMPIRE_ODCS_VENV` env vars when set, skipped
@@ -296,3 +298,22 @@ byte-identical `25b073cbc…`). Workspace decisions: v2 baseline frozen with the
 rows annotated; **full quiescent v3 recapture queued before any refit**; KPI
 currents and product 0.1.0 remain v2-based until v3 lands, so no manifest current
 changed in this step (only the `x-umpire.replayAudit` wording).
+
+## 13. v3 quiescent recapture + refit landed (2026-10-24, see RR-M3V3)
+
+East-queued work from §12 executed and landed: full quiescent v3 capture
+(480/480, 06:02:52Z–07:43:53Z wall 6060 s, seed 7, same pin/runner; NO MCP decide
+ledger writes inside the window). Result: 470/480 rows contentHash-identical to
+the v2 capture; the 10 suspect rows relaxed to **exactly** the replay-path values
+(`7f51d922, a36ccacd, 27caed8c, d217f706, b7ab2385, 64c4c026, b3ba1a1b,
+0d1b12d5, c7298f54, 83acdae9`) with split 5 train / 4 validation / 1 test and
+argmax unchanged everywhere; the v3 capture's own capture-time page-table hashes
+to `25b073cbc…` — byte-identical to the committed full-run replay baseline, so
+quiescent capture == quiescent replay == committed roundtrip. Refit selected
+`isotonic/1` (validation ECE 0.0466 vs temperature 0.0688) →
+`cal-v1:057a5a35a9d4ec71`; test split accuracy 0.7083 unchanged, calibrated ECE
+0.0302 (raw top 0.2473), Brier 0.1726 (raw top 0.2388), paired-bootstrap 95% CIs
+exclude zero. v3 is now the calibration of record; raw-v2 stays frozen with the
+10 rows annotated; packaging gates, validator (2488 + 12/12; calibrated family
+2608), hub regenerations, and manifest/contract rewrites all updated to the v3
+family in the same commit.

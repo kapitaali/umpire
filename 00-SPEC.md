@@ -181,15 +181,19 @@ interfaces and adds no semantics to the xCABI core.
   Calibrated records use the existing optional `calibrated` block; raw
   probabilities/identity are unchanged. A v2 expansion (480 examples, 120/label,
   240/120/120 split) preserves the v1 rows and has its own artifact
-  (`cal-v1:aceb881587b3b3a6`, isotonic/1), `checksums-v2.sha256`, and report.  On
-  its 120-example test split, ECE falls from 0.2483 raw-top / 0.2110 raw-entropy to
-  0.0267 and Brier from 0.2380 to 0.1723 at unchanged 0.7083 accuracy; the v1 n=40
-  result remains historical/directional. Full proposal M2's ODPS packaging and hub
-  leaderboard are deferred.
+  (`cal-v1:aceb881587b3b3a6`, isotonic/1), `checksums-v2.sha256`, and report;
+  its capture overlapped concurrent decide traffic on 10 rows (frozen + annotated,
+  RR-M3FULL). The 2026-10-24 quiescent v3 recapture of the unchanged corpus is now
+  the calibration of record (`cal-v1:057a5a35a9d4ec71`, isotonic/1,
+  `checksums-v3.sha256`, RR-M3V3) — on its 120-example test split, ECE falls from
+  0.2473 raw-top / 0.2106 raw-entropy to 0.0302 and Brier from 0.2388 to 0.1726 at
+  unchanged 0.7083 accuracy; the v1 n=40 result remains historical/directional.
+  ODPS/ODCS packaging (v3 drop) + hub-as-code are landed locally (RR-ODPS/RR-HUB).
 - **T14 (decided 2026-10-23, see `reports/RR-T14-20261023.md`):** local-only now;
   hybrid later. The current M3 path is local replay-audit for pinned corpora, and the
-  OpenCode/Hermes integration is a local stdio MCP server. No hosted endpoint,
-  provider spend, ODPS/ODCS packaging, or hub leaderboard is claimed in this phase.
+  OpenCode/Hermes integration is a local stdio MCP server. No hosted endpoint or
+  provider spend is claimed in this phase; ODPS/ODCS/hub are local packaging
+  artifacts, with publication gated on the hybrid switch.
 - **M3 (local replay-audit; smoke + full corpus done 2026-10-23/24, see
   `reports/RR-M3-20261023.md`, `reports/RR-M3FULL-20261024.md`):** `harness/replay_audit.py`
   re-runs selected pinned corpus rows and separately checks decision identity

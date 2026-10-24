@@ -12,7 +12,7 @@ for a smoke audit, or run the full corpus deliberately.
 
 Usage:
     python3 harness/replay_audit.py --corpus calibration/corpus-v2.jsonl \
-        --baseline-raw calibration/raw-v2.jsonl --limit 4
+        --baseline-raw calibration/raw-v3.jsonl --limit 4
     python3 harness/replay_audit.py ... --split test --label technical
     python3 harness/replay_audit.py ... --ids ex-001,ex-200 --json
 
@@ -62,7 +62,7 @@ def select_rows(rows, ids_arg, split, label, limit):
 def main(argv=None):
     ap = argparse.ArgumentParser(description="replay-audit a pinned corpus")
     ap.add_argument("--corpus", type=pathlib.Path, default=ROOT / "calibration/corpus-v2.jsonl")
-    ap.add_argument("--baseline-raw", type=pathlib.Path, default=ROOT / "calibration/raw-v2.jsonl")
+    ap.add_argument("--baseline-raw", type=pathlib.Path, default=ROOT / "calibration/raw-v3.jsonl")
     ap.add_argument("--server", default="http://127.0.0.1:8081")
     ap.add_argument("--pin", default="qwen3-1.7b")
     ap.add_argument("--seed", type=int, default=7)

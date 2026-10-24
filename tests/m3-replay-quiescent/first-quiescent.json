@@ -1,0 +1,182 @@
+[1/10] ex-232 train      gold=sales     key=billing MISMATCH
+[2/10] ex-260 validation gold=other     key=other MISMATCH
+[3/10] ex-289 validation gold=other     key=other MISMATCH
+[4/10] ex-290 train      gold=technical key=technical MISMATCH
+[5/10] ex-297 validation gold=other     key=sales MISMATCH
+[6/10] ex-302 train      gold=technical key=other MISMATCH
+[7/10] ex-308 train      gold=other     key=other MISMATCH
+[8/10] ex-342 train      gold=other     key=other MISMATCH
+[9/10] ex-345 test       gold=technical key=technical MISMATCH
+[10/10] ex-346 validation gold=other     key=other MISMATCH
+REPLAY AUDIT: FAIL (10 rows, 10 mismatches, 132.7s)
+identity checks: ref 10/10, key 10/10, model_pin 10/10; distribution checks: contentHash 0/10, probabilities 0/10
+{
+  "actual_hash": "sha256:7f51d922",
+  "actual_key": "billing",
+  "checks": {
+    "contentHash": false,
+    "key": true,
+    "model_pin": true,
+    "probabilities": false,
+    "ref": true
+  },
+  "expected_hash": "sha256:99750ff1",
+  "expected_key": "billing",
+  "gold": "sales",
+  "id": "ex-232",
+  "ok": false,
+  "split": "train"
+}
+{
+  "actual_hash": "sha256:a36ccacd",
+  "actual_key": "other",
+  "checks": {
+    "contentHash": false,
+    "key": true,
+    "model_pin": true,
+    "probabilities": false,
+    "ref": true
+  },
+  "expected_hash": "sha256:e640c31a",
+  "expected_key": "other",
+  "gold": "other",
+  "id": "ex-260",
+  "ok": false,
+  "split": "validation"
+}
+{
+  "actual_hash": "sha256:27caed8c",
+  "actual_key": "other",
+  "checks": {
+    "contentHash": false,
+    "key": true,
+    "model_pin": true,
+    "probabilities": false,
+    "ref": true
+  },
+  "expected_hash": "sha256:ce13333f",
+  "expected_key": "other",
+  "gold": "other",
+  "id": "ex-289",
+  "ok": false,
+  "split": "validation"
+}
+{
+  "actual_hash": "sha256:d217f706",
+  "actual_key": "technical",
+  "checks": {
+    "contentHash": false,
+    "key": true,
+    "model_pin": true,
+    "probabilities": false,
+    "ref": true
+  },
+  "expected_hash": "sha256:5f816839",
+  "expected_key": "technical",
+  "gold": "technical",
+  "id": "ex-290",
+  "ok": false,
+  "split": "train"
+}
+{
+  "actual_hash": "sha256:b7ab2385",
+  "actual_key": "sales",
+  "checks": {
+    "contentHash": false,
+    "key": true,
+    "model_pin": true,
+    "probabilities": false,
+    "ref": true
+  },
+  "expected_hash": "sha256:99f2a181",
+  "expected_key": "sales",
+  "gold": "other",
+  "id": "ex-297",
+  "ok": false,
+  "split": "validation"
+}
+{
+  "actual_hash": "sha256:64c4c026",
+  "actual_key": "other",
+  "checks": {
+    "contentHash": false,
+    "key": true,
+    "model_pin": true,
+    "probabilities": false,
+    "ref": true
+  },
+  "expected_hash": "sha256:922e6caa",
+  "expected_key": "other",
+  "gold": "technical",
+  "id": "ex-302",
+  "ok": false,
+  "split": "train"
+}
+{
+  "actual_hash": "sha256:b3ba1a1b",
+  "actual_key": "other",
+  "checks": {
+    "contentHash": false,
+    "key": true,
+    "model_pin": true,
+    "probabilities": false,
+    "ref": true
+  },
+  "expected_hash": "sha256:0c1e5a7d",
+  "expected_key": "other",
+  "gold": "other",
+  "id": "ex-308",
+  "ok": false,
+  "split": "train"
+}
+{
+  "actual_hash": "sha256:0d1b12d5",
+  "actual_key": "other",
+  "checks": {
+    "contentHash": false,
+    "key": true,
+    "model_pin": true,
+    "probabilities": false,
+    "ref": true
+  },
+  "expected_hash": "sha256:104c200d",
+  "expected_key": "other",
+  "gold": "other",
+  "id": "ex-342",
+  "ok": false,
+  "split": "train"
+}
+{
+  "actual_hash": "sha256:c7298f54",
+  "actual_key": "technical",
+  "checks": {
+    "contentHash": false,
+    "key": true,
+    "model_pin": true,
+    "probabilities": false,
+    "ref": true
+  },
+  "expected_hash": "sha256:dfeaa594",
+  "expected_key": "technical",
+  "gold": "technical",
+  "id": "ex-345",
+  "ok": false,
+  "split": "test"
+}
+{
+  "actual_hash": "sha256:83acdae9",
+  "actual_key": "other",
+  "checks": {
+    "contentHash": false,
+    "key": true,
+    "model_pin": true,
+    "probabilities": false,
+    "ref": true
+  },
+  "expected_hash": "sha256:2a7c6ad1",
+  "expected_key": "other",
+  "gold": "other",
+  "id": "ex-346",
+  "ok": false,
+  "split": "validation"
+}

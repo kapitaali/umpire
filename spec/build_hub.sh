@@ -8,7 +8,7 @@
 #   3. $ref rewritten hub-relative (../odps/…) — manifest stays the single source
 #   4. release-gate KPI section injected into index.html (rows parsed from the
 #      manifest's productStrategy; current values derived from
-#      calibration/umpire-cal-v2.json + corpus-v2.capture.meta.json)
+#      calibration/umpire-cal-v3.json + corpus-v3.capture.meta.json)
 #   5. committed catalog re-validated (validate --json → valid:true) + odpc-summary
 # Idempotent: the SDK emits no timestamps and all numbers come from committed
 # files → two runs are byte-identical. `spec/build_hub.sh check` rebuilds to a
@@ -16,8 +16,8 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MANIFEST="odps/umpire-calcorpus-0.1.odps.yaml"
-ARTIFACT="calibration/umpire-cal-v2.json"
-CAPTURE="calibration/corpus-v2.capture.meta.json"
+ARTIFACT="calibration/umpire-cal-v3.json"
+CAPTURE="calibration/corpus-v3.capture.meta.json"
 MODE="${1:-build}"
 # Local dev: durable rebuilt venvs (~/.local/state/umpire/venvs/umpire-odps-venv). Override: UMPIRE_ODPS_SDK.
 SDK="${UMPIRE_ODPS_SDK:-$HOME/.local/state/umpire/venvs/umpire-odps-venv/bin/open-data-products}"
@@ -114,12 +114,13 @@ for kpi, block in blocks.items():
 section = (
     '<section class="odp-section"><h2>Release-gate KPIs (from productStrategy)</h2>'
     '<article class="odp-card"><table class="odp-kpi"><thead><tr>'
-    '<th>KPI</th><th>Target</th><th>Current (drop calibration/v2)</th><th>Calculation</th>'
+    '<th>KPI</th><th>Target</th><th>Current (drop calibration/v3)</th><th>Calculation</th>'
     f'</tr></thead><tbody>{"".join(rows)}</tbody></table>'
     '<p>Honesty: targets are release-gate floors/ceilings derived from the current '
-    'v2 numbers — declared gates, not model-performance promises. Single project-authored '
-    'corpus, one pin/seed/machine/runner build; n=120 test split (see RR-M2V2/RR-M3). '
-    'Values tracked in <code>calibration/umpire-cal-v2.json</code>+ capture metadata; '
+    'v3 numbers (quiescent recapture) — declared gates, not model-performance promises. '
+    'Single project-authored '
+    'corpus, one pin/seed/machine/runner build; n=120 test split (see RR-M3V3/RR-M3FULL). '
+    'Values tracked in <code>calibration/umpire-cal-v3.json</code>+ capture metadata; '
     'rebuild must be byte-identical (<code>spec/build_hub.sh check</code>).</p>'
     '</article></section>'
 )

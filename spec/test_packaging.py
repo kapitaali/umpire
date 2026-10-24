@@ -6,7 +6,7 @@ Stdlib-only offline checks, always runnable:
 Guards the manifest + contract invariants (the ctxvm-validated gotchas), the
 checksummed drop integrity, corpus/record shape claims made by the ODCS contract,
 token/PII redaction (the `redactionScan` DQ check), and KPI/current-value parity
-against calibration/umpire-cal-v2.json + capture metadata (the `metric-parity`
+against calibration/umpire-cal-v3.json + capture metadata (the `metric-parity`
 custom check).
 
 Optional live gates (skipped when unset):
@@ -29,22 +29,22 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 MANIFEST = REPO / "odps" / "umpire-calcorpus-0.1.odps.yaml"
 CONTRACT = REPO / "contracts" / "umpire-calcorpus-0.1.odcs.yaml"
-CHECKSUMS = REPO / "calibration" / "checksums-v2.sha256"
-ARTIFACT = REPO / "calibration" / "umpire-cal-v2.json"
-CAPTURE_META = REPO / "calibration" / "corpus-v2.capture.meta.json"
+CHECKSUMS = REPO / "calibration" / "checksums-v3.sha256"
+ARTIFACT = REPO / "calibration" / "umpire-cal-v3.json"
+CAPTURE_META = REPO / "calibration" / "corpus-v3.capture.meta.json"
 
 PRODUCT_UUID_SOURCE = "https://github.com/kapitaali/umpire/odps/umpire-calcorpus-0.1"
 
 DROP_FILES = [
-    "calibration/corpus-v2.jsonl",
-    "calibration/corpus-v2.calibrated.records.jsonl",
-    "calibration/corpus-v2.capture.meta.json",
-    "calibration/corpus-v2.ledger.jsonl",
-    "calibration/corpus-v2.meta.json",
-    "calibration/corpus-v2.page-table.json",
-    "calibration/corpus-v2.records.jsonl",
-    "calibration/raw-v2.jsonl",
-    "calibration/umpire-cal-v2.json",
+    "calibration/corpus-v2.jsonl",          # corpus file unchanged since v2
+    "calibration/corpus-v2.meta.json",      # corpus-side meta (authoring-time)
+    "calibration/corpus-v3.calibrated.records.jsonl",
+    "calibration/corpus-v3.capture.meta.json",
+    "calibration/corpus-v3.ledger.jsonl",
+    "calibration/corpus-v3.page-table.json",
+    "calibration/corpus-v3.records.jsonl",
+    "calibration/raw-v3.jsonl",
+    "calibration/umpire-cal-v3.json",
 ]
 
 # PAT / secret / credential patterns; the redactionScan DQ check claims zero matches.
@@ -102,7 +102,7 @@ def block_value(block: str, key: str):
 class DropIntegrity(unittest.TestCase):
     def test_all_nine_checksummed_files_match(self):
         lines = [l for l in CHECKSUMS.read_text().splitlines() if l.strip()]
-        self.assertEqual(len(lines), 9, "checksums-v2 must list exactly 9 artifacts")
+        self.assertEqual(len(lines), 9, "checksums-v3 must list exactly 9 artifacts")
         seen = set()
         for line in lines:
             digest, rel = line.split()
@@ -147,7 +147,7 @@ class DropIntegrity(unittest.TestCase):
     def test_decision_records_shape_and_uniqueness(self):
         refs = set()
         rows = 0
-        with (REPO / "calibration/corpus-v2.records.jsonl").open() as f:
+        with (REPO / "calibration/corpus-v3.records.jsonl").open() as f:
             for line in f:
                 row = json.loads(line)
                 extra = set(row) - RECORD_KEYS
@@ -165,8 +165,8 @@ class DropIntegrity(unittest.TestCase):
         self.assertEqual(len(refs), 480, "ref must be unique (one ref per fresh decision)")
 
     def test_calibrated_sidecar_only_semantics(self):
-        raw = [json.loads(l) for l in (REPO / "calibration/corpus-v2.records.jsonl").read_text().splitlines()]
-        with (REPO / "calibration/corpus-v2.calibrated.records.jsonl").open() as f:
+        raw = [json.loads(l) for l in (REPO / "calibration/corpus-v3.records.jsonl").read_text().splitlines()]
+        with (REPO / "calibration/corpus-v3.calibrated.records.jsonl").open() as f:
             cal = [json.loads(l) for l in f]
         self.assertEqual(len(cal), 480)
         with_sidecar = [r for r in cal if "calibrated" in r]
@@ -174,7 +174,7 @@ class DropIntegrity(unittest.TestCase):
         self.assertEqual(len(with_sidecar), 120, "calibrated block exists on test rows only")
         self.assertEqual(len(without), 360)
         for row in with_sidecar:
-            self.assertEqual(row["calibrated"]["data_version"], "cal-v1:aceb881587b3b3a6")
+            self.assertEqual(row["calibrated"]["data_version"], "cal-v1:057a5a35a9d4ec71")
             self.assertEqual(row["calibrated"]["method"], "isotonic/1")
         # every calibrated row matches its raw sibling field-for-field except the sidecar
         base = [{k: v for k, v in r.items() if k != "calibrated"} for r in raw]
@@ -183,12 +183,12 @@ class DropIntegrity(unittest.TestCase):
             self.assertIn(stripped, base, "calibrated record must carry its raw sibling")
 
     def test_ledger_and_fit_counts(self):
-        with (REPO / "calibration/corpus-v2.ledger.jsonl").open() as f:
+        with (REPO / "calibration/corpus-v3.ledger.jsonl").open() as f:
             ledger_lines = sum(1 for _ in f)
         self.assertEqual(ledger_lines, 481)
         fit_rows = 0
         fit_ids = set()
-        with (REPO / "calibration/raw-v2.jsonl").open() as f:
+        with (REPO / "calibration/raw-v3.jsonl").open() as f:
             for line in f:
                 row = json.loads(line)
                 self.assertEqual(set(row), FIT_KEYS)
@@ -265,14 +265,14 @@ class ContractAndFixtures(unittest.TestCase):
             pin["weights_hash"], pin["decoding"], pin["prompt_template_sha256"],
             pin["runner_binary_sha256"], meta["seed"], meta["hashes"]["page_table_sha256"],
             meta["hashes"]["corpus_sha256"] if "corpus_sha256" in meta["hashes"] else meta["corpus"]["sha256"],
-            "cal-v1:aceb881587b3b3a6",
+            "cal-v1:057a5a35a9d4ec71",
         ):
             self.assertIn(str(value), m, f"x-umpire must echo {value}")
 
     def test_contract_referenced_gates_exist(self):
         c = contract_text()
         self.assertIn("python3 spec/test_packaging.py", c)
-        self.assertIn("sha256sum -c calibration/checksums-v2.sha256", c)
+        self.assertIn("sha256sum -c calibration/checksums-v3.sha256", c)
         self.assertIn("python3 spec/validate_ledger.py --replay", c)
         self.assertIn("negative corpus 12/12", c)
 
@@ -296,14 +296,14 @@ class KpiParity(unittest.TestCase):
         self.test = self.art["metrics"]["test"]
 
     def test_artifact_metrics_match_reported_values(self):
-        self.assertEqual(self.art["data_version"], "cal-v1:aceb881587b3b3a6")
+        self.assertEqual(self.art["data_version"], "cal-v1:057a5a35a9d4ec71")
         self.assertEqual(self.art["method"], "isotonic/1")
         self.assertEqual(self.test["n"], 120)
-        self.assertAlmostEqual(self.test["calibrated"]["ece"], 0.026684, places=6)
-        self.assertAlmostEqual(self.test["calibrated"]["brier"], 0.172292, places=6)
+        self.assertAlmostEqual(self.test["calibrated"]["ece"], 0.030163, places=6)
+        self.assertAlmostEqual(self.test["calibrated"]["brier"], 0.172597, places=6)
         self.assertAlmostEqual(self.test["accuracy"], 0.708333, places=6)
-        self.assertAlmostEqual(self.test["raw_top_probability"]["ece"], 0.248294, places=6)
-        self.assertAlmostEqual(self.test["raw_top_probability"]["brier"], 0.238044, places=6)
+        self.assertAlmostEqual(self.test["raw_top_probability"]["ece"], 0.247289, places=6)
+        self.assertAlmostEqual(self.test["raw_top_probability"]["brier"], 0.238785, places=6)
 
     def test_manifest_kpi_targets_hold_against_artifact(self):
         blocks = kpi_blocks(manifest_text())
@@ -355,7 +355,7 @@ class HubGates(unittest.TestCase):
         for kpi in ("kpi-calibrated-ece", "kpi-replay-determinism", "kpi-negative-conformance",
                     "kpi-calibrated-brier", "kpi-decision-accuracy"):
             self.assertIn(kpi, h)
-        for marker in ("2.67%", "17.23%", "70.83%", "12/12 raw + 12/12 calibrated",
+        for marker in ("3.02%", "17.26%", "70.83%", "12/12 raw + 12/12 calibrated",
                        "480/480, 0 re-decides"):
             self.assertIn(marker, h)
         self.assertIn("not model-performance promises", h)
@@ -383,13 +383,13 @@ class OptionalLiveGates(unittest.TestCase):
         if not os.environ.get("UMPIRE_RUN_DQ_GATES"):
             self.skipTest("set UMPIRE_RUN_DQ_GATES=1 to run the DQ executable gates")
         base = ["python3", "spec/validate_ledger.py"]
-        p1 = self._run(base + ["calibration/corpus-v2.ledger.jsonl", "calibration/corpus-v2.records.jsonl"])
+        p1 = self._run(base + ["calibration/corpus-v3.ledger.jsonl", "calibration/corpus-v3.records.jsonl"])
         self.assertEqual(p1.returncode, 0, p1.stdout[-400:])
-        p2 = self._run(base + ["calibration/corpus-v2.ledger.jsonl", "calibration/corpus-v2.calibrated.records.jsonl"])
+        p2 = self._run(base + ["calibration/corpus-v3.ledger.jsonl", "calibration/corpus-v3.calibrated.records.jsonl"])
         self.assertEqual(p2.returncode, 0, p2.stdout[-400:])
-        p3 = self._run(base + ["--replay", "calibration/corpus-v2.ledger.jsonl",
-                               "calibration/corpus-v2.records.jsonl",
-                               "calibration/corpus-v2.page-table.json"])
+        p3 = self._run(base + ["--replay", "calibration/corpus-v3.ledger.jsonl",
+                               "calibration/corpus-v3.records.jsonl",
+                               "calibration/corpus-v3.page-table.json"])
         self.assertEqual(p3.returncode, 0, p3.stdout[-400:])
         self.assertIn("BYTE-IDENTICAL", p3.stdout)
         outs = p1.stdout + p2.stdout

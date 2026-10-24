@@ -19,26 +19,28 @@ apiVersion: v3.0.2
 description:
   purpose: >-
     Define the required contents and quality of the umpire Calibration Corpus 0.1
-    (drop calibration/v2): 480 project-authored support-intent examples (4 labels,
-    240/120/120), 480 live decisions captured from the pinned, hash-stamped Qwen3-1.7B
-    local GGUF (seed 7) under the json-label-enum-v0 grammar, the xCABI-0.1 decision
-    ledger and payload records, the isotonic calibration artifact
-    (cal-v1:aceb881587b3b3a6), the calibrated sidecar on the 120 untouched test rows,
+    (drop calibration/v3, the quiescent recapture of the unchanged v2 corpus): 480
+    project-authored support-intent examples (4 labels, 240/120/120), 480 live
+    decisions captured from the pinned, hash-stamped Qwen3-1.7B local GGUF (seed 7)
+    under the json-label-enum-v0 grammar, the xCABI-0.1 decision ledger and payload
+    records, the isotonic calibration artifact
+    (cal-v1:057a5a35a9d4ec71), the calibrated sidecar on the 120 untouched test rows,
     and the deterministic page-table replay baseline.
   usage: >-
-    Consumers can rely on every drop artifact matching calibration/checksums-v2.sha256,
-    on the page-table replay being byte-identical (sha256:d75a1644…), on validator PASS
+    Consumers can rely on every drop artifact matching calibration/checksums-v3.sha256,
+    on the page-table replay being byte-identical (sha256:25b073cbc…), on validator PASS
     with a 12/12 negative corpus (raw and calibrated), on identity fields
     (ref/key/model_pin) replay-stable, and on raw probabilities / ref / contentHash being
     unchanged by calibration (the calibrated block is an optional sidecar keyed
-    cal-v1:aceb881587b3b3a6, present on test rows only).
+    cal-v1:057a5a35a9d4ec71, present on test rows only).
   limitations: >-
     This contract claims packaging integrity and machine-verifiable gates — not model
     accuracy outcomes (those live in the ODPS productStrategy KPIs) and not correctness
     of the artifact's estimates. Single project-authored corpus, one pin/label-set/
     seed/machine/runner build; accuracy is not comparable across corpus revisions; raw
-    probability distributions were load-sensitive under concurrent capture (RR-M3) and
-    full 480-row model replay is still pending. Do not transfer the artifact to another
+    probability distributions were load-sensitive under concurrent capture (RR-M3, now
+    CONFIRMED: the quiescent v3 recapture returned 470/480 content-identical rows and
+    10/10 exactly the replay-path values). Do not transfer the artifact to another
     model or domain without re-fitting.
 schema:
   - name: umpireCalibrationExample
@@ -62,17 +64,17 @@ schema:
         type: custom
         engine: umpire
         implementation:
-          command: python3 spec/validate_ledger.py --replay calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl calibration/corpus-v2.page-table.json
+          command: python3 spec/validate_ledger.py --replay calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.records.jsonl calibration/corpus-v3.page-table.json
           passCriterion: roundtrip BYTE-IDENTICAL; page-table sha256 unchanged
       - name: drop-checksums-verify
-        description: Every file in the drop matches calibration/checksums-v2.sha256.
+        description: Every file in the drop matches calibration/checksums-v3.sha256.
         dimension: conformity
         severity: error
         businessImpact: operational
         type: custom
         engine: umpire
         implementation:
-          command: sha256sum -c calibration/checksums-v2.sha256
+          command: sha256sum -c calibration/checksums-v3.sha256
           passCriterion: 9/9 OK
     properties:
       - name: id
@@ -122,8 +124,8 @@ schema:
     logicalType: object
     physicalType: table
     description: >-
-      One decision per JSONL line (calibration/corpus-v2.records.jsonl raw view;
-      corpus-v2.calibrated.records.jsonl carries the optional calibrated block on the
+      One decision per JSONL line (calibration/corpus-v3.records.jsonl raw view;
+      corpus-v3.calibrated.records.jsonl carries the optional calibrated block on the
       120 test rows). Minted by the harness into the xCABI-0.1 ledger; the ledger is the
       replay source of truth and the page-table baseline is the replay target.
     tags:
@@ -138,7 +140,7 @@ schema:
         type: custom
         engine: umpire
         implementation:
-          command: python3 spec/validate_ledger.py --replay calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl calibration/corpus-v2.page-table.json
+          command: python3 spec/validate_ledger.py --replay calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.records.jsonl calibration/corpus-v3.page-table.json
           passCriterion: roundtrip BYTE-IDENTICAL; page-table sha256 unchanged
       - name: ledger-conformance
         description: >-
@@ -150,7 +152,7 @@ schema:
         type: custom
         engine: umpire
         implementation:
-          command: python3 spec/validate_ledger.py calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.calibrated.records.jsonl
+          command: python3 spec/validate_ledger.py calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.calibrated.records.jsonl
           passCriterion: PASS (2608 checks); negative corpus 12/12
       - name: redaction-scan
         description: Zero secret/token/PII pattern matches anywhere in the drop.
@@ -241,7 +243,7 @@ schema:
         required: false
         description: >-
           Calibration sidecar {confidence, data_version, method}; present on test rows
-          only; data_version cal-v1:aceb881587b3b3a6, method isotonic/1.
+          only; data_version cal-v1:057a5a35a9d4ec71, method isotonic/1.
 
   - name: umpireFitRecord
     logicalType: object
@@ -261,7 +263,7 @@ schema:
         type: custom
         engine: umpire
         implementation:
-          command: python3 spec/validate_ledger.py calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl
+          command: python3 spec/validate_ledger.py calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.records.jsonl
           passCriterion: PASS (2488 checks); returns match counts
     properties:
       - name: id
@@ -302,7 +304,7 @@ schema:
     logicalType: object
     physicalType: table
     description: >-
-      The fitted calibration artifact (calibration/umpire-cal-v2.json, single JSON
+      The fitted calibration artifact (calibration/umpire-cal-v3.json, single JSON
       document): isotonic/1 mapping, selection provenance (temperature vs isotonic on
       validation ECE), test and fit-in-sample metric blocks, pin echo, and limitations.
       Estimates P(key correct); not a correctness guarantee; per pin/label-set/seed/machine.
@@ -330,7 +332,7 @@ schema:
       - name: data_version
         logicalType: string
         required: true
-        description: Calibration statistic version key (cal-v1:aceb881587b3b3a6); pinned alongside the model pin.
+        description: Calibration statistic version key (cal-v1:057a5a35a9d4ec71); pinned alongside the model pin.
         classification: public
       - name: method
         logicalType: string

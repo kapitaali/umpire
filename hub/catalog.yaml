@@ -16,21 +16,23 @@ catalog:
     name:
       en: umpire Calibration Corpus
     description:
-      en: "The umpire M2 calibration corpus v2 drop: 480 project-authored support-intent\
-        \ examples (4 labels, 120/label, split 240/120/120), the caller-owned routing\
-        \ guide inside every state, 480 live decisions captured from a pinned, hash-stamped\
-        \ Qwen3-1.7B local GGUF (seed 7) under a JSON-schema constrained grammar,\
-        \ a 481-event xCABI-0.1 decision ledger, 480 payload records, an isotonic\
-        \ calibration artifact (cal-v1:aceb881587b3b3a6), a calibrated sidecar on\
-        \ the 120 untouched test rows, and the deterministic page-table replay baseline.\
-        \ On the test split, isotonic calibration reduces ECE 0.2483 (raw top) \u2192\
-        \ 0.0267 and Brier 0.2380 \u2192 0.1723 with accuracy unchanged (0.7083);\
-        \ paired-bootstrap 95% CIs exclude zero. Honest limits: single project-authored\
-        \ corpus, one pin/seed/machine/runner build, n=120 directional vs the retained\
-        \ v1 n=40 caveat; raw probabilities, ref and contentHash are unchanged by\
-        \ calibration; accuracy is not comparable across corpus revisions (v2 rows\
-        \ are deliberately harder); the artifact estimates P(key correct) \u2014 it\
-        \ is not a correctness guarantee."
+      en: "The umpire M2 calibration corpus v3 drop (quiescent recapture of the same\
+        \ v2 corpus): 480 project-authored support-intent examples (4 labels, 120/label,\
+        \ split 240/120/120; corpus file unchanged across v2 \u2192 v3), the caller-owned\
+        \ routing guide inside every state, 480 live decisions captured from a pinned,\
+        \ hash-stamped Qwen3-1.7B local GGUF (seed 7) under a JSON-schema constrained\
+        \ grammar with ZERO concurrent decide traffic, a 481-event xCABI-0.1 decision\
+        \ ledger, 480 payload records, an isotonic calibration artifact (cal-v1:057a5a35a9d4ec71),\
+        \ a calibrated sidecar on the 120 untouched test rows, and the deterministic\
+        \ page-table replay baseline (byte-identical to the committed Oct-23 roundtrip,\
+        \ sha256:25b073cbc\u2026). On the test split, isotonic calibration reduces\
+        \ ECE 0.2473 (raw top) \u2192 0.0302 and Brier 0.2388 \u2192 0.1726 with accuracy\
+        \ unchanged (0.7083); paired-bootstrap 95% CIs exclude zero. Honest limits:\
+        \ single project-authored corpus, one pin/seed/machine/runner build, n=120\
+        \ directional vs the retained v1 n=40 caveat; raw probabilities, ref and contentHash\
+        \ are unchanged by calibration; accuracy is not comparable across corpus revisions\
+        \ (v2 rows are deliberately harder); the artifact estimates P(key correct)\
+        \ \u2014 it is not a correctness guarantee."
     productModel:
       standard: ODPS
       version: '4.1'

@@ -20,12 +20,15 @@ few-shot routing guide; v2 preserves those rows and adds 320 harder examples for
 **480-example, 240/120/120** corpus with a **120-example test set**. Temperature
 scaling and isotonic are fitted on train, selected on validation ECE, refit on
 train+validation, and evaluated once on test. The current artifact
-(`calibration/umpire-cal-v2.json`) is `cal-v1:aceb881587b3b3a6` (`isotonic/1`); the
-v1 artifact remains historical (`cal-v1:caf6a04f9e94b9a2`). Calibrated records use
+(`calibration/umpire-cal-v3.json`) is `cal-v1:057a5a35a9d4ec71` (`isotonic/1`) — the
+2026-10-24 quiescent recapture of the unchanged v2 corpus (raw-v2 is retained as the
+annotated concurrency-affected revision); the v1 artifact remains historical
+(`cal-v1:caf6a04f9e94b9a2`) alongside the v2 artifact
+(`cal-v1:aceb881587b3b3a6`). Calibrated records use
 the existing optional `calibrated` block, and the validator recomputes it from the
-raw distribution. On the v2 120-example test split, accuracy is 0.7083, ECE is
-**0.0267** (raw entropy-complement 0.2110 / raw top 0.2483), and Brier is **0.1723**
-(raw top 0.2380). The paired-bootstrap 95% intervals exclude zero for both deltas
+raw distribution. On the v3 120-example test split, accuracy is 0.7083, ECE is
+**0.0302** (raw entropy-complement 0.2106 / raw top 0.2473), and Brier is **0.1726**
+(raw top 0.2388). The paired-bootstrap 95% intervals exclude zero for both deltas
 vs raw top, but this is still one project-authored corpus, pin, seed, and machine;
 the v1 n=40 result remains directional and is not retroactively upgraded. Raw
 probabilities and decision identity are unchanged. See
@@ -121,19 +124,19 @@ python3 spec/validate_ledger.py \
 sha256sum -c calibration/checksums.sha256
 # 9 data artifacts: OK
 
-# v2 calibration gates:
+# v3 calibration gates (current drop; quiescent recapture — corpus file unchanged since v2):
 python3 spec/validate_ledger.py \
-  calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl
+  calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.records.jsonl
 # PASS (2488 checks; negatives 12/12)
 python3 spec/validate_ledger.py \
-  calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.calibrated.records.jsonl
+  calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.calibrated.records.jsonl
 # PASS (2608 checks; negatives 12/12)
 python3 spec/validate_ledger.py --replay \
-  calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl \
-  calibration/corpus-v2.page-table.json
-# roundtrip: BYTE-IDENTICAL
-sha256sum -c calibration/checksums-v2.sha256
-# 9 data artifacts: OK
+  calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.records.jsonl \
+  calibration/corpus-v3.page-table.json
+# roundtrip: BYTE-IDENTICAL (same `25b073cbc…` as the committed full-run replay baseline)
+sha256sum -c calibration/checksums-v3.sha256
+# 9 data artifacts: OK (v2 family also verifies: sha256sum -c calibration/checksums-v2.sha256)
 
 # ODPS/ODCS packaging gates (Phase A; see reports/RR-ODPS-20261023.md):
 python3 spec/test_packaging.py
@@ -155,12 +158,12 @@ spec/build_hub.sh check
 # check OK: regenerated hub/ is byte-identical to the committed files
 
 # M2 live gate (requires the pinned llama-server on 127.0.0.1:8081):
-UMPIRE_CALIBRATION=calibration/umpire-cal-v2.json python3 harness/test_m2.py
+UMPIRE_CALIBRATION=calibration/umpire-cal-v3.json python3 harness/test_m2.py
 # L1–L4 ok; M2 LIVE GATES: PASS
 
 # M3 quiescent replay-audit smoke:
 python3 harness/replay_audit.py \
-  --corpus calibration/corpus-v2.jsonl --baseline-raw calibration/raw-v2.jsonl \
+  --corpus calibration/corpus-v2.jsonl --baseline-raw calibration/raw-v3.jsonl \
   --ids ex-012,ex-046,ex-008,ex-013,ex-016,ex-033,ex-001,ex-057
 # 8/8 strict match
 
@@ -220,8 +223,11 @@ Deps: `pip install jsonschema>=4` (Python ≥3.10); else stdlib-only.
   instances, and the divergence is attributed to capture-time concurrency
   (capture ended before the shared-decide ledger went quiet; suspect rows are
   latency-elevated in the capture; same signature as RR-M3's v1 ex-001).
-  Baseline raw-v2 stays frozen with the 10 rows annotated; a full quiescent v3
-  recapture is queued before any refit (see `reports/RR-M3FULL-20261024.md`).
+  Baseline raw-v2 stays frozen with the 10 rows annotated. The queued quiescent
+  v3 recapture **landed 2026-10-24** (`reports/RR-M3V3-20261024.md`): 470/480
+  content-identical to v2, 10/10 exactly the replay-path values, capture-time
+  page-table byte-identical to the committed roundtrip; v3
+  (`cal-v1:057a5a35a9d4ec71`) is now the calibration of record.
   T14 decided **local-only now; hybrid later** (see `reports/RR-T14-20261023.md`).
 - **MCP integration (local): verified in OpenCode** — shared dependency-free stdio
   server (`mcp_server.py`); Hermes-side lifecycle/config is owned by the separate

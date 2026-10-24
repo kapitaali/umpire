@@ -1,0 +1,4817 @@
+{
+  "format": "decide-page-table/0.1",
+  "session": {
+    "agentId": "umpire",
+    "model": "qwen3-1.7b",
+    "provider": "local",
+    "budgetTokens": 0,
+    "tokenizerId": "apx4-char"
+  },
+  "pages": [
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#000ac582)",
+      "slots": [
+        {
+          "contentHash": "sha256:9b14d143",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#00ff0336)",
+      "slots": [
+        {
+          "contentHash": "sha256:86a7b9af",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#01cf4544)",
+      "slots": [
+        {
+          "contentHash": "sha256:e15dbc11",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#01d3e7f7)",
+      "slots": [
+        {
+          "contentHash": "sha256:85f07c0f",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#02733720)",
+      "slots": [
+        {
+          "contentHash": "sha256:4ddbe1ad",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#027790a2)",
+      "slots": [
+        {
+          "contentHash": "sha256:931dac8d",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#02ecc0b8)",
+      "slots": [
+        {
+          "contentHash": "sha256:2aa1354d",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#045184a0)",
+      "slots": [
+        {
+          "contentHash": "sha256:722ab1ee",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#04aab4ff)",
+      "slots": [
+        {
+          "contentHash": "sha256:eede6a87",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#050db017)",
+      "slots": [
+        {
+          "contentHash": "sha256:c63a2d7d",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#05c811f6)",
+      "slots": [
+        {
+          "contentHash": "sha256:2f26f9cd",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#05e9a2f9)",
+      "slots": [
+        {
+          "contentHash": "sha256:4ac8c1f8",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#062f1b42)",
+      "slots": [
+        {
+          "contentHash": "sha256:27caed8c",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#067eb960)",
+      "slots": [
+        {
+          "contentHash": "sha256:0f0cafa9",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#077e0240)",
+      "slots": [
+        {
+          "contentHash": "sha256:4d71db59",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0789b19a)",
+      "slots": [
+        {
+          "contentHash": "sha256:3d75e9ea",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0791484d)",
+      "slots": [
+        {
+          "contentHash": "sha256:79d38e2d",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#07d59eca)",
+      "slots": [
+        {
+          "contentHash": "sha256:7d85afd0",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#07e0454c)",
+      "slots": [
+        {
+          "contentHash": "sha256:c6035d42",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#089703d4)",
+      "slots": [
+        {
+          "contentHash": "sha256:5be83640",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#09437a72)",
+      "slots": [
+        {
+          "contentHash": "sha256:3d4d9675",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0a5be5ac)",
+      "slots": [
+        {
+          "contentHash": "sha256:879e5e94",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0a849985)",
+      "slots": [
+        {
+          "contentHash": "sha256:d02d9edb",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0aee6f8e)",
+      "slots": [
+        {
+          "contentHash": "sha256:2d048af1",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0b1cad68)",
+      "slots": [
+        {
+          "contentHash": "sha256:37326b05",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0b3bf89b)",
+      "slots": [
+        {
+          "contentHash": "sha256:255d1589",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0bd53fe0)",
+      "slots": [
+        {
+          "contentHash": "sha256:6bcb32f4",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0d4cc7cd)",
+      "slots": [
+        {
+          "contentHash": "sha256:a88170e3",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0d56128f)",
+      "slots": [
+        {
+          "contentHash": "sha256:20ebcf47",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0ed14ba3)",
+      "slots": [
+        {
+          "contentHash": "sha256:79468ff7",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0edffda0)",
+      "slots": [
+        {
+          "contentHash": "sha256:5a85af26",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0ee80ad4)",
+      "slots": [
+        {
+          "contentHash": "sha256:3e15f8b5",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0ee9964f)",
+      "slots": [
+        {
+          "contentHash": "sha256:86485c98",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0f5213cc)",
+      "slots": [
+        {
+          "contentHash": "sha256:df1ea677",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0f526785)",
+      "slots": [
+        {
+          "contentHash": "sha256:6b2f6eae",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0f99cc93)",
+      "slots": [
+        {
+          "contentHash": "sha256:0f4c665f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#0fc5f371)",
+      "slots": [
+        {
+          "contentHash": "sha256:e90775cf",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#102ab26b)",
+      "slots": [
+        {
+          "contentHash": "sha256:a038507e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#10e0bb8b)",
+      "slots": [
+        {
+          "contentHash": "sha256:3b2e775e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#11336e75)",
+      "slots": [
+        {
+          "contentHash": "sha256:5d0c4ce3",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#11deb1c2)",
+      "slots": [
+        {
+          "contentHash": "sha256:296aeb8b",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1202aa59)",
+      "slots": [
+        {
+          "contentHash": "sha256:f5006481",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#12463315)",
+      "slots": [
+        {
+          "contentHash": "sha256:84558d3a",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#125e019c)",
+      "slots": [
+        {
+          "contentHash": "sha256:92166de9",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#12ac4048)",
+      "slots": [
+        {
+          "contentHash": "sha256:bfbded21",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#12c221e8)",
+      "slots": [
+        {
+          "contentHash": "sha256:de4e0b26",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#13131098)",
+      "slots": [
+        {
+          "contentHash": "sha256:358999e5",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#134a7b1a)",
+      "slots": [
+        {
+          "contentHash": "sha256:f34da712",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#136929d5)",
+      "slots": [
+        {
+          "contentHash": "sha256:c29ab5a8",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#14c8b403)",
+      "slots": [
+        {
+          "contentHash": "sha256:8ae023f4",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#14cab787)",
+      "slots": [
+        {
+          "contentHash": "sha256:49d3094f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#14e804fd)",
+      "slots": [
+        {
+          "contentHash": "sha256:bddf0fb9",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#166ee738)",
+      "slots": [
+        {
+          "contentHash": "sha256:183f4d3f",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#18268980)",
+      "slots": [
+        {
+          "contentHash": "sha256:d1a668ca",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#18d66a7e)",
+      "slots": [
+        {
+          "contentHash": "sha256:71cdc628",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1944336e)",
+      "slots": [
+        {
+          "contentHash": "sha256:eee1a6ae",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#19850f67)",
+      "slots": [
+        {
+          "contentHash": "sha256:f2202b4a",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1a62b248)",
+      "slots": [
+        {
+          "contentHash": "sha256:217508e9",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1aaf5e92)",
+      "slots": [
+        {
+          "contentHash": "sha256:65a618a1",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1aaff3b2)",
+      "slots": [
+        {
+          "contentHash": "sha256:5242bd64",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1b20618b)",
+      "slots": [
+        {
+          "contentHash": "sha256:1e03a6c6",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1becc189)",
+      "slots": [
+        {
+          "contentHash": "sha256:08f195b8",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1c41e4b4)",
+      "slots": [
+        {
+          "contentHash": "sha256:981366dd",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1c4bad10)",
+      "slots": [
+        {
+          "contentHash": "sha256:3eda7adc",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1cc6ea8f)",
+      "slots": [
+        {
+          "contentHash": "sha256:928eace5",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1d6c4357)",
+      "slots": [
+        {
+          "contentHash": "sha256:dc3aa68d",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1d7f16b3)",
+      "slots": [
+        {
+          "contentHash": "sha256:a8d538de",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1e7f96b7)",
+      "slots": [
+        {
+          "contentHash": "sha256:8901e2c9",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1ee5feb4)",
+      "slots": [
+        {
+          "contentHash": "sha256:16308ea1",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#1f9a327a)",
+      "slots": [
+        {
+          "contentHash": "sha256:20023c28",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#202a2b91)",
+      "slots": [
+        {
+          "contentHash": "sha256:b25e71a8",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#202d812d)",
+      "slots": [
+        {
+          "contentHash": "sha256:ddc2b8d5",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#20481a37)",
+      "slots": [
+        {
+          "contentHash": "sha256:f554b022",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#204fdfd8)",
+      "slots": [
+        {
+          "contentHash": "sha256:ee9b8cdd",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#206898ab)",
+      "slots": [
+        {
+          "contentHash": "sha256:8c964190",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#20aaf794)",
+      "slots": [
+        {
+          "contentHash": "sha256:89056f1c",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#21973075)",
+      "slots": [
+        {
+          "contentHash": "sha256:5a4766f1",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#23019b2f)",
+      "slots": [
+        {
+          "contentHash": "sha256:2d3cc0a7",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2359dcea)",
+      "slots": [
+        {
+          "contentHash": "sha256:3cdbb6aa",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#241d420a)",
+      "slots": [
+        {
+          "contentHash": "sha256:3df0550a",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#244bc844)",
+      "slots": [
+        {
+          "contentHash": "sha256:1c982807",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#248c36ea)",
+      "slots": [
+        {
+          "contentHash": "sha256:ccec73d6",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#24b7dc44)",
+      "slots": [
+        {
+          "contentHash": "sha256:ad91fd8b",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#25176f32)",
+      "slots": [
+        {
+          "contentHash": "sha256:f3f1da4e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2619fd25)",
+      "slots": [
+        {
+          "contentHash": "sha256:4c8ee9bd",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#26272ed1)",
+      "slots": [
+        {
+          "contentHash": "sha256:e737deb0",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#265f793c)",
+      "slots": [
+        {
+          "contentHash": "sha256:d4af2347",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#27044f5d)",
+      "slots": [
+        {
+          "contentHash": "sha256:793e620c",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#275eeb68)",
+      "slots": [
+        {
+          "contentHash": "sha256:60716cd0",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#27670281)",
+      "slots": [
+        {
+          "contentHash": "sha256:8e0319a4",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2816e12f)",
+      "slots": [
+        {
+          "contentHash": "sha256:7bb1fe53",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2843c2a3)",
+      "slots": [
+        {
+          "contentHash": "sha256:a6360330",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#284ad372)",
+      "slots": [
+        {
+          "contentHash": "sha256:331f5742",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#29482132)",
+      "slots": [
+        {
+          "contentHash": "sha256:06d689f7",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2948d2b1)",
+      "slots": [
+        {
+          "contentHash": "sha256:349bd551",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2955bf14)",
+      "slots": [
+        {
+          "contentHash": "sha256:1d79e011",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2a46e71b)",
+      "slots": [
+        {
+          "contentHash": "sha256:7e31b1d1",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2bc93bc0)",
+      "slots": [
+        {
+          "contentHash": "sha256:40a670d8",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2cc71268)",
+      "slots": [
+        {
+          "contentHash": "sha256:09458739",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2d09968f)",
+      "slots": [
+        {
+          "contentHash": "sha256:9f624295",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2d45d1e3)",
+      "slots": [
+        {
+          "contentHash": "sha256:ce9b88de",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2dc9e29c)",
+      "slots": [
+        {
+          "contentHash": "sha256:3666a15f",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2ddf66d9)",
+      "slots": [
+        {
+          "contentHash": "sha256:a173ee19",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2f1ec6a0)",
+      "slots": [
+        {
+          "contentHash": "sha256:6ca34c15",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#2f640bb8)",
+      "slots": [
+        {
+          "contentHash": "sha256:c23db905",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#302d8287)",
+      "slots": [
+        {
+          "contentHash": "sha256:3984599a",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#308cc6fe)",
+      "slots": [
+        {
+          "contentHash": "sha256:f07da376",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#31c9d7db)",
+      "slots": [
+        {
+          "contentHash": "sha256:3e7db3cd",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#336864a0)",
+      "slots": [
+        {
+          "contentHash": "sha256:72f978bb",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#339c7029)",
+      "slots": [
+        {
+          "contentHash": "sha256:ea1c3fdd",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#342f8e84)",
+      "slots": [
+        {
+          "contentHash": "sha256:09a8418e",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#346dfce4)",
+      "slots": [
+        {
+          "contentHash": "sha256:2f93a455",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#34b2f317)",
+      "slots": [
+        {
+          "contentHash": "sha256:f56822d1",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3549d2ee)",
+      "slots": [
+        {
+          "contentHash": "sha256:13327f2c",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#35721e97)",
+      "slots": [
+        {
+          "contentHash": "sha256:584b9218",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#35a60a17)",
+      "slots": [
+        {
+          "contentHash": "sha256:ce9222c0",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#35e08350)",
+      "slots": [
+        {
+          "contentHash": "sha256:51b307cd",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#366dae70)",
+      "slots": [
+        {
+          "contentHash": "sha256:355e6fab",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#370d82ec)",
+      "slots": [
+        {
+          "contentHash": "sha256:ef4d2fed",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3736d868)",
+      "slots": [
+        {
+          "contentHash": "sha256:3125ba7e",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#374d3c2d)",
+      "slots": [
+        {
+          "contentHash": "sha256:1e155a1d",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#37ecab41)",
+      "slots": [
+        {
+          "contentHash": "sha256:e104d837",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3916fe25)",
+      "slots": [
+        {
+          "contentHash": "sha256:56f7b5af",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#39429998)",
+      "slots": [
+        {
+          "contentHash": "sha256:f3296190",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3a22ae11)",
+      "slots": [
+        {
+          "contentHash": "sha256:15c69c02",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3a37083a)",
+      "slots": [
+        {
+          "contentHash": "sha256:8ff8a544",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3a4dc410)",
+      "slots": [
+        {
+          "contentHash": "sha256:d4110c95",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3a717902)",
+      "slots": [
+        {
+          "contentHash": "sha256:51ad5c24",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3b9b771e)",
+      "slots": [
+        {
+          "contentHash": "sha256:018d14d8",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3bec4472)",
+      "slots": [
+        {
+          "contentHash": "sha256:b2f55c05",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3bf7e00d)",
+      "slots": [
+        {
+          "contentHash": "sha256:0698306e",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3d6a2c2e)",
+      "slots": [
+        {
+          "contentHash": "sha256:2134a4e9",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3d908d26)",
+      "slots": [
+        {
+          "contentHash": "sha256:c20340ab",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3daa6e87)",
+      "slots": [
+        {
+          "contentHash": "sha256:26c6dee8",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3f6647a5)",
+      "slots": [
+        {
+          "contentHash": "sha256:ca8c68f0",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#3f68c686)",
+      "slots": [
+        {
+          "contentHash": "sha256:e3d1d663",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#401a469a)",
+      "slots": [
+        {
+          "contentHash": "sha256:5b692911",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4039b6e0)",
+      "slots": [
+        {
+          "contentHash": "sha256:17db7d04",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#404969e4)",
+      "slots": [
+        {
+          "contentHash": "sha256:dd259505",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#41407303)",
+      "slots": [
+        {
+          "contentHash": "sha256:a9925686",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#41a5c2f4)",
+      "slots": [
+        {
+          "contentHash": "sha256:aed872e2",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4205f3c6)",
+      "slots": [
+        {
+          "contentHash": "sha256:e5511f08",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#42200285)",
+      "slots": [
+        {
+          "contentHash": "sha256:623e8f8a",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#44765aef)",
+      "slots": [
+        {
+          "contentHash": "sha256:f29c6c3a",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4578d4a5)",
+      "slots": [
+        {
+          "contentHash": "sha256:5155868a",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#45bb012b)",
+      "slots": [
+        {
+          "contentHash": "sha256:db576a6c",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#464041ab)",
+      "slots": [
+        {
+          "contentHash": "sha256:5c286090",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#466a3e2c)",
+      "slots": [
+        {
+          "contentHash": "sha256:1ec67abb",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#46ac5516)",
+      "slots": [
+        {
+          "contentHash": "sha256:d18de753",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#46c43dca)",
+      "slots": [
+        {
+          "contentHash": "sha256:be40b254",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#47430a7c)",
+      "slots": [
+        {
+          "contentHash": "sha256:4349e2d2",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#476ecd94)",
+      "slots": [
+        {
+          "contentHash": "sha256:5296be24",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#47cf28a6)",
+      "slots": [
+        {
+          "contentHash": "sha256:cf1fe125",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#47f7ab20)",
+      "slots": [
+        {
+          "contentHash": "sha256:eca8e177",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4888615e)",
+      "slots": [
+        {
+          "contentHash": "sha256:c456d536",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#49b084d9)",
+      "slots": [
+        {
+          "contentHash": "sha256:48de5c8f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#49c8c28e)",
+      "slots": [
+        {
+          "contentHash": "sha256:4c80517d",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4a498e6f)",
+      "slots": [
+        {
+          "contentHash": "sha256:b46aa5d8",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4a9b5eb5)",
+      "slots": [
+        {
+          "contentHash": "sha256:191983e1",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4aabc023)",
+      "slots": [
+        {
+          "contentHash": "sha256:47194271",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4ab6cd39)",
+      "slots": [
+        {
+          "contentHash": "sha256:5e7d30c4",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4b95ee66)",
+      "slots": [
+        {
+          "contentHash": "sha256:0a87d92d",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4ba4a5dd)",
+      "slots": [
+        {
+          "contentHash": "sha256:4bc4ac8e",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4c017d2b)",
+      "slots": [
+        {
+          "contentHash": "sha256:2db1a1d4",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4ca31a36)",
+      "slots": [
+        {
+          "contentHash": "sha256:a83f2829",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4cab885f)",
+      "slots": [
+        {
+          "contentHash": "sha256:dfe7c6d5",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4de02c9b)",
+      "slots": [
+        {
+          "contentHash": "sha256:ac2f2020",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4e3d4863)",
+      "slots": [
+        {
+          "contentHash": "sha256:92bc091b",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4e4c0867)",
+      "slots": [
+        {
+          "contentHash": "sha256:aa98a308",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4ebb70a9)",
+      "slots": [
+        {
+          "contentHash": "sha256:307219b3",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4f596989)",
+      "slots": [
+        {
+          "contentHash": "sha256:3957d0a6",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#4f8fa4c2)",
+      "slots": [
+        {
+          "contentHash": "sha256:7e68fdd2",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#510c675a)",
+      "slots": [
+        {
+          "contentHash": "sha256:828b89e1",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#519c301c)",
+      "slots": [
+        {
+          "contentHash": "sha256:573324b8",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#525ba699)",
+      "slots": [
+        {
+          "contentHash": "sha256:ab76fcfd",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#52b93782)",
+      "slots": [
+        {
+          "contentHash": "sha256:1bd24153",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#52dbe36b)",
+      "slots": [
+        {
+          "contentHash": "sha256:416961fc",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#54f8befa)",
+      "slots": [
+        {
+          "contentHash": "sha256:5cf75060",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#55632eb5)",
+      "slots": [
+        {
+          "contentHash": "sha256:d48ef87a",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#56527739)",
+      "slots": [
+        {
+          "contentHash": "sha256:e223a262",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5692ce00)",
+      "slots": [
+        {
+          "contentHash": "sha256:2ead6ae1",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#56d25f45)",
+      "slots": [
+        {
+          "contentHash": "sha256:91179f2a",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#580a7457)",
+      "slots": [
+        {
+          "contentHash": "sha256:f2193a21",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#580da466)",
+      "slots": [
+        {
+          "contentHash": "sha256:2a780f6e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#586c408b)",
+      "slots": [
+        {
+          "contentHash": "sha256:acfeee99",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#586e248a)",
+      "slots": [
+        {
+          "contentHash": "sha256:76aff539",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#590bf26d)",
+      "slots": [
+        {
+          "contentHash": "sha256:1c1acfc7",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#593c1eab)",
+      "slots": [
+        {
+          "contentHash": "sha256:6e55ae7e",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#595568d2)",
+      "slots": [
+        {
+          "contentHash": "sha256:bcd7defa",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#596f2e92)",
+      "slots": [
+        {
+          "contentHash": "sha256:9146d684",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#59d0b44e)",
+      "slots": [
+        {
+          "contentHash": "sha256:32a70f8b",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#59e0beae)",
+      "slots": [
+        {
+          "contentHash": "sha256:9c683989",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5a8f223d)",
+      "slots": [
+        {
+          "contentHash": "sha256:133c4f45",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5acc4abd)",
+      "slots": [
+        {
+          "contentHash": "sha256:ae9aed73",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5b4eb224)",
+      "slots": [
+        {
+          "contentHash": "sha256:4711b95c",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5bfabbb9)",
+      "slots": [
+        {
+          "contentHash": "sha256:03b54fb4",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5cfc98b6)",
+      "slots": [
+        {
+          "contentHash": "sha256:426d2622",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5d52333c)",
+      "slots": [
+        {
+          "contentHash": "sha256:3df4b357",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5e98eb30)",
+      "slots": [
+        {
+          "contentHash": "sha256:2410973e",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5ebf9d6e)",
+      "slots": [
+        {
+          "contentHash": "sha256:26306127",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5ed11b26)",
+      "slots": [
+        {
+          "contentHash": "sha256:e5cf963f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5fc4f14a)",
+      "slots": [
+        {
+          "contentHash": "sha256:71417c94",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#5fd0a735)",
+      "slots": [
+        {
+          "contentHash": "sha256:78d40539",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#63cdeecb)",
+      "slots": [
+        {
+          "contentHash": "sha256:b5da8c4a",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#63dcd7fe)",
+      "slots": [
+        {
+          "contentHash": "sha256:e379746e",
+          "tokens": 40
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#64ac6cbf)",
+      "slots": [
+        {
+          "contentHash": "sha256:8a2468fb",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#65677ce8)",
+      "slots": [
+        {
+          "contentHash": "sha256:9c9d1f07",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#658aa5ed)",
+      "slots": [
+        {
+          "contentHash": "sha256:ae588d25",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#668143dc)",
+      "slots": [
+        {
+          "contentHash": "sha256:977cf22c",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#68555bc2)",
+      "slots": [
+        {
+          "contentHash": "sha256:a9bc7c05",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#68947792)",
+      "slots": [
+        {
+          "contentHash": "sha256:5cd4a2bc",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6899cf83)",
+      "slots": [
+        {
+          "contentHash": "sha256:0b1a426f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#68d8770b)",
+      "slots": [
+        {
+          "contentHash": "sha256:16c87caa",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6930e705)",
+      "slots": [
+        {
+          "contentHash": "sha256:47572c7f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6958b9c9)",
+      "slots": [
+        {
+          "contentHash": "sha256:2da71111",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6a1e2482)",
+      "slots": [
+        {
+          "contentHash": "sha256:d9d0430f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6a1e9403)",
+      "slots": [
+        {
+          "contentHash": "sha256:0dfbcdf8",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6a27abfd)",
+      "slots": [
+        {
+          "contentHash": "sha256:ca604cd0",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6a6f199a)",
+      "slots": [
+        {
+          "contentHash": "sha256:c496fa58",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6ae02ff6)",
+      "slots": [
+        {
+          "contentHash": "sha256:64c4c026",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6bc22abc)",
+      "slots": [
+        {
+          "contentHash": "sha256:7be2c85b",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6bd05993)",
+      "slots": [
+        {
+          "contentHash": "sha256:70c0ef8d",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6be85b70)",
+      "slots": [
+        {
+          "contentHash": "sha256:46557b7e",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6c199f3f)",
+      "slots": [
+        {
+          "contentHash": "sha256:3f97eae1",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6c6b1ed6)",
+      "slots": [
+        {
+          "contentHash": "sha256:6fd760de",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6ce75e5d)",
+      "slots": [
+        {
+          "contentHash": "sha256:033a8892",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6ceca782)",
+      "slots": [
+        {
+          "contentHash": "sha256:4ca65e2b",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6d9bb3aa)",
+      "slots": [
+        {
+          "contentHash": "sha256:fc11acd9",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6e69ec9b)",
+      "slots": [
+        {
+          "contentHash": "sha256:046aafe6",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6f7af9d3)",
+      "slots": [
+        {
+          "contentHash": "sha256:dbfeb30b",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#6f9d2fe4)",
+      "slots": [
+        {
+          "contentHash": "sha256:944ec949",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#706ba46f)",
+      "slots": [
+        {
+          "contentHash": "sha256:6ce5834c",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7076df5c)",
+      "slots": [
+        {
+          "contentHash": "sha256:33a634d6",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#70b00c66)",
+      "slots": [
+        {
+          "contentHash": "sha256:d217f706",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#70e15450)",
+      "slots": [
+        {
+          "contentHash": "sha256:7f51d922",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7174d9ee)",
+      "slots": [
+        {
+          "contentHash": "sha256:f501b087",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#71a42de4)",
+      "slots": [
+        {
+          "contentHash": "sha256:2e129076",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#71b5326e)",
+      "slots": [
+        {
+          "contentHash": "sha256:83acdae9",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#724fd6f4)",
+      "slots": [
+        {
+          "contentHash": "sha256:cf33f28e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#726c9715)",
+      "slots": [
+        {
+          "contentHash": "sha256:577f7516",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#732d42b5)",
+      "slots": [
+        {
+          "contentHash": "sha256:b3ba1a1b",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#738234b2)",
+      "slots": [
+        {
+          "contentHash": "sha256:a213956b",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#74087726)",
+      "slots": [
+        {
+          "contentHash": "sha256:bb926bc4",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7477774c)",
+      "slots": [
+        {
+          "contentHash": "sha256:0b6b33c0",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#74e37c6f)",
+      "slots": [
+        {
+          "contentHash": "sha256:76a3a4d3",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#764ffffe)",
+      "slots": [
+        {
+          "contentHash": "sha256:a9bd9e73",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#76880065)",
+      "slots": [
+        {
+          "contentHash": "sha256:9a5cc705",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7744ca87)",
+      "slots": [
+        {
+          "contentHash": "sha256:b02c6949",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#776e283c)",
+      "slots": [
+        {
+          "contentHash": "sha256:b1a59abe",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#778c0e11)",
+      "slots": [
+        {
+          "contentHash": "sha256:1a75cc58",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#782f284e)",
+      "slots": [
+        {
+          "contentHash": "sha256:10cfe903",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7861b6c2)",
+      "slots": [
+        {
+          "contentHash": "sha256:4e1ff405",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#786b97c6)",
+      "slots": [
+        {
+          "contentHash": "sha256:4e4797e2",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7a6a3d30)",
+      "slots": [
+        {
+          "contentHash": "sha256:9173ed74",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7a7a467d)",
+      "slots": [
+        {
+          "contentHash": "sha256:05a896f1",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7b402cfb)",
+      "slots": [
+        {
+          "contentHash": "sha256:856e469f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7c4b8a46)",
+      "slots": [
+        {
+          "contentHash": "sha256:66f27dd9",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7f886e67)",
+      "slots": [
+        {
+          "contentHash": "sha256:0b1d4033",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#7fa469e3)",
+      "slots": [
+        {
+          "contentHash": "sha256:c551e41d",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8156e7a9)",
+      "slots": [
+        {
+          "contentHash": "sha256:9c695237",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#81aede24)",
+      "slots": [
+        {
+          "contentHash": "sha256:250d05aa",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#81de20cd)",
+      "slots": [
+        {
+          "contentHash": "sha256:4f4a0c91",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#823b152f)",
+      "slots": [
+        {
+          "contentHash": "sha256:9862d79d",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#82b1ec21)",
+      "slots": [
+        {
+          "contentHash": "sha256:2c84b4db",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#82dd29ba)",
+      "slots": [
+        {
+          "contentHash": "sha256:3917d64b",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#83784f8e)",
+      "slots": [
+        {
+          "contentHash": "sha256:04961442",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#850a7424)",
+      "slots": [
+        {
+          "contentHash": "sha256:4a8e94ca",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#853da56a)",
+      "slots": [
+        {
+          "contentHash": "sha256:428e74ae",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8549c0da)",
+      "slots": [
+        {
+          "contentHash": "sha256:cd202d2e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#855c9905)",
+      "slots": [
+        {
+          "contentHash": "sha256:a07ef890",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8632bc7d)",
+      "slots": [
+        {
+          "contentHash": "sha256:dd69a80f",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#869ce1d9)",
+      "slots": [
+        {
+          "contentHash": "sha256:6cf6792d",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#87375be9)",
+      "slots": [
+        {
+          "contentHash": "sha256:2ce82740",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#878e2ac3)",
+      "slots": [
+        {
+          "contentHash": "sha256:557273b0",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#879535e2)",
+      "slots": [
+        {
+          "contentHash": "sha256:4c245f8a",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#87c920a1)",
+      "slots": [
+        {
+          "contentHash": "sha256:115d8714",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#87ea0fcd)",
+      "slots": [
+        {
+          "contentHash": "sha256:64e879d1",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#87f3f666)",
+      "slots": [
+        {
+          "contentHash": "sha256:5a221d85",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8966f43d)",
+      "slots": [
+        {
+          "contentHash": "sha256:9c096915",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#89edc56e)",
+      "slots": [
+        {
+          "contentHash": "sha256:39edbbef",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8a181b71)",
+      "slots": [
+        {
+          "contentHash": "sha256:1139a325",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8b107db1)",
+      "slots": [
+        {
+          "contentHash": "sha256:8b8c0ed8",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8b39d6c0)",
+      "slots": [
+        {
+          "contentHash": "sha256:9fc8ea04",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8b934e89)",
+      "slots": [
+        {
+          "contentHash": "sha256:237cd3ac",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8c8f03b8)",
+      "slots": [
+        {
+          "contentHash": "sha256:6ea1a8ab",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8c970507)",
+      "slots": [
+        {
+          "contentHash": "sha256:de35abd2",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8cdbffec)",
+      "slots": [
+        {
+          "contentHash": "sha256:23194f15",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8da3bbd4)",
+      "slots": [
+        {
+          "contentHash": "sha256:71fd0e0b",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8e4f1864)",
+      "slots": [
+        {
+          "contentHash": "sha256:ada0a996",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8eef08d9)",
+      "slots": [
+        {
+          "contentHash": "sha256:d396ae0e",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8f0a7869)",
+      "slots": [
+        {
+          "contentHash": "sha256:7da10f6d",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#8f34c7cb)",
+      "slots": [
+        {
+          "contentHash": "sha256:18be0581",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#90e9645f)",
+      "slots": [
+        {
+          "contentHash": "sha256:de8f51db",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#90ed68f7)",
+      "slots": [
+        {
+          "contentHash": "sha256:bac4ee67",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#90f76345)",
+      "slots": [
+        {
+          "contentHash": "sha256:955c5e08",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#919ca059)",
+      "slots": [
+        {
+          "contentHash": "sha256:1d229ea0",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9289d8e3)",
+      "slots": [
+        {
+          "contentHash": "sha256:7d213c86",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#92b5b4cd)",
+      "slots": [
+        {
+          "contentHash": "sha256:afb68e85",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#93f60df7)",
+      "slots": [
+        {
+          "contentHash": "sha256:a3c5796d",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#94dc7ac3)",
+      "slots": [
+        {
+          "contentHash": "sha256:43c9a555",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#950c9723)",
+      "slots": [
+        {
+          "contentHash": "sha256:03b5ef01",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#957874e1)",
+      "slots": [
+        {
+          "contentHash": "sha256:f06fcfc7",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9642300d)",
+      "slots": [
+        {
+          "contentHash": "sha256:8685b39c",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#96d3f9cd)",
+      "slots": [
+        {
+          "contentHash": "sha256:a4ca12db",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#96f8e368)",
+      "slots": [
+        {
+          "contentHash": "sha256:6d6b3e64",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9750f377)",
+      "slots": [
+        {
+          "contentHash": "sha256:6023c424",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#97acce8f)",
+      "slots": [
+        {
+          "contentHash": "sha256:6a81fe01",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#98262d5b)",
+      "slots": [
+        {
+          "contentHash": "sha256:8ec67992",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9831264a)",
+      "slots": [
+        {
+          "contentHash": "sha256:70025be5",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9aad1d7f)",
+      "slots": [
+        {
+          "contentHash": "sha256:8232f68e",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9c8714cf)",
+      "slots": [
+        {
+          "contentHash": "sha256:3e78c84f",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9ce31663)",
+      "slots": [
+        {
+          "contentHash": "sha256:daad5630",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9e6b30f3)",
+      "slots": [
+        {
+          "contentHash": "sha256:73ce8926",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9ec52757)",
+      "slots": [
+        {
+          "contentHash": "sha256:9626920f",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9f3934fd)",
+      "slots": [
+        {
+          "contentHash": "sha256:8ddfdb3c",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#9feda556)",
+      "slots": [
+        {
+          "contentHash": "sha256:e16f1cdc",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a02be141)",
+      "slots": [
+        {
+          "contentHash": "sha256:35f161c4",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a09d5a5c)",
+      "slots": [
+        {
+          "contentHash": "sha256:5796547e",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a0b8905f)",
+      "slots": [
+        {
+          "contentHash": "sha256:c915bc31",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a0db7642)",
+      "slots": [
+        {
+          "contentHash": "sha256:8d3a84a7",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a15a4f35)",
+      "slots": [
+        {
+          "contentHash": "sha256:c19b60e0",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a1745329)",
+      "slots": [
+        {
+          "contentHash": "sha256:cb86ff58",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a1e165c2)",
+      "slots": [
+        {
+          "contentHash": "sha256:1bf0ecae",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a27093fb)",
+      "slots": [
+        {
+          "contentHash": "sha256:263ffa92",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a2954cc3)",
+      "slots": [
+        {
+          "contentHash": "sha256:bdf5c183",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a2a8e599)",
+      "slots": [
+        {
+          "contentHash": "sha256:2095357c",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a2b1bbd3)",
+      "slots": [
+        {
+          "contentHash": "sha256:097d14d4",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a2c18ac8)",
+      "slots": [
+        {
+          "contentHash": "sha256:08209f11",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a32fa252)",
+      "slots": [
+        {
+          "contentHash": "sha256:30dd169a",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a402f3eb)",
+      "slots": [
+        {
+          "contentHash": "sha256:870cf550",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a47032b5)",
+      "slots": [
+        {
+          "contentHash": "sha256:7709cf69",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a4b6a157)",
+      "slots": [
+        {
+          "contentHash": "sha256:c6d15671",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a4d6a69c)",
+      "slots": [
+        {
+          "contentHash": "sha256:210a9cc9",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a537c9c7)",
+      "slots": [
+        {
+          "contentHash": "sha256:22a6f99f",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a562c459)",
+      "slots": [
+        {
+          "contentHash": "sha256:bb89d093",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a566fb9b)",
+      "slots": [
+        {
+          "contentHash": "sha256:9362f393",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a5b0a74d)",
+      "slots": [
+        {
+          "contentHash": "sha256:49dad116",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a5c2c159)",
+      "slots": [
+        {
+          "contentHash": "sha256:9d8f5db5",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a69c8ed4)",
+      "slots": [
+        {
+          "contentHash": "sha256:e7d0c5aa",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a69d29ec)",
+      "slots": [
+        {
+          "contentHash": "sha256:ca82ee1e",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a7071368)",
+      "slots": [
+        {
+          "contentHash": "sha256:49d2e706",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a742e71b)",
+      "slots": [
+        {
+          "contentHash": "sha256:16e9326b",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a749af5f)",
+      "slots": [
+        {
+          "contentHash": "sha256:21366dca",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a76f642c)",
+      "slots": [
+        {
+          "contentHash": "sha256:39c3244b",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a92bf183)",
+      "slots": [
+        {
+          "contentHash": "sha256:9cc9e071",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#a9edd4e2)",
+      "slots": [
+        {
+          "contentHash": "sha256:00d74baf",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ab811b5f)",
+      "slots": [
+        {
+          "contentHash": "sha256:500d6971",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ab87b23c)",
+      "slots": [
+        {
+          "contentHash": "sha256:a9d8c803",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ab8a47f4)",
+      "slots": [
+        {
+          "contentHash": "sha256:f56fae28",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ad1de0a1)",
+      "slots": [
+        {
+          "contentHash": "sha256:bcb7e5e0",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ad32199a)",
+      "slots": [
+        {
+          "contentHash": "sha256:97a08dd3",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ad5fbacb)",
+      "slots": [
+        {
+          "contentHash": "sha256:873149d0",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ae3a75af)",
+      "slots": [
+        {
+          "contentHash": "sha256:5ea559ae",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#afa0b549)",
+      "slots": [
+        {
+          "contentHash": "sha256:5c21648b",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b0097ba6)",
+      "slots": [
+        {
+          "contentHash": "sha256:7556fbbc",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b1837a5c)",
+      "slots": [
+        {
+          "contentHash": "sha256:1989f8b1",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b22d7f2a)",
+      "slots": [
+        {
+          "contentHash": "sha256:04996b55",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b31871d0)",
+      "slots": [
+        {
+          "contentHash": "sha256:24a6d0fd",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b34246c2)",
+      "slots": [
+        {
+          "contentHash": "sha256:ea0bced7",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b5439a70)",
+      "slots": [
+        {
+          "contentHash": "sha256:c1839dfa",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b5668aac)",
+      "slots": [
+        {
+          "contentHash": "sha256:3b9d8383",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b582ae7b)",
+      "slots": [
+        {
+          "contentHash": "sha256:7e3ecfef",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b61a0571)",
+      "slots": [
+        {
+          "contentHash": "sha256:a285bd4c",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b681b3bb)",
+      "slots": [
+        {
+          "contentHash": "sha256:a6aece49",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b7504e35)",
+      "slots": [
+        {
+          "contentHash": "sha256:9c684cd6",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b79e8471)",
+      "slots": [
+        {
+          "contentHash": "sha256:82813de3",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b7b80f4e)",
+      "slots": [
+        {
+          "contentHash": "sha256:9ba91d6b",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b83a8ecc)",
+      "slots": [
+        {
+          "contentHash": "sha256:720dc91c",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#b8dd7881)",
+      "slots": [
+        {
+          "contentHash": "sha256:d94cbd41",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ba297123)",
+      "slots": [
+        {
+          "contentHash": "sha256:55c7469e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#bb808dcb)",
+      "slots": [
+        {
+          "contentHash": "sha256:ef8b0555",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#bc35f9c9)",
+      "slots": [
+        {
+          "contentHash": "sha256:965ed114",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#bca6ffc0)",
+      "slots": [
+        {
+          "contentHash": "sha256:2c64b79d",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#bd142a23)",
+      "slots": [
+        {
+          "contentHash": "sha256:3e570bc6",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#bd53c151)",
+      "slots": [
+        {
+          "contentHash": "sha256:e5d65e6a",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#be9ce2ff)",
+      "slots": [
+        {
+          "contentHash": "sha256:ee47ef01",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#beebf6b8)",
+      "slots": [
+        {
+          "contentHash": "sha256:701b14c9",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#bf1dd88f)",
+      "slots": [
+        {
+          "contentHash": "sha256:b438f5a3",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c0305c9a)",
+      "slots": [
+        {
+          "contentHash": "sha256:3537183d",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c03dfcbc)",
+      "slots": [
+        {
+          "contentHash": "sha256:750abf44",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c09a24ca)",
+      "slots": [
+        {
+          "contentHash": "sha256:95ba889b",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c0a2f952)",
+      "slots": [
+        {
+          "contentHash": "sha256:32481449",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c112be0b)",
+      "slots": [
+        {
+          "contentHash": "sha256:c6aa8bb6",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c120d159)",
+      "slots": [
+        {
+          "contentHash": "sha256:1805027f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c1b32b17)",
+      "slots": [
+        {
+          "contentHash": "sha256:7d75e6b9",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c36ca6d1)",
+      "slots": [
+        {
+          "contentHash": "sha256:d04edf9c",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c3985139)",
+      "slots": [
+        {
+          "contentHash": "sha256:18f2f984",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c448de91)",
+      "slots": [
+        {
+          "contentHash": "sha256:0d911202",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c4d4a10d)",
+      "slots": [
+        {
+          "contentHash": "sha256:9d4c351b",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c53ea4a3)",
+      "slots": [
+        {
+          "contentHash": "sha256:b0dbab52",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c64fece0)",
+      "slots": [
+        {
+          "contentHash": "sha256:a6506424",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c6914e37)",
+      "slots": [
+        {
+          "contentHash": "sha256:b6ec37f8",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c85d993a)",
+      "slots": [
+        {
+          "contentHash": "sha256:c5fcea22",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c9334620)",
+      "slots": [
+        {
+          "contentHash": "sha256:4d8cd388",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#c9d278bf)",
+      "slots": [
+        {
+          "contentHash": "sha256:dd83359c",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ca604620)",
+      "slots": [
+        {
+          "contentHash": "sha256:a1bf9d68",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#cb0ba9c5)",
+      "slots": [
+        {
+          "contentHash": "sha256:2c56d17b",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#cb418a33)",
+      "slots": [
+        {
+          "contentHash": "sha256:a9d648a1",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#cb7d559a)",
+      "slots": [
+        {
+          "contentHash": "sha256:94dae674",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#cb88b9c9)",
+      "slots": [
+        {
+          "contentHash": "sha256:eeaf20da",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ccf280fa)",
+      "slots": [
+        {
+          "contentHash": "sha256:9ef108d8",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ccfa5340)",
+      "slots": [
+        {
+          "contentHash": "sha256:1bcbf9dd",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#cd06946d)",
+      "slots": [
+        {
+          "contentHash": "sha256:84e4a5f5",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#cd5ac305)",
+      "slots": [
+        {
+          "contentHash": "sha256:4eefd1fd",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#cf98978b)",
+      "slots": [
+        {
+          "contentHash": "sha256:4a6f4b22",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#cffbbd54)",
+      "slots": [
+        {
+          "contentHash": "sha256:0d1b12d5",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d033f17c)",
+      "slots": [
+        {
+          "contentHash": "sha256:dd6894bd",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d07c1f9e)",
+      "slots": [
+        {
+          "contentHash": "sha256:d14efe80",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d13506f8)",
+      "slots": [
+        {
+          "contentHash": "sha256:6c382d7f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d1685b26)",
+      "slots": [
+        {
+          "contentHash": "sha256:d64735ec",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d1fad40b)",
+      "slots": [
+        {
+          "contentHash": "sha256:54cbb83b",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d2388d00)",
+      "slots": [
+        {
+          "contentHash": "sha256:1293a77b",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d3c87d5b)",
+      "slots": [
+        {
+          "contentHash": "sha256:8fdf0c8a",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d4752e05)",
+      "slots": [
+        {
+          "contentHash": "sha256:af4b882e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d486295e)",
+      "slots": [
+        {
+          "contentHash": "sha256:45bb930f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d5cec849)",
+      "slots": [
+        {
+          "contentHash": "sha256:13d32b71",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d6644bb4)",
+      "slots": [
+        {
+          "contentHash": "sha256:9d98bc56",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d7510eb9)",
+      "slots": [
+        {
+          "contentHash": "sha256:0e13dd15",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d75a6764)",
+      "slots": [
+        {
+          "contentHash": "sha256:42dc39c5",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d76a39f2)",
+      "slots": [
+        {
+          "contentHash": "sha256:341fab98",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d962290b)",
+      "slots": [
+        {
+          "contentHash": "sha256:9e87b865",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#d9898ad2)",
+      "slots": [
+        {
+          "contentHash": "sha256:6c373755",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#da2890dd)",
+      "slots": [
+        {
+          "contentHash": "sha256:140494b4",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#db3b6c57)",
+      "slots": [
+        {
+          "contentHash": "sha256:00f1724e",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#dbd1e803)",
+      "slots": [
+        {
+          "contentHash": "sha256:7764f0a4",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#dbd23184)",
+      "slots": [
+        {
+          "contentHash": "sha256:bde2f722",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#dbee73b6)",
+      "slots": [
+        {
+          "contentHash": "sha256:a36ccacd",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#dd10e12e)",
+      "slots": [
+        {
+          "contentHash": "sha256:72862a8f",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#df0d040b)",
+      "slots": [
+        {
+          "contentHash": "sha256:c7298f54",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#df1433e4)",
+      "slots": [
+        {
+          "contentHash": "sha256:a4a838b8",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#dfc7c47a)",
+      "slots": [
+        {
+          "contentHash": "sha256:1c691d0a",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e03ede8a)",
+      "slots": [
+        {
+          "contentHash": "sha256:b7ab2385",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e0dfe7b4)",
+      "slots": [
+        {
+          "contentHash": "sha256:693a915d",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e27323db)",
+      "slots": [
+        {
+          "contentHash": "sha256:1ce4ca0b",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e360a63a)",
+      "slots": [
+        {
+          "contentHash": "sha256:fa49f9db",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e3b665f6)",
+      "slots": [
+        {
+          "contentHash": "sha256:06f49ea1",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e3f374b8)",
+      "slots": [
+        {
+          "contentHash": "sha256:78244399",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e534a082)",
+      "slots": [
+        {
+          "contentHash": "sha256:47cbbbb9",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e5916c4f)",
+      "slots": [
+        {
+          "contentHash": "sha256:aef76959",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e60ccefc)",
+      "slots": [
+        {
+          "contentHash": "sha256:608ae7cd",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e63d4b21)",
+      "slots": [
+        {
+          "contentHash": "sha256:1966c3c4",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e66b4b55)",
+      "slots": [
+        {
+          "contentHash": "sha256:7df6faa9",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e6d9e93d)",
+      "slots": [
+        {
+          "contentHash": "sha256:265e82d4",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e7ef4481)",
+      "slots": [
+        {
+          "contentHash": "sha256:b3718093",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#e9046a3b)",
+      "slots": [
+        {
+          "contentHash": "sha256:6f5b25ab",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ea7d5b16)",
+      "slots": [
+        {
+          "contentHash": "sha256:5c726a49",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#eafa9c38)",
+      "slots": [
+        {
+          "contentHash": "sha256:6f422237",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#eb4b67c0)",
+      "slots": [
+        {
+          "contentHash": "sha256:8f75d26b",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#eb7389af)",
+      "slots": [
+        {
+          "contentHash": "sha256:448a61e1",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ebabf373)",
+      "slots": [
+        {
+          "contentHash": "sha256:ce0c9f12",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ec556166)",
+      "slots": [
+        {
+          "contentHash": "sha256:502221c5",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ec7a3e08)",
+      "slots": [
+        {
+          "contentHash": "sha256:8a069303",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#edb84b04)",
+      "slots": [
+        {
+          "contentHash": "sha256:985a1eb6",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ee06a4b5)",
+      "slots": [
+        {
+          "contentHash": "sha256:9e7d1123",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ee58d0e8)",
+      "slots": [
+        {
+          "contentHash": "sha256:314d9ad7",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ef099a41)",
+      "slots": [
+        {
+          "contentHash": "sha256:e2dffcde",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f0151dab)",
+      "slots": [
+        {
+          "contentHash": "sha256:c404b162",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f0706d8e)",
+      "slots": [
+        {
+          "contentHash": "sha256:ce2e0785",
+          "tokens": 46
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f1335cdb)",
+      "slots": [
+        {
+          "contentHash": "sha256:54dfe92a",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f1832e5f)",
+      "slots": [
+        {
+          "contentHash": "sha256:68b5cdaa",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f1b47f2b)",
+      "slots": [
+        {
+          "contentHash": "sha256:1e921200",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f1c474d2)",
+      "slots": [
+        {
+          "contentHash": "sha256:f57d6501",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f5909653)",
+      "slots": [
+        {
+          "contentHash": "sha256:63d0ee8e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f5b7ee6c)",
+      "slots": [
+        {
+          "contentHash": "sha256:e114c17e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f72a5238)",
+      "slots": [
+        {
+          "contentHash": "sha256:2e17f618",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f7797730)",
+      "slots": [
+        {
+          "contentHash": "sha256:4c91f35c",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f7e1897b)",
+      "slots": [
+        {
+          "contentHash": "sha256:cb9ab3b0",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f7e9bf6a)",
+      "slots": [
+        {
+          "contentHash": "sha256:def988cb",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f81710ac)",
+      "slots": [
+        {
+          "contentHash": "sha256:b9d0e3d0",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f8284a6d)",
+      "slots": [
+        {
+          "contentHash": "sha256:a9d3543f",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#f8301b65)",
+      "slots": [
+        {
+          "contentHash": "sha256:bb795f40",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#fa304935)",
+      "slots": [
+        {
+          "contentHash": "sha256:a08eda01",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#fa9b8a24)",
+      "slots": [
+        {
+          "contentHash": "sha256:d1d895ec",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#fae69397)",
+      "slots": [
+        {
+          "contentHash": "sha256:b5fc59ee",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#fbcb9ca5)",
+      "slots": [
+        {
+          "contentHash": "sha256:bb95ef4b",
+          "tokens": 42
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#fddcaa76)",
+      "slots": [
+        {
+          "contentHash": "sha256:aa7a0aba",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#fe05ac2c)",
+      "slots": [
+        {
+          "contentHash": "sha256:8f86504e",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#fe696ad1)",
+      "slots": [
+        {
+          "contentHash": "sha256:d6f0a7cc",
+          "tokens": 43
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ff12ff8b)",
+      "slots": [
+        {
+          "contentHash": "sha256:c54db156",
+          "tokens": 45
+        }
+      ],
+      "faults": []
+    },
+    {
+      "ref": "tool:decide({\"labels\":[\"billing\",\"other\",\"sales\",\"technical\"],\"state\":{\"text\":\"Route the customer message to exactly one department:#ff586dd1)",
+      "slots": [
+        {
+          "contentHash": "sha256:c415fa7f",
+          "tokens": 44
+        }
+      ],
+      "faults": []
+    }
+  ],
+  "stats": {
+    "decisions": 480,
+    "declared_slots": 480,
+    "re_decides": 0
+  }
+}

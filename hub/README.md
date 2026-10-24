@@ -37,10 +37,10 @@ UMPIRE_ODPS_SDK=/tmp/opencode/umpire-odps-venv/bin/open-data-products spec/build
 The script: re-validates the manifest (source gate) → stages a basename-stable copy →
 `odpc-build` (catalog + HTML) → rewrites the `$ref` hub-relative → injects the
 release-gate KPI section (rows parsed from `productStrategy`, current values derived
-from `calibration/umpire-cal-v2.json` + capture metadata) → re-validates the committed
+from `calibration/umpire-cal-v3.json` + capture metadata) → re-validates the committed
 catalog (`validate --json` → `valid:true`, `errors:[]`) → `odpc-summary`. The SDK emits
 no timestamps and every number comes from committed files, so two runs are
-byte-identical; `UMPIRE_RO_RUN_CHECK=1 spec/build_hub.sh check` rebuilds to a temp dir
+byte-identical; `spec/build_hub.sh check` rebuilds to a temp dir
 and `cmp`s against the committed files.
 
 ## Status

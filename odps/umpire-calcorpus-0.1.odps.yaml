@@ -2,7 +2,7 @@
 #
 # Spec-first authoring 2026-10-23 per spec/odps-odcs-plan.md (T14: local-only now,
 # zero provider spend). Structure and shapes mirror the ctxvm validated precedent
-# (compliance_level: full, SDK 0.4.0); every empirically-derived gotcha is pre-applied:
+# (open-data-products SDK, ODPS 4.1 packaged); every empirically-derived gotcha is pre-applied:
 #   quoted "4.1" · SLA unit enum has no `hours` · flat dataHolder/license ·
 #   DQ descriptive.description as plain string · DQ executable as NAMED OBJECT with
 #   object `spec` blocks · DQDefinition displayTitle as array of language maps ·
@@ -21,18 +21,18 @@ product:
     $ref: ../contracts/umpire-calcorpus-0.1.odcs.yaml
 
   # sidecar (composition over extension, à la ctxvm's x-cabi): pin identity is echoed
-  # verbatim from calibration/corpus-v2.capture.meta.json.
+  # verbatim from calibration/corpus-v3.capture.meta.json.
   x-umpire:
     format: xCABI
     traceFormatVersion: 0.1
     decisionProfile: xCABI-0.1-decision
     contentSchema: https://raw.githubusercontent.com/kapitaali/umpire/main/spec/decision-record-v0.schema.json
-    conformanceVectors: https://raw.githubusercontent.com/kapitaali/umpire/main/calibration/corpus-v2.page-table.json
-    calibrationSchema: https://raw.githubusercontent.com/kapitaali/umpire/main/calibration/corpus-v2.capture.meta.json
-    calibrationStatVersion: cal-v1:aceb881587b3b3a6
+    conformanceVectors: https://raw.githubusercontent.com/kapitaali/umpire/main/calibration/corpus-v3.page-table.json
+    calibrationSchema: https://raw.githubusercontent.com/kapitaali/umpire/main/calibration/corpus-v3.capture.meta.json
+    calibrationStatVersion: cal-v1:057a5a35a9d4ec71
     calibrationMethod: isotonic/1
     firstDrop: calibration/v1
-    latestDrop: calibration/v2
+    latestDrop: calibration/v3
     modelPin:
       id: qwen3-1.7b
       model: qwen3-1.7b
@@ -44,23 +44,24 @@ product:
     seed: 7
     server: http://127.0.0.1:8081
     captureWindow:
-      started_at: "2026-10-23T14:31:20.774349+00:00"
-      finished_at: "2026-10-23T14:31:20.786830+00:00"
+      started_at: "2026-10-24T06:02:52.557485+00:00"
+      finished_at: "2026-10-24T07:43:53.084391+00:00"
     host_sha256: sha256:1e769fcd99223f5a
     platform: Linux-6.12.113+deb13-amd64-x86_64-with-glibc2.41
     page_table_stats:
       decisions: 480
       declared_slots: 480
       re_decides: 0
-    checksums:                # from calibration/checksums-v2.sha256 (9/9 gate)
+    checksums:                # from calibration/checksums-v3.sha256 (9/9 gate)
       corpus: sha256:54e397333ab750ff7fff6a54272b7d4ec4a7163aac16bb2778401895410a66a3
-      raw: sha256:5649d7bdae8365e68bdb0f9a7b685f624d86e740071186e7221142c7e7c54ada
-      ledger: sha256:e450d80fc8852199629f013f2f378385015ba870ce8e54573d78071146a0824a
-      records: sha256:272e12b6d25c80edfdca244ca27e2d775cf75e29a4e7bde32bf39f61f7b2f69b
-      page_table: sha256:d75a1644f1b75dd236f0dca9e133c893d1faa31c496b125220c5555585a36f9f
-      calibrated_records: sha256:2e7c58bfa49259b419408ff0b8f841dbba46f8cbee53eaf70408ec50859c3886
-      artifact: sha256:d8f491d331dcdb866b6b382453d65c6a6cf01b5b4ca09b88b70fe85e70bcfa92
-      capture_meta: sha256:d373b49c2628e0ce206ba759d80ef23ed7836922955c8b2f3cb543390f98861d
+      corpus_meta: sha256:270cfa2b00fc5f5ee84f1d0c1ea621c659312addc41c26f9e0b27f4a2120df10
+      raw: sha256:8ecbd6eea4cc4561534a3495a16fad87f17d2713b1aec0f3cc460bd2616db6be
+      ledger: sha256:58b5ed2e7869352bb450d2bb7fdaf6ac1c52486eca233de6d1b1858a9627f7a7
+      records: sha256:d8b36b62c9e712ecf53e3d0e7ca74773106950ade54dea298e5602ac32d19fe8
+      page_table: sha256:25b073cbc59a5e2c6bf03a686908b4cd3ae7848944d75262e3d73013e6dfacd2
+      calibrated_records: sha256:8abeaddc82a22e663d44b0d243c716153e229418a2eff8cfa0af1a642c2cb153
+      artifact: sha256:b94ce06f349b7afae4566555abf9b976de225d61cb6eebd6e6a9e4499cd56c6d
+      capture_meta: sha256:53825b56525402f1f6139768f1ce945a9abe5f1f2506db95c55cf989eac7546f
     replayAudit:
       full_corpus: >-
         2026-10-23 full 480-row model audit (harness/replay_audit.py, all rows):
@@ -73,26 +74,29 @@ product:
         rows in an interrupted partial sample), identity 10/10; divergence is between
         the capture baseline and the replay path, not between audit runs.
       attribution: >-
-        Capture-time concurrency: the capture session ended before 14:31:20Z while a
-        second decide client (shared MCP decide ledger alive to 14:50:20Z) plausibly
-        shared the server (latency-elevated capture rows in exactly the suspect band;
-        no MCP decide traffic during either audit window). Same pattern as the RR-M3
-        v1 ex-001 observation. No MCP decides were observed on the server during
-        either audit run.
+        CONFIRMED by the 2026-10-24 quiescent v3 recapture (480/480; the shared MCP
+        decide ledger shows no writes inside the 06:02:52Z–07:43:53Z window):
+        470/480 rows contentHash-identical to the v2 capture, and the 10 suspect rows
+        relaxed to exactly the replay-path distribution values (split 5 train /
+        4 validation / 1 test; max Δp 0.1206 with argmax unchanged everywhere).
+        Capture-time concurrency of the v2 capture is the attribution — the second
+        decide client (ledger alive to 14:50:20Z) overlapped that capture window.
       structural: >-
         Full-run replay corpus committed at tests/m3-replay-full; validator PASS
         2488 checks + negatives 12/12; page-table roundtrip BYTE-IDENTICAL
-        (sha256:25b073cbc59a5e2c, 2402 checks); page_table_stats re-decides 0.
+        (sha256:25b073cbc59a5e2c, 2402 checks); page_table_stats re-decides 0; the
+        v3 capture's own page-table hashes to the same sha256:25b073cbc… as the
+        committed replay baseline (capture-time = replay-time, byte-for-byte).
       quiescent_smoke: 8/8 strict match (harness/replay_audit.py, 2 test rows per label)
       note: >-
         Raw probability distributions remain load-sensitive to concurrent capture:
-        rows captured while another decide client shares the pinned server can carry
-        last-digit-to-small probability offsets, so raw-probability bit-identity is
-        claimed for quiescent same-build same-machine replay only; identity
-        (ref/key/model_pin) held 480/480 under all observed conditions. The page-table
-        roundtrip stays the fast deterministic gate. Full quiescent v3 recapture
-        queued before any refit; v2 remains the calibration of record with the 10
-        annotated rows.
+        rows captured while another decide client shares the pinned server carry
+        small distribution offsets, so raw-probability bit-identity is claimed for
+        quiescent same-build same-machine capture and replay only; identity
+        (ref/key/model_pin) held 480/480 under all observed conditions. The v3
+        quiescent recapture landed 2026-10-24 (cal-v1:057a5a35a9d4ec71) and is the
+        calibration of record; v2 is retained unchanged as the annotated
+        concurrency-affected revision (10 rows) for provenance and comparability.
 
   details:
     en:
@@ -103,20 +107,23 @@ product:
         a checksummed, replay-deterministic decision corpus with honest calibration
         metrics anyone can recompute from checksums alone.
       description: >-
-        The umpire M2 calibration corpus v2 drop: 480 project-authored support-intent
-        examples (4 labels, 120/label, split 240/120/120), the caller-owned routing
-        guide inside every state, 480 live decisions captured from a pinned, hash-stamped
-        Qwen3-1.7B local GGUF (seed 7) under a JSON-schema constrained grammar, a 481-event
-        xCABI-0.1 decision ledger, 480 payload records, an isotonic calibration artifact
-        (cal-v1:aceb881587b3b3a6), a calibrated sidecar on the 120 untouched test rows,
-        and the deterministic page-table replay baseline. On the test split, isotonic
-        calibration reduces ECE 0.2483 (raw top) → 0.0267 and Brier 0.2380 → 0.1723 with
-        accuracy unchanged (0.7083); paired-bootstrap 95% CIs exclude zero. Honest limits:
-        single project-authored corpus, one pin/seed/machine/runner build, n=120 directional
-        vs the retained v1 n=40 caveat; raw probabilities, ref and contentHash are unchanged
-        by calibration; accuracy is not comparable across corpus revisions (v2 rows are
-        deliberately harder); the artifact estimates P(key correct) — it is not a
-        correctness guarantee.
+        The umpire M2 calibration corpus v3 drop (quiescent recapture of the same
+        v2 corpus): 480 project-authored support-intent examples (4 labels, 120/label,
+        split 240/120/120; corpus file unchanged across v2 → v3), the caller-owned
+        routing guide inside every state, 480 live decisions captured from a pinned,
+        hash-stamped Qwen3-1.7B local GGUF (seed 7) under a JSON-schema constrained
+        grammar with ZERO concurrent decide traffic, a 481-event xCABI-0.1 decision
+        ledger, 480 payload records, an isotonic calibration artifact
+        (cal-v1:057a5a35a9d4ec71), a calibrated sidecar on the 120 untouched test rows,
+        and the deterministic page-table replay baseline (byte-identical to the
+        committed Oct-23 roundtrip, sha256:25b073cbc…). On the test split, isotonic
+        calibration reduces ECE 0.2473 (raw top) → 0.0302 and Brier 0.2388 → 0.1726
+        with accuracy unchanged (0.7083); paired-bootstrap 95% CIs exclude zero.
+        Honest limits: single project-authored corpus, one pin/seed/machine/runner
+        build, n=120 directional vs the retained v1 n=40 caveat; raw probabilities,
+        ref and contentHash are unchanged by calibration; accuracy is not comparable
+        across corpus revisions (v2 rows are deliberately harder); the artifact
+        estimates P(key correct) — it is not a correctness guarantee.
       productVersion: 0.1.0
       productSeries: umpire open corpus
       visibility: public
@@ -239,10 +246,12 @@ product:
         reference: https://raw.githubusercontent.com/kapitaali/umpire/main/00-SPEC.md
         spec:
           tool: umpire
-          command: "python3 spec/validate_ledger.py --replay calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.records.jsonl calibration/corpus-v2.page-table.json"
+          command: "python3 spec/validate_ledger.py --replay calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.records.jsonl calibration/corpus-v3.page-table.json"
           passCriterion: >-
-            roundtrip BYTE-IDENTICAL; page-table sha256 unchanged (sha256:d75a1644…);
-            quiescent model-level replay audit per RR-M3 documented separately.
+            roundtrip BYTE-IDENTICAL; page-table sha256 unchanged (sha256:25b073cbc…);
+            quiescent model-level replay audit per RR-M3FULL documented separately
+            and CONFIRMED by the v3 recapture (470/480 content-identical, 10/10 exactly
+            the replay-path values).
         dimensions:
           - dimension: validity
             objective: 100
@@ -252,7 +261,7 @@ product:
         type: Custom
         spec:
           tool: umpire
-          command: "python3 spec/validate_ledger.py calibration/corpus-v2.ledger.jsonl calibration/corpus-v2.calibrated.records.jsonl"
+          command: "python3 spec/validate_ledger.py calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.calibrated.records.jsonl"
           passCriterion: PASS (2608 checks); negative corpus 12/12
         dimensions:
           - dimension: completeness
@@ -287,9 +296,11 @@ product:
       checksum: TBD-at-release
       documentationURL: https://github.com/kapitaali/umpire#readme
       # x-umpire repo paths (local resolution while status: draft):
-      # calibration/corpus-v2.{jsonl, ledger.jsonl, records.jsonl, calibrated.records.jsonl,
-      # page-table.json, capture.meta.json}, calibration/raw-v2.jsonl,
-      # calibration/umpire-cal-v2.json, calibration/checksums-v2.sha256
+      # calibration/corpus-v2.jsonl (+ .meta.json — corpus file unchanged since v2),
+      # calibration/{raw-v3.jsonl, corpus-v3.ledger.jsonl, corpus-v3.records.jsonl,
+      # corpus-v3.calibrated.records.jsonl, corpus-v3.page-table.json,
+      # corpus-v3.capture.meta.json}, calibration/umpire-cal-v3.json,
+      # calibration/checksums-v3.sha256
 
   # schema: license is FLAT (no language-binding wrapper)
   license:
