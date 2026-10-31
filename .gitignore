@@ -6,3 +6,6 @@ __pycache__/
 
 # internal planning documents, not for commit
 research/
+
+# ODPS SDK scratch (activity.log) — same rule as the ctxvm repo
+.open-data-products/

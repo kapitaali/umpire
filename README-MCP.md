@@ -7,6 +7,14 @@ umpire typed-decision primitive to agent harnesses.  It wraps the same
 The server is the common integration surface for **OpenCode V2** and
 **Hermes Agent**.  Both launch it over stdio and discover the same tools.
 
+> **Reading the examples below.** `/path/to/umpire` is a placeholder — substitute your
+> checkout. Paths are written that way rather than with shell variables because neither
+> harness expands a bare `$VAR`: Hermes resolves only `${VAR}` / `${env:VAR}` in its MCP
+> config, and OpenCode's JSON takes the value literally. `~` is safe only where the server
+> itself expands it — it does for `UMPIRE_LEDGER_DIR` (`mcp_server.py` calls
+> `expanduser()`), not for `UMPIRE_CALIBRATION`, which must be absolute or resolvable from
+> the process `cwd`.
+
 ## Tools
 
 | tool | purpose |
@@ -39,7 +47,7 @@ pinned endpoint.
 ## Run standalone
 
 ```sh
-cd /home/theb/Documents/umpire
+cd /path/to/umpire
 UMPIRE_SERVER_URL=http://127.0.0.1:8081 \
 UMPIRE_CALIBRATION=calibration/umpire-cal-v2.json \
 UMPIRE_LABELS=billing,other,sales,technical \
@@ -84,10 +92,10 @@ under `mcp`).  Use the CLI or edit configuration.
 ```sh
 opencode mcp add umpire --global \
   --env UMPIRE_SERVER_URL=http://127.0.0.1:8081 \
-  --env UMPIRE_CALIBRATION=/home/theb/Documents/umpire/calibration/umpire-cal-v2.json \
+  --env UMPIRE_CALIBRATION=calibration/umpire-cal-v2.json \
   --env UMPIRE_LABELS=billing,other,sales,technical \
-  --env UMPIRE_LEDGER_DIR=/home/theb/.local/state/umpire/ledgers \
-  -- python3 /home/theb/Documents/umpire/mcp_server.py
+  --env UMPIRE_LEDGER_DIR=~/.local/state/umpire/ledgers \
+  -- python3 mcp_server.py
 opencode mcp list
 ```
 
@@ -102,13 +110,13 @@ opencode mcp list
     "servers": {
       "umpire": {
         "type": "local",
-        "command": ["python3", "/home/theb/Documents/umpire/mcp_server.py"],
-        "cwd": "/home/theb/Documents/umpire",
+        "command": ["python3", "/path/to/umpire/mcp_server.py"],
+        "cwd": "/path/to/umpire",
         "environment": {
           "UMPIRE_SERVER_URL": "http://127.0.0.1:8081",
-          "UMPIRE_CALIBRATION": "/home/theb/Documents/umpire/calibration/umpire-cal-v2.json",
+          "UMPIRE_CALIBRATION": "calibration/umpire-cal-v2.json",
           "UMPIRE_LABELS": "billing,other,sales,technical",
-          "UMPIRE_LEDGER_DIR": "/home/theb/.local/state/umpire/ledgers",
+          "UMPIRE_LEDGER_DIR": "~/.local/state/umpire/ledgers",
           "UMPIRE_PIN": "qwen3-1.7b",
           "UMPIRE_SEED": "7",
           "UMPIRE_TIMEOUT": "300"
@@ -153,11 +161,11 @@ CLI (it performs discovery) or edit YAML.
 hermes mcp add umpire \
   --command python3 \
   --env UMPIRE_SERVER_URL=http://127.0.0.1:8081 \
-        UMPIRE_CALIBRATION=/home/theb/Documents/umpire/calibration/umpire-cal-v2.json \
+        UMPIRE_CALIBRATION=calibration/umpire-cal-v2.json \
         UMPIRE_LABELS=billing,other,sales,technical \
-        UMPIRE_LEDGER_DIR=/home/theb/.local/state/umpire/ledgers \
+        UMPIRE_LEDGER_DIR=~/.local/state/umpire/ledgers \
         UMPIRE_PIN=qwen3-1.7b UMPIRE_SEED=7 UMPIRE_TIMEOUT=300 \
-  --args /home/theb/Documents/umpire/mcp_server.py
+  --args /path/to/umpire/mcp_server.py
 hermes mcp test umpire
 hermes mcp list
 ```
@@ -168,12 +176,12 @@ hermes mcp list
 mcp_servers:
   umpire:
     command: "python3"
-    args: ["/home/theb/Documents/umpire/mcp_server.py"]
+    args: ["/path/to/umpire/mcp_server.py"]
     env:
       UMPIRE_SERVER_URL: "http://127.0.0.1:8081"
-      UMPIRE_CALIBRATION: "/home/theb/Documents/umpire/calibration/umpire-cal-v2.json"
+      UMPIRE_CALIBRATION: "calibration/umpire-cal-v2.json"
       UMPIRE_LABELS: "billing,other,sales,technical"
-      UMPIRE_LEDGER_DIR: "/home/theb/.local/state/umpire/ledgers"
+      UMPIRE_LEDGER_DIR: "~/.local/state/umpire/ledgers"
       UMPIRE_PIN: "qwen3-1.7b"
       UMPIRE_SEED: "7"
       UMPIRE_TIMEOUT: "300"
