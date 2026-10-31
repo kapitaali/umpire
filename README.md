@@ -207,6 +207,14 @@ Deps: `pip install jsonschema>=4` (Python ≥3.10); else stdlib-only.
   (the global `~/.gitconfig` resolves to it, so a plain `git commit` is correct). A
   commit signed otherwise is a mis-signing: record it, never rewrite it. Pushing is the
   owner's act.
+- **CI.** `.github/workflows/ci.yml` runs the offline gates: ledger conformance over the four
+  fixtures, page-table roundtrip per baseline, the calibration corpora (v2 + v3, raw and
+  calibrated) plus the v1/v2/v3 checksum families, three unit suites, the packaging
+  invariants, and hub regen byte-identity. `bash tools/run-ci.sh` is the local mirror of those
+  steps; `python3 tools/ci-rehearsal.py` runs the WORKFLOW's own `run:` steps in a pristine
+  clone — that is how a workflow edit is tested before it is pushed. The LIVE gates
+  (`harness/test_m1.py`, the M2 live gate) need the pinned llama-server and are deliberately
+  out of CI.
 - **Frozen artifacts.** `models/` and `runners/` are hashes-pinned in `harness/pins.json`
   and never committed; `calibration/checksums*.sha256` pin the calibration families, whose
   hashes are the calibration of record. Fixtures under `fixtures/` are regenerated with

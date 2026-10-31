@@ -1,0 +1,76 @@
+# umpire CI — the offline gates. Local mirror: `bash tools/run-ci.sh` (same steps, same order).
+#
+# Deliberately absent: the LIVE gates. `harness/test_m1.py` and the M2 live gate need the
+# pinned llama-server on 127.0.0.1:8081 and belong to a capture session, not to CI. Everything
+# here runs with no model, no GPU and no network beyond the two package installs.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: install jsonschema (pinned)
+        run: pip install "jsonschema==4.26.0"
+
+      - name: ledger conformance — the four fixtures
+        run: >
+          python spec/validate_ledger.py
+          fixtures/intent-router.ledger.jsonl fixtures/intent-router.records.jsonl
+          fixtures/support-triage.ledger.jsonl fixtures/support-triage.records.jsonl
+          fixtures/ab-demo.ledger.jsonl fixtures/ab-demo.records.jsonl
+          fixtures/live-demo.ledger.jsonl fixtures/live-demo.records.jsonl
+
+      - name: page-table roundtrip — every fixture baseline
+        run: |
+          for n in ab-demo intent-router live-demo support-triage; do
+            python spec/validate_ledger.py --replay "fixtures/$n.ledger.jsonl" \
+              "fixtures/$n.records.jsonl" "fixtures/$n.page-table.json"
+          done
+
+      - name: calibration corpora (v2 + v3, raw and calibrated records)
+        run: |
+          python spec/validate_ledger.py calibration/corpus.ledger.jsonl calibration/corpus.records.jsonl
+          python spec/validate_ledger.py calibration/corpus.ledger.jsonl calibration/corpus.calibrated.records.jsonl
+          python spec/validate_ledger.py calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.records.jsonl
+          python spec/validate_ledger.py calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.calibrated.records.jsonl
+
+      - name: calibration checksums (v1 + v2 + v3 families)
+        run: |
+          sha256sum -c calibration/checksums.sha256
+          sha256sum -c calibration/checksums-v2.sha256
+          sha256sum -c calibration/checksums-v3.sha256
+
+      - name: unit suites — mcp server
+        run: python -m unittest mcp_server_test.py
+      - name: unit suites — calibration
+        run: python -m unittest calibration/test_calibration.py
+      - name: unit suites — replay audit
+        run: python -m unittest harness/test_replay_audit.py
+
+      - name: packaging invariants (stdlib-only offline gates)
+        run: python spec/test_packaging.py
+
+  hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: install open-data-products SDK (pinned)
+        run: pip install "open-data-products==0.4.0"
+      - name: hub regen byte-identity
+        run: bash spec/build_hub.sh check
