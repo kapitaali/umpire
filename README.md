@@ -201,6 +201,18 @@ python3 spec/validate_ledger.py --replay tests/m3-replay-full/replay.ledger.json
 
 Deps: `pip install jsonschema>=4` (Python ≥3.10); else stdlib-only.
 
+## Repo conventions
+
+- **Commit attribution.** Every commit is authored `kapitaali <teppo@kapitaali.com>`
+  (the global `~/.gitconfig` resolves to it, so a plain `git commit` is correct). A
+  commit signed otherwise is a mis-signing: record it, never rewrite it. Pushing is the
+  owner's act.
+- **Frozen artifacts.** `models/` and `runners/` are hashes-pinned in `harness/pins.json`
+  and never committed; `calibration/checksums*.sha256` pin the calibration families, whose
+  hashes are the calibration of record. Fixtures under `fixtures/` are regenerated with
+  `spec/make_fixtures.py` or migrated with `spec/migrate_rfc01.py`; `tests/` holds tracked
+  gate artifacts and must stay trackable.
+
 ## Roadmap
 
 - **M0 — decision-ledger spec + validator + fixtures: done** (see `reports/RR-M0-20261022.md`).
