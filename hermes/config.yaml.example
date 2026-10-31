@@ -1,0 +1,20 @@
+# Hermes MCP server configuration for umpire
+# Add this section to ~/.hermes/config.yaml (use `hermes config set ...` or edit manually):
+
+mcp_servers:
+  umpire:
+    command: "$HERMES_PYTHON"
+    args: ["$UMPIRE_MCP_SERVER"]
+    env:
+      UMPIRE_SERVER_URL: "http://127.0.0.1:8081"
+      UMPIRE_LEDGER_DIR: "$UMPIRE_LEDGER_DIR"
+      UMPIRE_PIN: "qwen3-1.7b"
+      UMPIRE_SEED: "7"
+      UMPIRE_TIMEOUT: "300"
+
+# Required environment on the MCP server interpreter:
+#   pip install jsonschema>=4   (needed by validate + replay)
+#   llama-server running at UMPIRE_SERVER_URL before calling decide
+
+# After editing config.yaml, restart Hermes so it re-spawns the MCP server:
+#   hermes gateway restart

@@ -370,12 +370,43 @@ def tool_calibration_info(args):
     }
 
 
+_validator_python_cache = None
+
+
+def _validator_python():
+    """Interpreter for the validator subprocess.
+
+    Hermes launches this server with its own toolchain python, which may not have
+    `jsonschema` — the validator then exits 2 with "deps: pip install jsonschema>=4"
+    and the tool reports a failure that is really an environment fact. `UMPIRE_PYTHON`
+    overrides; otherwise this prefers the first interpreter that can import jsonschema.
+    """
+    global _validator_python_cache
+    if _validator_python_cache:
+        return _validator_python_cache
+    import shutil
+    import subprocess
+
+    candidates = [os.environ.get("UMPIRE_PYTHON"), sys.executable,
+                  shutil.which("python3"), shutil.which("python")]
+    for cand in candidates:
+        if not cand:
+            continue
+        probe = subprocess.run([cand, "-c", "import jsonschema"],
+                               capture_output=True, text=True, timeout=30)
+        if probe.returncode == 0:
+            _validator_python_cache = cand
+            return cand
+    _validator_python_cache = sys.executable
+    return _validator_python_cache
+
+
 def _run_validator(args, replay=False):
     ledger = args.get("ledger")
     records = args.get("records")
     if not ledger or not records:
         raise ValueError("ledger and records are required")
-    cmd = [sys.executable, str(ROOT / "spec" / "validate_ledger.py")]
+    cmd = [_validator_python(), str(ROOT / "spec" / "validate_ledger.py")]
     if replay:
         baseline = args.get("baseline")
         if not baseline:
