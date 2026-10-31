@@ -7,7 +7,7 @@ Usage:
   python3 spec/validate_ledger.py L1.ledger.jsonl L1.records.jsonl [L2 L2 ...]
       Validates each (ledger, records) pair — per-line schemas, profile rules,
       minting recomputation, join rules — then runs the built-in negative corpus
-      (ten engineered bad cases, plus two M2 calibrated-record cases when a fitted
+      (twelve engineered bad cases, plus two M2 calibrated-record cases when a fitted
       artifact is present; each MUST be caught).
 
   python3 spec/validate_ledger.py --replay L.ledger.jsonl L.records.jsonl BASELINE
@@ -32,6 +32,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
 from ledger_tools import (  # noqa: E402
     canonical_json,
+    content_hash,
     decide_ref,
     derive_page_table,
     render_page_table,
@@ -43,6 +44,14 @@ HERE = pathlib.Path(__file__).parent
 XCABI = json.loads((HERE / "vendor" / "x-cabi-0.1.schema.json").read_text())
 RECORD_SCHEMA = json.loads((HERE / "decision-record-v0.schema.json").read_text())
 PROFILE_EVENTS = frozenset({"page.declare", "page.fault"})
+# RFC-0.1 R0/R1 (RR-RFC01-20261031): the profile is VERSION-BRANCHED. A ledger
+# without `schemaVersion` is a v0 ledger and keeps the strict single-source rule;
+# a ledger that declares "0.1" may also carry the typed deliberate re-execution.
+# A deliberate re-decide is `intentional_rerun`; `tool_recall` stays reserved for
+# a page re-fetched because it had been paged out (umpire pages nothing out).
+TRACE_VERSION = "0.1"
+V0_FAULT_SOURCES = frozenset({"tool_recall"})
+V01_FAULT_SOURCES = V0_FAULT_SOURCES | frozenset({"intentional_rerun"})
 
 
 def load_calibration_artifacts():
@@ -91,12 +100,20 @@ def failures_for_pair(basename, ledger_lines, record_lines):
     if (not failures or all("xCABI schema" not in f for f in failures)) and events:
         if events[0]["type"] != "session.open":
             fail("L3: first ledger line is not session.open")
+        # RFC-0.1 R0: the version boundary decides which source set applies. The
+        # vendored schema pins schemaVersion to `const: "0.1"`, so an unknown
+        # version never reaches this line — it is rejected as a schema error.
+        declared = events[0].get("schemaVersion")
+        allowed_sources = V01_FAULT_SOURCES if declared == TRACE_VERSION else V0_FAULT_SOURCES
         for i, event in enumerate(events[1:], start=2):
             checked += 1
             if event["type"] not in PROFILE_EVENTS:
                 fail(f"L2: ledger line {i} out of profile ({event['type']})")
-            elif event["type"] == "page.fault" and event["source"] != "tool_recall":
-                fail(f"L4: fault source '{event['source']}' not allowed in the v0 profile")
+            elif event["type"] == "page.fault" and event["source"] not in allowed_sources:
+                fail(
+                    f"L4: fault source '{event['source']}' not allowed in the "
+                    f"{'v0' if declared is None else declared} profile"
+                )
 
     # recompute identity over declares/faults (minting gate)
     slots: dict[str, list[dict]] = {}
@@ -352,6 +369,11 @@ def fault(ev_hash, turn=1, source="tool_recall"):
 STATE_A = {"text": "hello world"}
 LABELS_A = ["alpha", "beta"]
 REF_A = decide_ref(STATE_A, LABELS_A)
+# The fault-source negative cases below must fail ONLY on the profile rule, so the
+# fault names the real resident slot (a hand-made hash would also break the join
+# and the minting gate, keeping the case green even if L4 regressed).
+RESP_A = {"confidence": 0.5, "key": "alpha", "probabilities": {"alpha": 0.5, "beta": 0.5}}
+HASH_A = content_hash(canonical_json(RESP_A))
 
 
 NEGATIVE_CASES = [
@@ -391,7 +413,20 @@ NEGATIVE_CASES = [
     ),
     (
         "fault-source-semantic",
-        ledger_of(OPEN, declare("sha256:00000006"), fault("sha256:11111111", source="semantic")),
+        ledger_of(OPEN, declare(HASH_A), fault(HASH_A, source="semantic")),
+        [rec(STATE_A, LABELS_A, "alpha", {"alpha": 0.5, "beta": 0.5}, 0.5)],
+    ),
+    (
+        # RFC-0.1 R1: the typed source is NOT a v0 concept. Without the version
+        # marker the same row is still a profile violation.
+        "fault-source-intentional-rerun-without-version",
+        ledger_of(OPEN, declare(HASH_A), fault(HASH_A, source="intentional_rerun")),
+        [rec(STATE_A, LABELS_A, "alpha", {"alpha": 0.5, "beta": 0.5}, 0.5)],
+    ),
+    (
+        # RFC-0.1 R0: an unknown version must be rejected, never guessed.
+        "unknown-schema-version",
+        ledger_of(dict(OPEN, schemaVersion="0.2"), declare("sha256:0000000c")),
         [rec(STATE_A, LABELS_A, "alpha", {"alpha": 0.5, "beta": 0.5}, 0.5)],
     ),
     (

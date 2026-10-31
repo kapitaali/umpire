@@ -23,17 +23,17 @@
       "faults": [
         {
           "turn": 1,
-          "source": "tool_recall",
+          "source": "intentional_rerun",
           "contentHash": "sha256:52114663"
         },
         {
           "turn": 2,
-          "source": "tool_recall",
+          "source": "intentional_rerun",
           "contentHash": "sha256:52114663"
         },
         {
           "turn": 3,
-          "source": "tool_recall",
+          "source": "intentional_rerun",
           "contentHash": "sha256:52114663"
         }
       ]

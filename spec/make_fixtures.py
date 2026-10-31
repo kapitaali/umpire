@@ -45,6 +45,9 @@ def session_open() -> dict:
         "provider": "local",
         "budgetTokens": 0,
         "tokenizerId": "apx4-char",
+        # RFC-0.1 R0: the version boundary. Required for the typed re-execution
+        # below (R1) — a trace without it is v0 and has no intentional_rerun.
+        "schemaVersion": "0.1",
     }
 
 
@@ -109,7 +112,10 @@ def build(name, decisions):
                         "type": "page.fault",
                         "turn": turn,
                         "page": {"logicalRef": ref, "contentHash": first_slot[ref]},
-                        "source": "tool_recall",
+                        # RFC-0.1 R1: umpire re-decides deliberately and pages
+                        # nothing out, so every fault it emits is a typed
+                        # re-execution — never a paging recall.
+                        "source": "intentional_rerun",
                     }
                 )
             )

@@ -39,7 +39,7 @@
       "faults": [
         {
           "turn": 2,
-          "source": "tool_recall",
+          "source": "intentional_rerun",
           "contentHash": "sha256:a8e877d1"
         }
       ]

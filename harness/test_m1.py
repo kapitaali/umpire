@@ -142,8 +142,14 @@ def p4_and_p5(live_pair):
     if len(new_events) != 1 or new_events[0]["type"] != "page.fault":
         fail("P4", f"expected exactly one page.fault, got {new_events}")
         return
-    if new_events[0]["source"] != "tool_recall":
-        fail("P4", f"fault source {new_events[0]['source']} != tool_recall")
+    # RFC-0.1 R1 (RR-RFC01-20261031): a deliberate re-decide is typed as
+    # `intentional_rerun` — `tool_recall` would claim a paging recall, and umpire
+    # pages nothing out. The ledger must also declare the 0.1 boundary (R0).
+    if new_events[0]["source"] != "intentional_rerun":
+        fail("P4", f"fault source {new_events[0]['source']} != intentional_rerun")
+        return
+    if events[0].get("schemaVersion") != "0.1":
+        fail("P4", f"session.open schemaVersion {events[0].get('schemaVersion')!r} != '0.1'")
         return
     declares = [e for e in events if e["type"] == "page.declare"]
     resident = declares[0]["page"]["id"]["contentHash"]

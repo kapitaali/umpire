@@ -3,3 +3,6 @@ models/
 runners/
 __pycache__/
 *.swp
+
+# internal planning documents, not for commit
+research/

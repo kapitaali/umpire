@@ -171,6 +171,8 @@ class LedgerWriter:
                 "provider": "local",
                 "budgetTokens": 0,
                 "tokenizerId": "apx4-char",
+                # RFC-0.1 R0: the version boundary (RR-RFC01-20261031).
+                "schemaVersion": "0.1",
             }
             with self.ledger_path.open("w" if self.line == 0 else "a") as f:
                 f.write(json.dumps(open_ev) + "\n")
@@ -211,7 +213,10 @@ class LedgerWriter:
                         "type": "page.fault",
                         "turn": self.decisions,
                         "page": {"logicalRef": ref, "contentHash": resident},
-                        "source": "tool_recall",
+                        # RFC-0.1 R1: a deliberate re-decide is a typed
+                        # re-execution; umpire never pages a page out, so
+                        # `tool_recall` would misdescribe its own behaviour.
+                        "source": "intentional_rerun",
                     }
                 )
                 + "\n"
@@ -338,6 +343,8 @@ def decide(server_url, state, labels, pin_id, seed, ledger_path, records_path, t
         "provider": "local",
         "budgetTokens": 0,
         "tokenizerId": "apx4-char",
+        # RFC-0.1 R0: the version boundary (RR-RFC01-20261031).
+        "schemaVersion": "0.1",
     }
     writer = LedgerWriter(ledger_path, records_path, session_open)
     writer.append(record)

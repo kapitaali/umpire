@@ -5,7 +5,7 @@ caller-owned `labels` and returns one `key`, raw label probabilities, a confiden
 optional corpus-fitted calibration view, and an auditable identity. Consumes the
 [ctxvm]/xCABI trace standard; contributes nothing back into it.
 
-**Status:** M0 + M1 + M2 calibration core (v1/v2) complete; M3 replay audit landed (smoke + full 480-row corpus); ODPS/ODCS packaging (Phase A) + hub (Phase B) + OpenCode MCP integration verified · 2026-10-24 · **License:** Apache-2.0 · **Name:** `umpire` (working name)
+**Status:** M0 + M1 + M2 calibration core (v1/v2) complete; M3 replay audit landed (smoke + full 480-row corpus); ODPS/ODCS packaging (Phase A) + hub (Phase B) + OpenCode MCP integration verified · xCABI **RFC-0.1** profile adopted 2026-10-31 · **License:** Apache-2.0 · **Name:** `umpire` (working name)
 
 **M1 pin structure (three pins, all live-exercised):**
 - `qwen3-1.7b` — primary pin (Qwen3-1.7B Q8_0, apache-2.0, official GGUF)
@@ -48,13 +48,19 @@ metrics, reproduction, and limitations.
 Every decision is an **xCABI page**: `logicalRef` = `tool:decide(<canonical(state, labels)>`
 (T6 minting: sorted keys, `sha256:8hex`, >120-char truncation + `#` tail), `contentHash`
 nominal over the response. A **re-classification of an identical `(state, labels)`** is a
-priced repeat call — xCABI `page.fault source:"tool_recall"` rows name the resident slot;
-A/B pins and re-seeded runs count as exactly the waste being measured. Same hash re-land →
-fault row only; divergent hash → fault row + second-slot declare. `model_pin`/`seed` are
-deliberately **excluded** from the ref.
+priced repeat call — xCABI `page.fault source:"intentional_rerun"` rows name the resident
+slot (RFC-0.1 R1; umpire pages nothing out, so `tool_recall` would misdescribe a deliberate
+re-decide). A/B pins and re-seeded runs count as exactly the waste being measured. Same hash
+re-land → fault row only; divergent hash → fault row + second-slot declare. `model_pin`/`seed`
+are deliberately **excluded** from the ref.
+
+Every ledger declares `schemaVersion:"0.1"` on `session.open` (RFC-0.1 R0). A ledger
+without it is a v0 ledger: `intentional_rerun` is then a profile violation, not a feature
+(the validator is version-branched, and the negative corpus has a case for exactly that).
 
 Normative: [`00-SPEC.md`](00-SPEC.md) · vendored schema:
-[`spec/vendor/x-cabi-0.1.schema.json`](spec/vendor/x-cabi-0.1.schema.json) (ctxvm @ `361043e`).
+[`spec/vendor/x-cabi-0.1.schema.json`](spec/vendor/x-cabi-0.1.schema.json) (ctxvm @ `36cec7c`,
+RFC-0.1, re-vendored 2026-10-31).
 
 ## Use cases
 
@@ -100,13 +106,15 @@ reports/                        per-milestone reports + LOG
 python3 spec/validate_ledger.py \
   fixtures/intent-router.ledger.jsonl  fixtures/intent-router.records.jsonl \
   fixtures/support-triage.ledger.jsonl fixtures/support-triage.records.jsonl \
-  fixtures/ab-demo.ledger.jsonl        fixtures/ab-demo.records.jsonl
-# LEDGER CONFORMANCE: PASS (167 checks across all pairs with the M2 artifact;
-# 12/12 negative cases, including the two calibrated-record gates)
+  fixtures/ab-demo.ledger.jsonl        fixtures/ab-demo.records.jsonl \
+  fixtures/live-demo.ledger.jsonl      fixtures/live-demo.records.jsonl
+# LEDGER CONFORMANCE: PASS (207 checks across four fixtures + the M2 artifact;
+# 14/14 negative cases, including the two calibrated-record gates)
 
 python3 spec/validate_ledger.py --replay fixtures/ab-demo.ledger.jsonl \
   fixtures/ab-demo.records.jsonl fixtures/ab-demo.page-table.json
-# roundtrip: BYTE-IDENTICAL
+# roundtrip: BYTE-IDENTICAL   (same shape for intent-router / live-demo / support-triage:
+# every fixture's committed page-table.json re-derives byte-identically after the migration)
 
 # M2 calibration offline gates (corpus, raw capture, artifact, calibrated test rows):
 python3 -m unittest calibration/test_calibration.py -v
@@ -117,20 +125,20 @@ python3 -m unittest harness/test_replay_audit.py -v
 # Ran 2 tests … OK
 python3 spec/validate_ledger.py \
   calibration/corpus.ledger.jsonl calibration/corpus.records.jsonl
-# LEDGER CONFORMANCE: PASS (888 checks; negatives 12/12)
+# LEDGER CONFORMANCE: PASS (905 checks; negatives 14/14)
 python3 spec/validate_ledger.py \
   calibration/corpus.ledger.jsonl calibration/corpus.calibrated.records.jsonl
-# LEDGER CONFORMANCE: PASS (928 checks; negatives 12/12)
+# LEDGER CONFORMANCE: PASS (945 checks; negatives 14/14)
 sha256sum -c calibration/checksums.sha256
 # 9 data artifacts: OK
 
 # v3 calibration gates (current drop; quiescent recapture — corpus file unchanged since v2):
 python3 spec/validate_ledger.py \
   calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.records.jsonl
-# PASS (2488 checks; negatives 12/12)
+# PASS (2505 checks; negatives 14/14)
 python3 spec/validate_ledger.py \
   calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.calibrated.records.jsonl
-# PASS (2608 checks; negatives 12/12)
+# PASS (2625 checks; negatives 14/14)
 python3 spec/validate_ledger.py --replay \
   calibration/corpus-v3.ledger.jsonl calibration/corpus-v3.records.jsonl \
   calibration/corpus-v3.page-table.json
@@ -176,15 +184,16 @@ python3 harness/replay_audit.py --work-dir ~/.local/state/umpire/m3/<dir> --json
 # structural gates on the preserved full-run corpus:
 python3 spec/validate_ledger.py tests/m3-replay-full/replay.ledger.jsonl \
   tests/m3-replay-full/replay.records.jsonl
-# PASS (2488 checks); negatives 12/12
+# PASS (2505 checks); negatives 14/14
 python3 spec/validate_ledger.py --replay tests/m3-replay-full/replay.ledger.jsonl \
   tests/m3-replay-full/replay.records.jsonl tests/m3-replay-full/replay.page-table.json
 # roundtrip: BYTE-IDENTICAL (sha256:25b073cbc59a5e2c)
 
 # consumption via ctxvm's own published tools (verbatim ledgers):
 #   ctxvm validate_schema.py  → SCHEMA CONFORMANCE: PASS (61 checks)
-#   ctxvm replay (rust)       → exit 0, divergences [],
-#                               violations: 3× faultOfResidentPage (2 identical re-decides + 1 divergent pin-B)
+#   ctxvm replay (rust)       → exit 0, divergences [], violations []   (0, not 3 — RFC-0.1 R1)
+#                               the A/B rows are typed intentional_rerun, so the resident-fault
+#                               rule no longer misreads deliberate re-decides as paging waste;
 #                               second-slot declare present (divergent-hash A/B path exercised live)
 #   ctxvm validate_schema.py ../umpire/calibration/corpus.ledger.jsonl → PASS (216 checks)
 #   ctxvm replay ../umpire/calibration/corpus.ledger.jsonl → events 161, divergences [], violations []
@@ -216,6 +225,13 @@ Deps: `pip install jsonschema>=4` (Python ≥3.10); else stdlib-only.
   (their SDK end to end) with a byte-identical `check` mode and 25/25 packaging
   gates (see `reports/RR-HUB-20261023.md`). Static + local per T14; llms.txt,
   agent port, and publication remain Phase C (hybrid switch).
+- **xCABI RFC-0.1 adoption — done (2026-10-31)** — the ledger declares the R0 version
+  boundary and prices deliberate re-decides as R1 `intentional_rerun`; the vendored schema
+  is re-vendored from ctxvm `36cec7c`; the validator's L4 rule is version-branched (v0
+  ledgers keep the strict single-source rule); four fixtures migrated, page-table baselines
+  re-derived, two engineered negatives added (`intentional_rerun` without the boundary,
+  unknown `schemaVersion`). ctxvm's replay of `fixtures/ab-demo.ledger.jsonl` now reports
+  **0 violations** where it reported **3** — see `reports/RR-RFC01-20261031.md`.
 - **M3 — local replay-audit: smoke + full 480-row corpus done** —
   `harness/replay_audit.py` re-runs selected pinned-corpus rows and compares `ref`,
   `contentHash`, probabilities, and `model_pin`; the page-table `--replay` gate

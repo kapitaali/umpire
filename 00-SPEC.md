@@ -21,7 +21,7 @@ small model (Qwen/Phi-class), post-hoc calibration (temperature scaling / isoton
 pinned per version. Latency honesty: ~100–600 ms locally vs. hosted ~70 ms specialists —
 conceded openly; confidence-gated routing composes rather than competes.
 
-## 2. Decision-ledger v0 — an xCABI-0.1 profile
+## 2. Decision-ledger v0 — an xCABI-0.1 profile (RFC-0.1 applied 2026-10-31)
 
 The ledger records every decision as an xCABI page (§5.1 of the proposal: identity
 minting per the T6 shim contract). It is **byte-valid under the vendored xCABI-0.1
@@ -29,15 +29,17 @@ schema** (`spec/vendor/x-cabi-0.1.schema.json`) — ctxvm's own tools are consum
 
 | xCABI event | Decision semantics (locked) |
 |---|---|
-| `session.open` | `{agentId:"umpire", model:<pin.model>, provider:"local", budgetTokens:0, tokenizerId:"apx4-char"}` — first line, required |
+| `session.open` | `{agentId:"umpire", model:<pin.model>, provider:"local", budgetTokens:0, tokenizerId:"apx4-char", schemaVersion:"0.1"}` — first line, required. `schemaVersion` is the RFC-0.1 **R0** boundary: without it the ledger is a v0 ledger and no typed re-execution exists |
 | `page.declare` | one decision recorded. `logicalRef` = `decideRef(request)`; `contentHash` = `contentHash(response)`; `kind:"tool_result"`; `tokens = approx4(canonicalJson(response))` |
-| `page.fault` | a **re-decide** of an already-resident request: `source:"tool_recall"` (same key `(state, labels)` re-requested), `turn` = the new decision's index (0-based), and `page.contentHash` = the **resident** hash at request time (T8/T9-conformant: the fault names what was already resident). Schema asymmetry to respect: `page.declare` nests the identity under `page.id`, `page.fault` carries it **flat** (`page.logicalRef` / `page.contentHash`) |
+| `page.fault` | a **re-decide** of an already-resident request: `source:"intentional_rerun"` (RFC-0.1 **R1** — the same key `(state, labels)` deliberately re-requested; umpire pages nothing out, so `tool_recall` would misdescribe it), `turn` = the new decision's index (0-based), and `page.contentHash` = the **resident** hash at request time (T8/T9-conformant: the fault names what was already resident). Schema asymmetry to respect: `page.declare` nests the identity under `page.id`, `page.fault` carries it **flat** (`page.logicalRef` / `page.contentHash`) |
 
 Profile constraints (all enforced by the validator, each with an engineered negative):
 **L1** — one decision = one turn; **L2** — allowed events are only the three above
 (any other xCABI event = out-of-profile); **L3** — first line must be `session.open`;
-**L4** — `faults` may only carry `source:"tool_recall"` (the auto same-key channel;
-`semantic` is banned in v0, `explicit_api`/`identifier_scan` have no decision meaning);
+**L4** — `faults` may carry only the sources its ledger's version admits: a v0 ledger
+(no `schemaVersion`) is limited to `source:"tool_recall"`; a `schemaVersion:"0.1"` ledger
+admits `tool_recall` and `intentional_rerun` (RFC-0.1 R1, 2026-10-31). `semantic` is
+banned in both, and `explicit_api`/`identifier_scan` have no decision meaning;
 **L5** — ledger lines carry no floats (xCABI rule; `tokens` integers only).
 
 ### Identity minting (mirrors `ctxvm/packages/node/src/ident.ts` @ 361043e, byte-compatible)
@@ -128,9 +130,10 @@ python3 spec/validate_ledger.py \
 
 Positive side: schema-validates every ledger line (against the vendored xCABI-0.1 schema)
 and every record line, then runs the profile + join + minting cross-checks. Negative
-side: ten engineered bad ledgers/records (invented key, probabilities ≠ label set,
+side: twelve engineered bad ledgers/records (invented key, probabilities ≠ label set,
 minting drift, Σp ≠ 1, out-of-profile event, banned fault source, floats in the ledger,
-confidence > 1, orphan declare, duplicate labels) — plus two M2 calibrated-record cases
+confidence > 1, orphan declare, duplicate labels, `intentional_rerun` without the 0.1
+boundary, unknown `schemaVersion`) — plus two M2 calibrated-record cases
 (confidence mismatch, unknown `data_version`) when a fitted artifact is present — each
 must be caught for the run to PASS. Its own PASS + exit code is the contract.
 
@@ -139,14 +142,20 @@ must be caught for the run to PASS. Its own PASS + exit code is the contract.
 The M0 fixture triplets are **synthetic** (reasoned examples, not model outputs; the
 harness landed in M1). `weights_hash` values there are fixed placeholder strings shaped
 `sha256:<8hex>`, not real model weights. Regenerate with `python3 spec/make_fixtures.py`
-(deterministic: same bytes every run). The live M1/M2 ledgers are separate artifacts
+(deterministic: same bytes every run). The two captured fixtures (`ab-demo`, `live-demo`)
+have no generator; `python3 spec/migrate_rfc01.py` is the auditable path for profile
+migrations (used for the 2026-10-31 RFC-0.1 adoption — it reproduces `make_fixtures.py`
+byte-for-byte on the generated pair, which is the cross-check). The live M1/M2 ledgers are separate artifacts
 with their own pin hashes and capture metadata.
 
 ## 7. Vendoring note
 
-`spec/vendor/x-cabi-0.1.schema.json` is a pinned copy of ctxvm's published schema
-(ctxvm @ `361043e`). Do not edit its semantics; if ctxvm bumps the schema, re-vendor and
-re-run the gates (and note it in this file's status header). ODPS/ODCS packaging Phase A
+`spec/vendor/x-cabi-0.1.schema.json` is a pinned copy of ctxvm's published schema.
+**Re-vendored 2026-10-31: ctxvm @ `36cec7c`** (`spec/rfc-0.1/x-cabi.schema-v0.1.json`,
+RFC-0.1 — D4 approved 2026-10-30), verbatim except a provenance `$comment`. The previous
+copy was ctxvm @ `361043e` (the v0 schema, reorganized into named `$defs`; that fork is
+gone — this file is now ctxvm's own). Do not edit its semantics; if ctxvm bumps the
+schema, re-vendor and re-run the gates (and note it in this file's status header). ODPS/ODCS packaging Phase A
 landed 2026-10-23 (`odps/…odps.yaml` + `contracts/…odcs.yaml`, validated on the ctxvm
 stack — see `reports/RR-ODPS-20261023.md`); the hub pipeline landed static-local
 in Phase B (`hub/` ODPC catalog + KPI leaderboard + integrity anchor,

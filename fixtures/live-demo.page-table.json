@@ -19,7 +19,7 @@
       "faults": [
         {
           "turn": 3,
-          "source": "tool_recall",
+          "source": "intentional_rerun",
           "contentHash": "sha256:52114663"
         }
       ]
