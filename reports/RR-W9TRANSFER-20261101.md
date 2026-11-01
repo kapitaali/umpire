@@ -98,3 +98,51 @@ reproduce`. `ALL GATES GREEN`. Both arms' ledger conformance and replay re-verif
 `calibration/transfer/{a1,a2}.{corpus,ledger,records,raw,page-table,meta}` ·
 `calibration/transfer/verdict.json` · `calibration/transfer/provenance.json` ·
 `spec/transfer_eval.py` · this report.
+
+---
+
+## Amendment 1 result — arms extended to the validation split (n=180)
+
+`design/W9-TRANSFER.md` Amendment 1, decoded 11:00:23Z → 11:32:43Z (32 min 20 s), same pin, seed and
+map. Both validation arms are sound: `PASS (555 checks)`, `BYTE-IDENTICAL` replay
+(`a1v sha256:a02ffb2d…`, `a2v sha256:2ae9232b…`). Evaluation set = test ∪ validation, n=180 per arm.
+
+```
+A1 — drop 'other', n=180
+  ECE     A0 0.0750   arm 0.1223   Δ +0.0473 [-0.0048, +0.0923]
+  Brier   A0 0.1360   arm 0.1289   Δ -0.0072 [-0.0248, +0.0104]
+  acc     A0 0.7722   arm 0.8278   Δ +0.0556 [+0.0056, +0.1056]
+  verdict: no detectable degradation
+
+A2 — drop 'billing', n=180
+  ECE     A0 0.0493   arm 0.0681   Δ +0.0188 [-0.0488, +0.0723]
+  Brier   A0 0.1932   arm 0.2045   Δ +0.0113 [-0.0171, +0.0379]
+  acc     A0 0.6556   arm 0.6611   Δ +0.0056 [-0.0611, +0.0722]
+  verdict: no detectable degradation
+```
+
+**The powered run changes the story in two ways, and both matter.**
+
+1. **The n=90 point estimates were partly sampling luck.** A1's ΔECE fell from +0.068 to +0.047 and
+   A2's from +0.058 to **+0.019 — below the +0.02 materiality threshold**. The interval tightened as
+   predicted (±0.049 against ±0.07), and the effect got smaller, not sharper.
+2. **The rule still does not fire.** A1 comes within a hair: its interval lower bound is −0.0048, so
+   "no effect" is excluded by 0.5 percentage points of ECE — not by enough to call. A2 is not close.
+
+So the experiment now says something narrower and more useful than either previous reading: **removing
+a label raises calibrated ECE consistently (both arms positive, Brier roughly flat), by an amount
+between roughly 2 and 5 percentage points, and at n≤180 that is not separable from zero.** The
+earlier "ECE doubles" headline was an artefact of the 90-row subsets; with 180 rows the honest
+phrasing is "ECE rises from 7.5% to 12.2% in A1 (a 63% relative increase) and from 4.9% to 6.8% in A2
+(38%), with intervals that include zero".
+
+**I recommend stopping here rather than extending to train.** Three reasons: the interval is already
+at the ±0.05 the amendment promised; the effect is at or below the threshold the rule was frozen
+against, so more rows would buy precision about a quantity smaller than the materiality cut-off; and
+the train split is in-sample for the map, so adding it would bias A0 downward and manufacture the
+appearance of degradation. Resolving a 2-point effect would need a **larger held-out corpus**
+(a new capture, new checksums), not more arms on this one — that is a corpus-growth decision, which
+belongs to the owner.
+
+A1's accuracy CI still excludes zero (+0.056 [+0.006, +0.106]): the arm without the catch-all class
+is genuinely easier, which is the confound already named above, not a better system.

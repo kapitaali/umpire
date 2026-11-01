@@ -234,9 +234,11 @@ interfaces and adds no semantics to the xCABI core.
 ### W9 — calibration transfer (2026-11-01)
 
 Label-set arms re-decoded on the pinned runner: A1 `billing, sales, technical` and A2
-`other, sales, technical`, 90 test rows each, against A0 restricted to the same ids. Calibrated ECE
-doubles (5.6%→12.4%; 5.5%→11.3%), Brier improves slightly, accuracy rises because the task loses its
-catch-all class. The preregistered decision rule returned "no detectable degradation" for both arms
-on intervals that include zero — the rule was underpowered at n=90, which is recorded as a design
-error in `reports/RR-W9TRANSFER-20261101.md`, together with the three routes forward (extend to the
-train split, raise the threshold, or accept "cannot resolve"). No spend.
+`other, sales, technical`, first on 90 test rows, then — Amendment 1 — extended with the validation
+split to n=180 per arm, always against A0 restricted to the same ids and always scored with the map
+unchanged. At n=180 calibrated ECE rises from 7.5%→12.2% (A1) and 4.9%→6.8% (A2); Brier is roughly
+flat; accuracy rises because the arm loses its catch-all class (a confound). The preregistered rule
+returns "no detectable degradation" for both arms: A1's interval lower bound is −0.0048 and A2's
+point estimate (+0.019) is below the +0.02 materiality threshold. The n=90 "ECE doubles" reading was
+subset luck. Resolving a 2-point effect needs a larger held-out corpus, not more arms — an owner
+decision. No spend. See `reports/RR-W9TRANSFER-20261101.md`.

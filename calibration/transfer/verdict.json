@@ -2,84 +2,7 @@
   "a0": {
     "source": "calibration/corpus-v3.*"
   },
-  "arms": {
-    "a1": {
-      "a0": {
-        "accuracy": 0.733333,
-        "brier": 0.151728,
-        "ece": 0.055769
-      },
-      "arm": {
-        "accuracy": 0.822222,
-        "brier": 0.145409,
-        "ece": 0.123946
-      },
-      "delta": {
-        "accuracy": {
-          "ci95": [
-            0.022222,
-            0.155556
-          ],
-          "delta": 0.088889
-        },
-        "brier": {
-          "ci95": [
-            -0.036227,
-            0.022364
-          ],
-          "delta": -0.006318
-        },
-        "ece": {
-          "ci95": [
-            -0.01901,
-            0.123041
-          ],
-          "delta": 0.068177
-        }
-      },
-      "dropped_label": "other",
-      "n": 90,
-      "verdict": "no detectable degradation"
-    },
-    "a2": {
-      "a0": {
-        "accuracy": 0.633333,
-        "brier": 0.199432,
-        "ece": 0.054557
-      },
-      "arm": {
-        "accuracy": 0.677778,
-        "brier": 0.189835,
-        "ece": 0.112453
-      },
-      "delta": {
-        "accuracy": {
-          "ci95": [
-            -0.055556,
-            0.144444
-          ],
-          "delta": 0.044444
-        },
-        "brier": {
-          "ci95": [
-            -0.050501,
-            0.029837
-          ],
-          "delta": -0.009597
-        },
-        "ece": {
-          "ci95": [
-            -0.054233,
-            0.122363
-          ],
-          "delta": 0.057897
-        }
-      },
-      "dropped_label": "billing",
-      "n": 90,
-      "verdict": "no detectable degradation"
-    }
-  },
+  "amendment": "Amendment 1 (2026-11-01): arms extended to the validation split",
   "artifact": "cal-v1:057a5a35a9d4ec71",
   "bootstrap": {
     "method": "percentile, paired",
@@ -87,5 +10,185 @@
     "seed": 42
   },
   "design": "design/W9-TRANSFER.md",
-  "schema": "umpire-transfer-verdict/0.1"
+  "schema": "umpire-transfer-verdict/0.2",
+  "sets": {
+    "test": {
+      "arms": {
+        "a1": {
+          "a0": {
+            "accuracy": 0.733333,
+            "brier": 0.151728,
+            "ece": 0.055769
+          },
+          "arm": {
+            "accuracy": 0.822222,
+            "brier": 0.145409,
+            "ece": 0.123946
+          },
+          "delta": {
+            "accuracy": {
+              "ci95": [
+                0.022222,
+                0.155556
+              ],
+              "delta": 0.088889
+            },
+            "brier": {
+              "ci95": [
+                -0.036227,
+                0.022364
+              ],
+              "delta": -0.006318
+            },
+            "ece": {
+              "ci95": [
+                -0.01901,
+                0.123041
+              ],
+              "delta": 0.068177
+            }
+          },
+          "dropped_label": "other",
+          "n": 90,
+          "verdict": "no detectable degradation"
+        },
+        "a2": {
+          "a0": {
+            "accuracy": 0.633333,
+            "brier": 0.199432,
+            "ece": 0.054557
+          },
+          "arm": {
+            "accuracy": 0.677778,
+            "brier": 0.189835,
+            "ece": 0.112453
+          },
+          "delta": {
+            "accuracy": {
+              "ci95": [
+                -0.055556,
+                0.144444
+              ],
+              "delta": 0.044444
+            },
+            "brier": {
+              "ci95": [
+                -0.050501,
+                0.029837
+              ],
+              "delta": -0.009597
+            },
+            "ece": {
+              "ci95": [
+                -0.054233,
+                0.122363
+              ],
+              "delta": 0.057897
+            }
+          },
+          "dropped_label": "billing",
+          "n": 90,
+          "verdict": "no detectable degradation"
+        }
+      },
+      "parts": {
+        "a1": [
+          "a1"
+        ],
+        "a2": [
+          "a2"
+        ]
+      }
+    },
+    "test_plus_validation": {
+      "arms": {
+        "a1": {
+          "a0": {
+            "accuracy": 0.772222,
+            "brier": 0.136018,
+            "ece": 0.07499
+          },
+          "arm": {
+            "accuracy": 0.827778,
+            "brier": 0.128866,
+            "ece": 0.122276
+          },
+          "delta": {
+            "accuracy": {
+              "ci95": [
+                0.005556,
+                0.105556
+              ],
+              "delta": 0.055556
+            },
+            "brier": {
+              "ci95": [
+                -0.024757,
+                0.010362
+              ],
+              "delta": -0.007152
+            },
+            "ece": {
+              "ci95": [
+                -0.004769,
+                0.092316
+              ],
+              "delta": 0.047286
+            }
+          },
+          "dropped_label": "other",
+          "n": 180,
+          "verdict": "no detectable degradation"
+        },
+        "a2": {
+          "a0": {
+            "accuracy": 0.655556,
+            "brier": 0.19321,
+            "ece": 0.049267
+          },
+          "arm": {
+            "accuracy": 0.661111,
+            "brier": 0.204472,
+            "ece": 0.068064
+          },
+          "delta": {
+            "accuracy": {
+              "ci95": [
+                -0.061111,
+                0.072222
+              ],
+              "delta": 0.005556
+            },
+            "brier": {
+              "ci95": [
+                -0.017111,
+                0.037927
+              ],
+              "delta": 0.011261
+            },
+            "ece": {
+              "ci95": [
+                -0.048818,
+                0.072316
+              ],
+              "delta": 0.018797
+            }
+          },
+          "dropped_label": "billing",
+          "n": 180,
+          "verdict": "no detectable degradation"
+        }
+      },
+      "parts": {
+        "a1": [
+          "a1",
+          "a1v"
+        ],
+        "a2": [
+          "a2",
+          "a2v"
+        ]
+      }
+    }
+  }
 }

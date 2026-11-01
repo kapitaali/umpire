@@ -191,9 +191,10 @@ python3 spec/validate_ledger.py --replay tests/m3-replay-full/replay.ledger.json
 
 # W9 calibration transfer (label-set arms, drift-checked verdict):
 python3 spec/transfer_eval.py report      # A1/A2 vs A0 on the same 90 rows
-# ECE roughly doubles when a label is removed (5.6%→12.4%, 5.5%→11.3%) but the paired
-# 95% intervals at n=90 include zero — the frozen rule returns "no detectable
-# degradation"; the rule is underpowered, see reports/RR-W9TRANSFER-20261101.md
+# label removal raises calibrated ECE consistently (A1 7.5%→12.2% at n=180, A2 4.9%→6.8%)
+# by 2-5 points, but the paired 95% intervals still include zero: the frozen rule returns
+# "no detectable degradation". The n=90 "ECE doubles" reading was subset luck — see
+# reports/RR-W9TRANSFER-20261101.md (Amendment 1 result).
 
 # absolute calibration metrics with bootstrap CIs (committed, drift-checked):
 python3 spec/calibration_ci.py report
