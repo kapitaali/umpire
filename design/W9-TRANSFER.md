@@ -90,3 +90,31 @@ same texts**:
 2. `reports/RR-W9TRANSFER-<date>.md` — the table, the deltas with intervals, the verdict against the
    frozen rule, and the limits above.
 3. A one-line status in `README.md` and `00-SPEC.md` §8 whichever way it comes out.
+
+---
+
+## Amendment 1 (2026-11-01, after the first run, before any new decision is decoded)
+
+**What the first run showed.** Both arms returned "no detectable degradation" because their paired
+95% intervals ([-0.019, +0.123] and [-0.054, +0.122]) include zero — while the point estimates
+(+0.068 and +0.058) exceed the +0.02 materiality threshold by roughly three times. The rule could not
+fire at n=90. That is a power failure in this design, not a property of the data.
+
+**Amendment.** Each arm is extended with the **validation** split: A1v and A2v decode the v3
+validation rows whose gold is not the dropped label (90 rows per arm, on top of the 90 test rows
+already decoded). The evaluation set becomes test ∪ validation, n=180 per arm, and the paired
+interval should tighten to roughly ±0.05 — enough for the frozen +0.02 rule to resolve a +0.06 point
+estimate.
+
+**Why not the train split.** The isotonic map of record was fit on the train split, so A0's train
+confidences are in-sample: including them would make A0 look better than it is and inflate the
+degradation delta. Validation rows were used only to choose between two candidate methods
+(isotonic vs temperature), not to fit the map, so their bias is second-order and is stated as a
+limit rather than corrected for.
+
+**What does not change.** The decision rule, the metric definitions, the seed, the pin, the map
+(everything is scored with the map unchanged — no refit), the artifacts of the first run, and the
+A0 restriction to matched row ids. The first run's numbers stay in the record as the n=90 result.
+
+**Cost.** 90 additional decisions per arm at the observed ~10.6 s/decision ≈ 16 min per arm,
+~32 min total, CPU only, no monetary spend.
