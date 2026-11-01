@@ -49,6 +49,9 @@ log "gate 2/3: unit suites"
 log "gate 2/3: page-table determinism (committed hash table, this environment)"
 "$PY" spec/determinism.py check 2>&1 | tail -2
 
+log "gate 2/3: calibration precision (absolute ECE/Brier with bootstrap CIs)"
+"$PY" spec/calibration_ci.py check calibration/cal-precision-v3.json 2>&1 | tail -1
+
 log "gate 2/3: packaging invariants (stdlib-only offline gates)"
 "$PY" spec/test_packaging.py 2>&1 | tail -3
 

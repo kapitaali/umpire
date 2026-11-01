@@ -1,0 +1,64 @@
+{
+  "artifact": "cal-v1:057a5a35a9d4ec71",
+  "bootstrap": {
+    "method": "percentile",
+    "n": 2000,
+    "seed": 42
+  },
+  "corpus_sha256": "sha256:54e397333ab750ff7fff6a54272b7d4ec4a7163aac16bb2778401895410a66a3",
+  "metrics": {
+    "accuracy": {
+      "ci95": [
+        0.625,
+        0.791667
+      ],
+      "point": 0.708333
+    },
+    "brier_calibrated": {
+      "ci95": [
+        0.140898,
+        0.207702
+      ],
+      "point": 0.172597
+    },
+    "brier_raw_entropy": {
+      "ci95": [
+        0.15604,
+        0.289788
+      ],
+      "point": 0.221315
+    },
+    "brier_raw_top": {
+      "ci95": [
+        0.169731,
+        0.310186
+      ],
+      "point": 0.238785
+    },
+    "ece_calibrated": {
+      "ci95": [
+        0.028633,
+        0.120129
+      ],
+      "point": 0.030163
+    },
+    "ece_raw_entropy": {
+      "ci95": [
+        0.153621,
+        0.294926
+      ],
+      "point": 0.210593
+    },
+    "ece_raw_top": {
+      "ci95": [
+        0.175123,
+        0.325722
+      ],
+      "point": 0.247289
+    }
+  },
+  "n": 120,
+  "schema": "umpire-calibration-precision/0.1",
+  "scope": "percentile bootstrap over this corpus's rows; one project-authored corpus, one pin/seed/machine/runner build; ECE uses 10 equal-width bins",
+  "split": "test"
+}

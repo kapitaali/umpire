@@ -226,3 +226,12 @@ files remain unchanged.
   page-table equals the committed replay baseline byte-for-byte).
 - ODPS packaging and the hub leaderboard from the proposal's full M2 definition are
   packaging land (v3 drop); this directory is the local calibration core.
+
+## Precision (2026-11-01)
+
+Point estimates above are point estimates. `spec/calibration_ci.py` recomputes them with a
+percentile bootstrap (n=2000, seed 42) and writes `calibration/cal-precision-v3.json`;
+`python3 spec/calibration_ci.py check calibration/cal-precision-v3.json` fails on drift and
+runs in CI. On the 120-row test split the calibrated ECE, the calibrated Brier and the accuracy are
+each within noise of their release-gate targets (`[2.86%, 12.01%]`, `[14.09%, 20.77%]`,
+`[62.50%, 79.17%]`) — see `reports/RR-CALCI-20261101.md`.

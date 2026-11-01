@@ -62,9 +62,12 @@ def load_calibration_artifacts():
     for path in sorted(cal_dir.glob("umpire-cal-*.json")):
         try:
             artifact = json.loads(path.read_text())
-        except (json.JSONDecodeError, OSError):
+            problems = cal.validate_artifact(artifact)
+        except (json.JSONDecodeError, OSError, KeyError, TypeError, AttributeError):
+            # any JSON in calibration/ that is not an artifact (e.g. a precision file) must be
+            # skipped, not fatal: validate_artifact raises on documents with no `labels`
             continue
-        if cal.validate_artifact(artifact):
+        if problems:
             continue
         version = artifact.get("data_version")
         if isinstance(version, str):

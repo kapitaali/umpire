@@ -189,6 +189,10 @@ python3 spec/validate_ledger.py --replay tests/m3-replay-full/replay.ledger.json
   tests/m3-replay-full/replay.records.jsonl tests/m3-replay-full/replay.page-table.json
 # roundtrip: BYTE-IDENTICAL (sha256:25b073cbc59a5e2c)
 
+# absolute calibration metrics with bootstrap CIs (committed, drift-checked):
+python3 spec/calibration_ci.py report
+python3 spec/calibration_ci.py check calibration/cal-precision-v3.json
+
 # cross-machine / cross-build determinism of the page-table DERIVATION:
 python3 spec/determinism.py check      # compare this environment to reports/determinism-hashes.txt
 bash tools/determinism-matrix.sh       # host + hash-seed variants + container builds
