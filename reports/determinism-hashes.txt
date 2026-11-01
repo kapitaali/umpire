@@ -1,0 +1,12 @@
+# umpire page-table derivation hashes — regenerate with: python3 spec/determinism.py record
+# object: sha256(render_page_table(derive_page_table(ledger_lines, records_lines))) — full 64 hex
+# compared across environments in reports/RR-DET-20261101.md; a mismatch in `check` is a defect
+calibration/corpus sha256:c5cb5356e04a9f1d7ac095ff920349858994c6be2be8c367dba0d1bc4128bcf1
+calibration/corpus-calibrated sha256:c5cb5356e04a9f1d7ac095ff920349858994c6be2be8c367dba0d1bc4128bcf1
+calibration/corpus-v3 sha256:25b073cbc59a5e2c6bf03a686908b4cd3ae7848944d75262e3d73013e6dfacd2
+calibration/corpus-v3-calibrated sha256:25b073cbc59a5e2c6bf03a686908b4cd3ae7848944d75262e3d73013e6dfacd2
+fixtures/ab-demo sha256:302367634d1d4c38eb7c69847120de66f8ddd5e96cbf71943424eb347c08ce65
+fixtures/intent-router sha256:bd3fd7beff3f963ee14d57420f0db0bdfd6ffd55e393d1c81d47c3476c3e8a33
+fixtures/live-demo sha256:580a3dce9474187017a9a7fbb09f00ca79e46836426484f8345e9f03c7f1329a
+fixtures/support-triage sha256:2124b19886c856c7c27aa1c304335f8840c79296265ad13ef6560a7e636036cf
+tests/m3-replay-full sha256:25b073cbc59a5e2c6bf03a686908b4cd3ae7848944d75262e3d73013e6dfacd2

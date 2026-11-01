@@ -189,6 +189,13 @@ python3 spec/validate_ledger.py --replay tests/m3-replay-full/replay.ledger.json
   tests/m3-replay-full/replay.records.jsonl tests/m3-replay-full/replay.page-table.json
 # roundtrip: BYTE-IDENTICAL (sha256:25b073cbc59a5e2c)
 
+# cross-machine / cross-build determinism of the page-table DERIVATION:
+python3 spec/determinism.py check      # compare this environment to reports/determinism-hashes.txt
+bash tools/determinism-matrix.sh       # host + hash-seed variants + container builds
+# PASS across CPython 3.12/3.13/3.14 (x86-64), PYTHONHASHSEED unset/0/12345;
+# CI re-derives on the runner. Scope: derivation bytes only — NOT model outputs
+# (identity 480/480, strict 470/480; see reports/RR-DET-20261101.md, RR-M3FULL).
+
 # consumption via ctxvm's own published tools (verbatim ledgers):
 #   ctxvm validate_schema.py  → SCHEMA CONFORMANCE: PASS (61 checks)
 #   ctxvm replay (rust)       → exit 0, divergences [], violations []   (0, not 3 — RFC-0.1 R1)
@@ -265,7 +272,10 @@ Deps: `pip install jsonschema>=4` (Python ≥3.10); else stdlib-only.
   v3 recapture **landed 2026-10-24** (`reports/RR-M3V3-20261024.md`): 470/480
   content-identical to v2, 10/10 exactly the replay-path values, capture-time
   page-table byte-identical to the committed roundtrip; v3
-  (`cal-v1:057a5a35a9d4ec71`) is now the calibration of record.
+  (`cal-v1:057a5a35a9d4ec71`) is now the calibration of record. Cross-machine and
+  cross-build byte-stability of the *derivation* is now measured rather than
+  disclaimed — five environments, zero mismatches (`reports/RR-DET-20261101.md`);
+  model-output identity stays scoped to quiescent same-build runs.
   T14 decided **local-only now; hybrid later** (see `reports/RR-T14-20261023.md`).
 - **MCP integration (local): verified in OpenCode** — shared dependency-free stdio
   server (`mcp_server.py`); Hermes-side lifecycle/config is owned by the separate

@@ -167,7 +167,7 @@ product:
       calculation: expected_calibration_error(calibrated_confidence, gold, test_split n=120)
     productKPIs:
       - id: kpi-replay-determinism
-        name: Replay determinism
+        name: Page-table replay determinism
         unit: percentage
         target: 100
         direction: at_least

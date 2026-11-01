@@ -60,6 +60,9 @@ jobs:
       - name: unit suites — replay audit
         run: python -m unittest harness/test_replay_audit.py
 
+      - name: page-table determinism across environments (committed hash table)
+        run: python spec/determinism.py check
+
       - name: packaging invariants (stdlib-only offline gates)
         run: python spec/test_packaging.py
 

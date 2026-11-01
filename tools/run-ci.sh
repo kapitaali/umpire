@@ -46,6 +46,9 @@ log "gate 2/3: unit suites"
 "$PY" -m unittest calibration/test_calibration.py 2>&1 | tail -3
 "$PY" -m unittest harness/test_replay_audit.py 2>&1 | tail -3
 
+log "gate 2/3: page-table determinism (committed hash table, this environment)"
+"$PY" spec/determinism.py check 2>&1 | tail -2
+
 log "gate 2/3: packaging invariants (stdlib-only offline gates)"
 "$PY" spec/test_packaging.py 2>&1 | tail -3
 
