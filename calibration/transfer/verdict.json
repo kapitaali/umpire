@@ -1,0 +1,91 @@
+{
+  "a0": {
+    "source": "calibration/corpus-v3.*"
+  },
+  "arms": {
+    "a1": {
+      "a0": {
+        "accuracy": 0.733333,
+        "brier": 0.151728,
+        "ece": 0.055769
+      },
+      "arm": {
+        "accuracy": 0.822222,
+        "brier": 0.145409,
+        "ece": 0.123946
+      },
+      "delta": {
+        "accuracy": {
+          "ci95": [
+            0.022222,
+            0.155556
+          ],
+          "delta": 0.088889
+        },
+        "brier": {
+          "ci95": [
+            -0.036227,
+            0.022364
+          ],
+          "delta": -0.006318
+        },
+        "ece": {
+          "ci95": [
+            -0.01901,
+            0.123041
+          ],
+          "delta": 0.068177
+        }
+      },
+      "dropped_label": "other",
+      "n": 90,
+      "verdict": "no detectable degradation"
+    },
+    "a2": {
+      "a0": {
+        "accuracy": 0.633333,
+        "brier": 0.199432,
+        "ece": 0.054557
+      },
+      "arm": {
+        "accuracy": 0.677778,
+        "brier": 0.189835,
+        "ece": 0.112453
+      },
+      "delta": {
+        "accuracy": {
+          "ci95": [
+            -0.055556,
+            0.144444
+          ],
+          "delta": 0.044444
+        },
+        "brier": {
+          "ci95": [
+            -0.050501,
+            0.029837
+          ],
+          "delta": -0.009597
+        },
+        "ece": {
+          "ci95": [
+            -0.054233,
+            0.122363
+          ],
+          "delta": 0.057897
+        }
+      },
+      "dropped_label": "billing",
+      "n": 90,
+      "verdict": "no detectable degradation"
+    }
+  },
+  "artifact": "cal-v1:057a5a35a9d4ec71",
+  "bootstrap": {
+    "method": "percentile, paired",
+    "n": 2000,
+    "seed": 42
+  },
+  "design": "design/W9-TRANSFER.md",
+  "schema": "umpire-transfer-verdict/0.1"
+}

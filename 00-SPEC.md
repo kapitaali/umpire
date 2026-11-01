@@ -230,3 +230,13 @@ interfaces and adds no semantics to the xCABI core.
   ODPC v1.0 catalog + KPI leaderboard HTML + `hub.sha256`, byte-identical regen via
   `spec/build_hub.sh check`; agent port/publication remain Phase C (T14 hybrid switch).
   Target KPIs are release gates — not model-performance promises.
+
+### W9 — calibration transfer (2026-11-01)
+
+Label-set arms re-decoded on the pinned runner: A1 `billing, sales, technical` and A2
+`other, sales, technical`, 90 test rows each, against A0 restricted to the same ids. Calibrated ECE
+doubles (5.6%→12.4%; 5.5%→11.3%), Brier improves slightly, accuracy rises because the task loses its
+catch-all class. The preregistered decision rule returned "no detectable degradation" for both arms
+on intervals that include zero — the rule was underpowered at n=90, which is recorded as a design
+error in `reports/RR-W9TRANSFER-20261101.md`, together with the three routes forward (extend to the
+train split, raise the threshold, or accept "cannot resolve"). No spend.

@@ -10,6 +10,8 @@ Two arm corpora for the calibration-transfer experiment. **Design:** `design/W9-
 | `provenance.json` | source corpus + sha256, per-arm labels, row ids, per-arm corpus sha256 |
 | `checksums.sha256` | the three files above |
 
-Decisions land here as `a1.{ledger,records,raw,page-table,meta}` and the same for `a2`. The v3
+Decisions landed 2026-11-01 as `a1.{ledger,records,raw,page-table,meta}` and the same for `a2`;
+`verdict.json` is the drift-checked result (`python3 spec/transfer_eval.py check
+calibration/transfer/verdict.json`). The v3 capture was never overwritten. The v3
 capture is never overwritten: A0 is `calibration/corpus-v3.*`, unchanged, and the comparison
 restricts A0 to the ids listed in `provenance.json`.

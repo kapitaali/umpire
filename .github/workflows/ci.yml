@@ -66,6 +66,9 @@ jobs:
       - name: calibration precision reproduces (absolute ECE/Brier, bootstrap CIs)
         run: python spec/calibration_ci.py check calibration/cal-precision-v3.json
 
+      - name: transfer verdict reproduces (W9 label-set arms)
+        run: python spec/transfer_eval.py check calibration/transfer/verdict.json
+
       - name: packaging invariants (stdlib-only offline gates)
         run: python spec/test_packaging.py
 

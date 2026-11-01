@@ -189,6 +189,12 @@ python3 spec/validate_ledger.py --replay tests/m3-replay-full/replay.ledger.json
   tests/m3-replay-full/replay.records.jsonl tests/m3-replay-full/replay.page-table.json
 # roundtrip: BYTE-IDENTICAL (sha256:25b073cbc59a5e2c)
 
+# W9 calibration transfer (label-set arms, drift-checked verdict):
+python3 spec/transfer_eval.py report      # A1/A2 vs A0 on the same 90 rows
+# ECE roughly doubles when a label is removed (5.6%→12.4%, 5.5%→11.3%) but the paired
+# 95% intervals at n=90 include zero — the frozen rule returns "no detectable
+# degradation"; the rule is underpowered, see reports/RR-W9TRANSFER-20261101.md
+
 # absolute calibration metrics with bootstrap CIs (committed, drift-checked):
 python3 spec/calibration_ci.py report
 python3 spec/calibration_ci.py check calibration/cal-precision-v3.json
