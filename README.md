@@ -35,6 +35,56 @@ probabilities and decision identity are unchanged. See
 [`calibration/README.md`](calibration/README.md) for the corpus/labeling policy,
 metrics, reproduction, and limitations.
 
+## Quickstart (fresh clone → first decision, 2026-11-02)
+
+`models/` and `runners/` are gitignored by design: the bytes a decision stamps are
+pinned in `harness/pins.json` (weights sha256 + byte size, runner tag + build
+recipe + binary stamp), not committed. Two tools make a fresh clone
+self-sufficient; both are stdlib/bash only and fail hard on any stamp mismatch —
+the same fail-hard identity law the harness applies to templates on `decide`.
+
+1. offline gates (no model, no server, no network):
+   ```sh
+   bash tools/run-ci.sh
+   ```
+2. pinned weights (`≈ 4.5 GB` for all three pins; pick one with `--pin qwen3-1.7b`):
+   ```sh
+   python3 tools/install-pins.py
+   ```
+   `--check` verifies already-present weights offline; `--force` re-fetches a file
+   that fails verification (never silently overwritten); interrupted downloads
+   resume from `<file>.part`.
+3. the pinned runner (clones llama.cpp at the pinned tag, applies the pinned
+   cmake flags, prints the binary sha256 vs the pin stamp — a foreign build
+   environment may deviate, which is reported, not silenced):
+   ```sh
+   bash tools/build-runner.sh
+   ```
+4. start + health (the invocation is the pin's `server.invocation`):
+   ```sh
+   ./runners/src/build/bin/llama-server -m models/Qwen3-1.7B-Q8_0.gguf \
+     -c 2048 --host 127.0.0.1 --port 8081 --threads 4 &
+   curl -s http://127.0.0.1:8081/health   # → {"status":"ok"}
+   ```
+5. first decision (M1 reference CLI; the ledger is the audit trail):
+   ```sh
+   python3 harness/umpire.py --pin qwen3-1.7b --seed 7 \
+     --text "I was charged twice on my last invoice" \
+     --labels billing,technical,sales \
+     --ledger ledgers/first-decide.ledger.jsonl \
+     --records ledgers/first-decide.records.jsonl
+   ```
+6. audit what just landed:
+   ```sh
+   python3 spec/validate_ledger.py \
+     ledgers/first-decide.ledger.jsonl ledgers/first-decide.records.jsonl
+   ```
+
+Agent-harness integration (OpenCode/Hermes over stdio, no keys):
+[`README-MCP.md`](README-MCP.md) · calibration scope (which artifact a state can
+ride, and the per-pin/seed/label-set identity the harness enforces):
+[`calibration/README.md`](calibration/README.md).
+
 ## What it is / isn't
 
 | it **is** | it **is not** |
@@ -94,6 +144,9 @@ spec/test_packaging.py          offline gates (packaging + hub: checksums, shape
 hub/                            hub-as-code: ODPC catalog, KPI leaderboard HTML, hub.sha256 (Phase B)
 mcp_server.py                   dependency-free stdio MCP server (OpenCode + Hermes)
 mcp_server_test.py              protocol/fake-runner tests for the MCP server
+tools/install-pins.py           pinned-weight fetcher (harness/pins.json stamps, fail-hard sha/size; --check offline verify)
+tools/install_pins_test.py      offline tests for the fetcher + pins.json registry contract
+tools/build-runner.sh           pinned llama.cpp runner reproduce (tag + cmake flags from the stamp; fail-truthful sha report)
 README-MCP.md                   MCP setup, tool contract, calibration scope, security
 fixtures/<name>.{ledger.jsonl, records.jsonl, page-table.json}   3 synthetic triplets + 1 live A/B demo triplet
 tests/m3-replay-full/           preserved full-run M3 replay corpus (ledger 481 events + 480 records + page-table; roundtrip sha256:25b073cbc…; see reports/RR-M3FULL-20261024.md)

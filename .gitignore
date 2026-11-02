@@ -1,6 +1,8 @@
 # local inference artifacts are hashes-pinned in harness/pins.json, not committed
 models/
 runners/
+# runtime decision ledgers (demo/quickstart output) — machine output, not books
+ledgers/
 __pycache__/
 *.swp
 
