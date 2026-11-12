@@ -33,9 +33,25 @@ names them `mcp_<server>_<tool>` (for example `mcp_umpire_decide`).
 
 1. A pinned runner is already running.  The default is
    `http://127.0.0.1:8081` (Qwen3-1.7B, pinned in `harness/pins.json`).
+   **The runner is the owner's to start** — it holds ~4.5 GB of RAM and it does
+   not survive a reboot, while the MCP process does.  After a reboot the MCP
+   stays up and every decide fails with `connection refused`, which looks like a
+   dead service rather than a missing dependency.  Start it with:
+
+   ```sh
+   scripts/start-llama-server.sh            # start (hash-verified against harness/pins.json)
+   scripts/start-llama-server.sh --status   # what is running, and is it healthy
+   scripts/start-llama-server.sh --stop     # stop the one this script started
+   ```
+
+   The script starts the PINNED invocation verbatim (from `harness/pins.json`),
+   verifies the runner binary's and the weights' SHA-256 before starting, is
+   idempotent (it never starts a second server on a live port), and waits for
+   `/health`.  `--skip-hash` skips the check and prints `UNVERIFIED`.
 2. A fitted calibration artifact is optional.  The support-domain corpus
-   artifact is `calibration/umpire-cal-v2.json` (the v1 artifact remains for
-   history).  Calibration is **per pin, seed, label set, and distribution**;
+   artifact **of record** is `calibration/umpire-cal-v3.json`
+   (`cal-v1:057a5a35a9d4ec71`; the v2 and v1 artifacts remain for history).
+   Calibration is **per pin, seed, label set, and distribution**;
    the harness refuses a mismatched artifact before calling the model.
 3. Ledger output directory (default `~/.local/state/umpire/ledgers`).  The
    server creates it; ledgers are append-only.
