@@ -42,6 +42,13 @@ admits `tool_recall` and `intentional_rerun` (RFC-0.1 R1, 2026-10-31). `semantic
 banned in both, and `explicit_api`/`identifier_scan` have no decision meaning;
 **L5** — ledger lines carry no floats (xCABI rule; `tokens` integers only).
 
+**Ordering (informational, not validator-enforced):** Within a ledger, event line order is the decision
+order (`session.open` is first, and one decision = one turn). Ledger events carry no wall-clock `ts`:
+RFC-0.1 R4's optional `ts` is purposefully unused in this profile, because unbounded wall-clock emission
+would make the §4 byte-identity audit unreproducible. An absent `ts` therefore means **unknown, never
+zero**, and line order implies no order across ledgers. A consumer needing cross-session order must
+supply its own semantics.
+
 ### Identity minting (mirrors `ctxvm/packages/node/src/ident.ts` @ 361043e, byte-compatible)
 
 - `canonicalJson(v)` — recursively key-sorted compact JSON.
