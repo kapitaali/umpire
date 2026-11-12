@@ -59,6 +59,9 @@ hermes/                        Hermes plugin bundle for this server (README, set
 reports/                       RR-<CARD>-<date>.md, LOG.md (append-only), RR-DAY-<date>.md
 design/                        pre-registrations and design notes (e.g. W9-TRANSFER.md)
 tools/                         run-ci.sh, ci-rehearsal.py, determinism-matrix.sh
+scripts/                      start-llama-server.sh - the pinned model server's start/stop/status
+                              script (hash-verified against harness/pins.json; the model server
+                              is the owner's to run, and it does not survive a reboot)
 ```
 
 ## 4. Laws. Breaking one is a bug even if the tests pass.
