@@ -113,7 +113,10 @@ confidence from the raw probabilities and rejects a record whose method,
 `data_version`, label set, `model_pin`, or seed does not match the artifact, or
 whose calibrated confidence does not recompute. Raw fields remain authoritative:
 calibration is a measurable layer with its own version, not a mutation of the
-decision or its identity. M2 details and limitations: `calibration/README.md`.
+decision or its identity. Calibrated confidence was fitted on umpire's own label
+sets and has not been shown to transfer, so treat it as an uncalibrated score
+for your labels until you check it on a sample of your own labelled rows. M2
+details and limitations: `calibration/README.md`.
 
 ## 4. Replay (roundtrip byte-identity) — the M0 audit primitive
 

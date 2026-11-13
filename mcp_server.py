@@ -71,8 +71,11 @@ INSTRUCTIONS = (
     "Raw probabilities/identity are authoritative. If a calibration artifact is "
     "configured, the record also carries calibrated.confidence = fitted P(key is "
     "correct) for that pin/seed/label set/distribution; it is not a correctness "
-    "guarantee and is opt-in. Use pins to inspect pin identities, "
-    "health before a batch, and validate/replay on ledgers."
+    "guarantee and is opt-in. Calibrated confidence was fitted on umpire's own "
+    "label sets and has not been shown to transfer, so treat it as an uncalibrated "
+    "score for your labels until you check it on a sample of your own labelled "
+    "rows. Use pins to inspect pin identities, health before a batch, and "
+    "validate/replay on ledgers."
 )
 
 TOOLS = [
@@ -81,7 +84,10 @@ TOOLS = [
         "description": (
             "Make one typed decision with the pinned local model. Returns key, raw "
             "probabilities, raw entropy-complement confidence, optional calibrated "
-            "P(key correct), ref/contentHash, and the ledger/records paths."
+            "P(key correct), ref/contentHash, and the ledger/records paths. "
+            "Calibrated confidence was fitted on umpire's own label sets and has "
+            "not been shown to transfer, so treat it as an uncalibrated score for "
+            "your labels until you check it on a sample of your own labelled rows."
         ),
         "inputSchema": {
             "type": "object",
