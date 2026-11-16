@@ -87,6 +87,12 @@ scripts/                      start-llama-server.sh - the pinned model server's 
    `calibration/` can crash the validator's glob — check the loader when you add one.
 8. **No publication without the owner.** No release, tag, registry push, plugin-index submission or
    public post. `models/` downloads are pinned and hashed; they are not committed.
+9. **Never delete recursively above a named subdirectory.** No `rm -rf ~`, no `rm -rf $HOME`, no
+   `rm -rf /`, and no bare or computed path that could resolve to the home directory — an unset `$VAR`
+   makes `rm -rf "$TARGET"` a home delete. Cleanup names the exact directory (the stage dir, the temp
+   venv, `<repo>/calibration/.scratch`), never its parent. The vendored scripts under `runners/src/`
+   are upstream llama.cpp code and not yours to rewrite; this law binds what you add. Owner rule,
+   2026-11-16; non-negotiable.
 
 ## 5. Verification culture
 
